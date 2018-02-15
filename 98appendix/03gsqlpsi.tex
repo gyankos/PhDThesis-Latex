@@ -1,0 +1,84 @@
+\chapter{Expressing containment functions in \texttt{script}}\label{app:scriptnote}
+
+This appendix provides the script notation for the mathematical notation used in the GSQL definitions. We chose to use the latter instead of \texttt{script} due to the fact that this notation is more compact and more readable. On the other hand, a \texttt{script} implementation of such functions shows how such definitions can be implemented in any system. Therefore, this appendix is going to provide the implementation of the aforementioned mathematical notation.
+
+\phparagraph{Script for $\psi_\cup$}
+
+The associated \texttt{script} expression can be defined as follows: 
+\begin{lstlisting}[language=script]
+fold [o.phi,
+      k-> { {{k[0][0][1], k[1][k[0][0][1]]++k[0][1]}} ++ 
+            select(k[1] : y -> { not (y[0] == k[0][1])})
+          },
+      {}
+     ] 
+\end{lstlisting}
+Please remember that \texttt{k} is a pair, where \texttt{k[0]} is the current element of \scriptline{o.phi} while \texttt{k[0][1]} is the accumulated value that, in our case, is the step-by-step reformulation of the containment.
+
+\phparagraph{Script for $\psi_\backslash$}
+
+Before providing the definition of $\psi_\backslash$ in \texttt{script}, we must define some script utility functions, such as some set (or, as in this case, list) operations. 
+
+\begin{lstlisting}[language=script]
+difference = x -> select (x[0] : y -> { not (y in x[1])})
+intersect = x -> select (x[0] : y -> { y in x[1]})
+distinct = x -> {
+	fold {x,
+	      y->{if (y[0] in y[1]) then y[1] else [y[0]]++y[1]},
+	      {}
+	     }
+}
+\end{lstlisting}
+
+We can also define some further shorthands for accessing each object's attributes. Let us remember that for each element \texttt{x} in \scriptline{o.phi}, \texttt{x[0]} represents the attribute $a$ associated to the containment, and hence \texttt{x[0][0]} represent the original operand, while \texttt{x[0][1]} represent the attribute appearing in the original operand. 
+
+\begin{lstlisting}[language=script,mathescape=true]
+keys $\eqdef$ (distinct (map (o.phi : x -> x[0][1])))
+operands $\eqdef$ (distinct (map (o.phi : x -> x[0][0])))
+\end{lstlisting}
+
+Moreover, the following function returns a list of pairs \texttt{\{p, l\}} for every containment $\phi(g,[\texttt{y},\texttt{p}])=\texttt{l}$ found in the disjunct united nested graph belonging to the \texttt{y}-th operand.
+
+\begin{lstlisting}[language=script]
+getOperandList = y -> { map(select(o.phi : x -> {x[0][0] = y}) : 
+                            x -> {x[0][1], x[1]}) 
+                      }
+\end{lstlisting}
+
+By combining some of the previous functions, we obtain the final desired result:
+
+\begin{lstlisting}[language=script,]
+map(keys : x -> {{x, 
+                  (difference {(getOperandList 0)[x], 
+                               (getOperandList 1)[x]
+                              })
+                 }
+                }
+   )
+\end{lstlisting}
+
+\phparagraph{Script for $\psi_\cap$}
+
+Similarly to the previous step, we have to perform the intersection over all the operands over the common set of attributes.
+
+\begin{lstlisting}[language=script]
+map(keys : x -> {
+             (fold { remove operands[0] in operands, 
+                     y -> { (intersect {(getOperandList (y[0]))[x], 
+                                        y[1]
+                                       })
+                          },
+                     (getOperandList (operands[0]))[x]   
+                   })
+})
+\end{lstlisting}
+
+%\begin{lstlisting}[language=script]
+%(fold {attributes,
+%cp -> { (fold {remove operands[0] in operands,
+%cpp -> {(intersect {(getOperandList cpp[0])[cp[0]], cpp[1]}) [cp[0]]},
+%cp[1]  
+%}
+%) },
+%getOperandList (operands[0]) })
+%\end{lstlisting}

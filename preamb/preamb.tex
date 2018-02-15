@@ -1,0 +1,704 @@
+\documentclass[a4paper,UKenglish,part]{lipicsmaster}
+
+%\usepackage{draftwatermark}
+
+\newcommand{\zero}{\mathfrak{0}}
+
+\newcommand{\hmmax}{100}
+\newcommand{\bmmax}{100}
+\usepackage{bbm}
+\usepackage{amsfonts}
+\usepackage{makeidx}
+\makeindex
+
+%% Mathematical fonts
+\DeclareSymbolFont{extraitalic}      {U}{zavm}{m}{it}
+\DeclareMathSymbol{\Qoppa}{\mathord}{extraitalic}{161}
+\DeclareMathSymbol{\qoppa}{\mathord}{extraitalic}{162}
+\DeclareMathSymbol{\Stigma}{\mathord}{extraitalic}{167}
+\DeclareMathSymbol{\Sampi}{\mathord}{extraitalic}{165}
+\DeclareMathSymbol{\sampi}{\mathord}{extraitalic}{166}
+\DeclareMathSymbol{\stigma}{\mathord}{extraitalic}{168}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\cod}{cod}
+%\DeclareMathOperator*{\argmin}{arg\,min} % thin space, limits underneath in displays
+%\DeclareMathOperator*{\argmax}{arg\,max} % thin space, limits underneath in displays
+%\DeclareMathOperator*{\argmax}{argmax} % no space, limits underneath in displays
+\DeclareMathOperator{\argmax}{arg\,max} % thin space, limits on side in displays
+\DeclareMathOperator{\argmin}{arg\,min} % thin space, limits on side in displays
+%\DeclareMathOperator{\argmax}{argmax} % no space, limits on side in displays
+\newcommand{\nat}{\mathbb{N}}
+\newcommand{\partof}[1]{\wp(#1)}
+\newcommand{\predset}[1]{\mathcal{P}(#1)}
+\newcommand{\eqdef}{\overset{\mathrm{def}}{=\mathrel{\mkern-3mu}=}}
+
+\usepackage{microtype,adjustbox}
+
+  %for A4 paper format use option "a4paper", for US-letter use option "letterpaper"
+  %for british hyphenation rules use option "UKenglish", for american hyphenation rules use option "USenglish"
+  \usepackage[utf8]{inputenc}
+\usepackage{epigraph}
+\usepackage{epipart}
+\usepackage{microtype}%if unwanted, comment out or use option "draft"
+ % add possibly `sc` and `osf` options
+\usepackage{eulervm}
+\usepackage[osf,sc]{mathpazo}
+
+%\DeclareSymbolFont{greekletters}{OML}{cmr}{m}{it}
+%\DeclareMathSymbol{\varrho}{\mathalpha}{greekletters}{"25}
+%\DeclareMathSymbol{\varsigma}{\mathalpha}{greekletters}{"26}
+%\DeclareMathSymbol{\varphi} {\mathalpha}{letters}{"27}
+\newcommand\restr[2]{{% we make the whole thing an ordinary symbol
+  \left.\kern-\nulldelimiterspace % automatically resize the bar with \right
+  #1 % the function
+  \vphantom{\big|} % pretend it's a little taller at normal size
+  \right|_{#2} % this is the delimiter
+  }}
+
+%\graphicspath{{./graphics/}}%helpful if your graphic files are in another directory
+\bibliographystyle{alpha} % the recommnded bibstyle
+
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{todonotes}
+
+\usepackage{tikz}
+\usepackage{appendix}
+\usetikzlibrary{trees}
+\usetikzlibrary{decorations.pathreplacing}
+\usepackage{graphicx}
+\usepackage[noabbrev]{cleveref}
+
+\usepackage{paralist}
+\usepackage[inline]{enumitem}
+\newlist{myalist}{enumerate*}{1}
+\setlist[myalist]{label=\textbf{(\arabic*)}}
+\newlist{mylist}{enumerate*}{1}
+\setlist[mylist]{label=\textbf{(\roman*)}}
+\newlist{alphalist}{enumerate*}{1}
+\setlist[alphalist]{label=\textbf{(\alph*)}}
+%\usepackage{mathrsfs}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\newlist{inlinelist}{enumerate*}{1}
+\setlist*[inlinelist,1]{%
+	label=\textbf{(\roman*)},
+}
+%\usepackage{amssymb}
+\DeclareRobustCommand{\subsetsim}{\protect{\mathrel{\substack{
+				\textstyle\subset\\[-0.2ex]\textstyle\sim}}}}
+\DeclareRobustCommand{\insim}{\mathrel{\substack{
+			\textstyle\in\\[-0.2ex]\textstyle\sim}}}
+
+%%\mathpzc
+\DeclareFontFamily{OT1}{pzc}{}
+\DeclareFontShape{OT1}{pzc}{m}{it}{<-> s * [1.10] pzcmi7t}{}
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+\usepackage{amsthm}
+\usepackage{thmtools,thm-restate}
+\usepackage[makeroom]{cancel}
+%\usepackage{mathtools}
+
+\theoremstyle{plain}
+%\newtheorem{bg}{bogus}
+%\newtheorem{ex}{Example}
+
+%\newtheorem{defn}{Definition}
+%\newtheorem{lem}{Lemma}
+
+\usepackage{mwe}
+%\usepackage{subcaption}
+\newsavebox{\verbbox}
+\newsavebox{\verbboxa}
+\newsavebox{\verbboxb}
+\newsavebox{\verbboxc}
+
+
+\usepackage{chngcntr}
+\usepackage{apptools}
+\usepackage{stmaryrd}
+\makeatother
+
+
+\makeatletter
+\pgfdeclareshape{document}{
+	\inheritsavedanchors[from=rectangle] % this is nearly a rectangle
+	\inheritanchorborder[from=rectangle]
+	\inheritanchor[from=rectangle]{center}
+	\inheritanchor[from=rectangle]{north}
+	\inheritanchor[from=rectangle]{south}
+	\inheritanchor[from=rectangle]{west}
+	\inheritanchor[from=rectangle]{east}
+	% ... and possibly more
+	\backgroundpath{% this is new
+		% store lower right in xa/ya and upper right in xb/yb
+		\southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+		% compute corner of ‘‘flipped page’’
+		\pgf@xc=\pgf@xb \advance\pgf@xc by-10pt % this should be a parameter
+		\pgf@yc=\pgf@yb \advance\pgf@yc by-10pt
+		% construct main path
+		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
+		\pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yb}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yc}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+		\pgfpathclose
+		% add little corner
+		\pgfpathmoveto{\pgfpoint{\pgf@xc}{\pgf@yb}}
+		\pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yc}}
+		\pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}
+	}
+}
+\makeatother
+
+
+
+\usepackage{amsmath}
+
+%\usepackage{amssymb}
+\DeclareMathAlphabet{\mathbbm}{U}{bbm}{m}{n}
+\usepackage[stable]{footmisc}
+\usepackage{braket}
+\usepackage{comment}
+\usepackage{varioref}
+\usepackage{paralist}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xfrac}
+\usepackage{comment}
+\usepackage{listings}
+%\lstset{language=Pascal}
+\lstdefinelanguage{sq}
+{morekeywords={SELECT, FROM, WHERE, AND, OR},
+	sensitive=false,
+	morecomment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	morestring=[b]",
+}
+
+%\renewcommand{\doi}[1]{}
+%\newcommand{\url}[1]{} %%Removing the DOI
+%\renewcommand{\isbn}[1]{}
+%\renewcommand{\issn}[1]{}
+
+\newcommand{\phchapter}[1]{\chapter*{#1} \addcontentsline{toc}{chapter}{#1}}
+\newcommand{\phsection}[1]{\section*{#1} \addcontentsline{toc}{section}{#1}}
+\newcommand{\phsubsection}[1]{\subsection*{#1} \addcontentsline{toc}{subsection}{#1}}
+\newcommand{\phsubsubsection}[1]{\subsubsection*{#1} \addcontentsline{toc}{subsubsection}{#1}}
+\newcommand{\phparagraph}[1]{\paragraph*{#1} \addcontentsline{toc}{paragraph}{#1}}
+
+\DeclareMathOperator{\avg}{avg}
+
+\newenvironment{paralist}{\ifcomplete
+
+	\else
+	\begin{itemize}
+		\fi}{
+		\ifcomplete
+
+		\else
+	\end{itemize}
+	\fi}
+\newcommand{\paraitem}[2]{\ifcomplete
+	\paragraph*{\textit{\textbf{#1}}}
+	#2
+	\else
+	\item #1
+	\fi
+}
+\newcommand{\summarized}[2]{\ifcomplete
+	#2
+	\else
+	\item #1
+	\fi
+}
+\newcommand{\conditionalcontent}[1]{\ifcomplete
+	#1
+	\else
+
+	\fi
+}
+\newcommand{\highlinedcontent}[1]{\ifcomplete
+
+	\else
+	\quad [#1]
+	\fi
+}
+
+
+\setlist[description]{leftmargin=*}
+
+\newcommand{\UseVar}[1]{$\Braket{\textup{\textrm{#1}}}$}
+\newcommand{\UseNVar}[2]{$\Braket{\textup{\textrm{#1}}}_{#2}$}
+\newcommand{\DefVar}[1]{$\Braket{\textup{\textrm{#1}}} ::= $}
+\newcommand{\NextDef}{$\qquad|\qquad$}
+
+\usepackage{varwidth}
+%\usepackage[dvipsnames]{xcolor}
+\usepackage{lipsum}
+
+%\usepackage{soul}
+
+\usepackage[most]{tcolorbox}
+\newenvironment{CenteredShadowboxListing}[1][]{%
+	\tcbset{listing options={style=tcblatex,#1}}\tcbwritetemp}%
+{\endtcbwritetemp%
+	\tcbox[enhanced,arc=0pt,outer arc=0pt,top=1mm,bottom=1mm,left=1mm,right=1mm,
+	boxrule=0.6pt,drop fuzzy shadow,before=\begin{center},after=\end{center}]%
+	{\tcbusetemplisting}}
+
+\makeatletter
+\newcommand{\subalign}[1]{%
+	\vcenter{%
+		\Let@ \restore@math@cr \default@tag
+		\baselineskip\fontdimen10 \scriptfont\tw@
+		\advance\baselineskip\fontdimen12 \scriptfont\tw@
+		\lineskip\thr@@\fontdimen8 \scriptfont\thr@@
+		\lineskiplimit\lineskip
+		\ialign{\hfil$\m@th\scriptstyle##$&$\m@th\scriptstyle{}##$\crcr
+			#1\crcr
+		}%
+	}
+}
+\makeatother
+
+%\newtheorem{definition}{Definition}
+
+\graphicspath{{./}}
+
+%\usepackage{amssymb}
+\def\ojoin{\setbox0=\hbox{$\bowtie$}%
+	\rule[0.2ex]{.27em}{.4pt}\llap{\rule[1ex]{.27em}{.4pt}}}
+\def\leftouterjoin{\mathbin{\ojoin\mkern-2mu\Join}}
+\def\rightouterjoin{\mathbin{\Join\mkern-3.4mu\ojoin}}
+\def\fullouterjoin{\mathbin{\ojoin\mkern-5mu\Join\mkern-6mu\ojoin}}
+
+
+	\usepackage{pifont}% http://ctan.org/pkg/pifont
+	\newcommand{\cmark}{\ding{51}}%
+	\newcommand{\xmark}{\ding{55}}%
+\usepackage{threeparttable}
+
+\usepackage{minitoc}
+\setcounter{minitocdepth}{3}
+\setcounter{secnumdepth}{3}
+\dominitoc
+\newcommand{\mstr}[1]{\textup{\color{webgreen}``#1''}}
+\newcommand{\hstr}[1]{{\color{webgreen}\textup{``}#1\textup{''}}}
+\newcommand{\defzt}[5]{\ell(#1)=[\texttt{#2}]\quad \xi(#1)=[\mstr{#3}]\quad \phi(#1,\mstr{#4})=[#5]}
+\newcommand{\defzi}[3]{\ell(#1)=[\texttt{#2}]\quad \xi(#1)=[\mstr{#3}] }
+\newcommand{\defSNU}[4]{\phi(#4,\ATTR)=[10#4,11#4]\\ \defzi{10#4}{Name}{#2}\quad \defzi{11#4}{Surname}{#3}}
+\newcommand{\defSNE}[4]{\phi(#4,\SRC)=[#2]\quad \phi(#4,\DST)=[#3]}
+\newcommand{\arialify}[1]{{\fontfamily{phv}\color{red}\textbf{#1}}}
+
+\newcommand{\myTitle}{A new Nested Graph Model for Data Integration}
+\newcommand{\myName}{Giacomo Bergami}
+\newcommand{\myDepartment}{CSE Department}
+\newcommand{\myUni}{Alma Mater Studiorum - Universit\`a di Bologna}
+\title{\myTitle}
+\author{\myName}
+\coordinatore{Paolo Ciaccia}
+\relatore{Danilo Montesi}
+\titlepagebottomline{\myUni \qquad \qquad  \myDepartment}
+
+\PassOptionsToPackage{pdftex,hyperfootnotes=false,pdfpagelabels}{hyperref}
+\usepackage{hyperref}  % backref linktocpage pagebackref
+\pdfcompresslevel=9
+\pdfadjustspacing=1
+\PassOptionsToPackage{pdftex}{graphicx}
+\usepackage{graphicx}
+\hypersetup{%
+	%draft, % = no hyperlinking at all (useful in b/w printouts)
+	colorlinks=true, linktocpage=true, pdfstartpage=3, pdfstartview=FitV,%
+	% uncomment the following line if you want to have black links (e.g., for printing)
+	%colorlinks=false, linktocpage=false, pdfstartpage=3, pdfstartview=FitV, pdfborder={0 0 0},%
+	breaklinks=true, pdfpagemode=UseNone, pageanchor=true, pdfpagemode=UseOutlines,%
+	plainpages=false, bookmarksnumbered, bookmarksopen=true, bookmarksopenlevel=1,%
+	hypertexnames=true, pdfhighlight=/O,%nesting=true,%frenchlinks,%
+	urlcolor=webbrown, linkcolor=RoyalBlue, citecolor=webgreen, %pagecolor=RoyalBlue,%
+	%urlcolor=Black, linkcolor=Black, citecolor=Black, %pagecolor=Black,%
+	pdftitle={\myTitle},%
+	pdfauthor={\textcopyright\ \myName, \myUni, \myDepartment},%
+	pdfsubject={},%
+	pdfkeywords={},%
+	pdfcreator={pdfLaTeX},%
+	pdfproducer={\myTitle},%
+}
+
+\usepackage{subcaption}
+
+%%
+%%\titleformat{\part}[display]
+%%{\normalfont\centering\huge}%
+%%{\thispagestyle{empty}\partname~\textsc{\thepart}}{1em}%
+%%{\color{Maroon}\spacedallcaps}[\bigskip\normalfont\normalsize\color{Black}\begin{quote}\ct@parttext\end{quote}]
+
+%\newenvironment{aenum}{\begin{enumerate*}[label=\textit{({{\color{red}\alph*})}]}{\end{enumerate*}}
+
+\usepackage{inconsolata}
+
+%% ALGORITHMIC PACKAGE
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\makeatletter
+\renewcommand{\ALG@beginalgorithmic}{\small}
+\makeatother
+\makeatletter
+\newcounter{ALC@tempcntr}% Temporary counter for storage
+\newcommand{\LCOMMENT}[1]{%
+	\setcounter{ALC@tempcntr}{\arabic{ALC@rem}}% Store old counter
+	\setcounter{ALC@rem}{1}% To avoid printing line number
+	\item \{#1\}% Display comment + does not increment list item counter
+	\setcounter{ALC@rem}{\arabic{ALC@tempcntr}}% Restore old counter
+}%
+
+
+\usepackage{listings}
+\definecolor{eclipseBlue}{RGB}{42,0.0,255}
+\definecolor{eclipseGreen}{RGB}{63,127,95}
+\definecolor{eclipsePurple}{RGB}{127,0,85}
+\lstset{basicstyle=\ttfamily,%
+	%backgroundcolor=\color[rgb]{0.85,0.85,0.86},%
+	frame=single,
+	framerule=0pt,
+	xleftmargin=\fboxsep,
+	xrightmargin=\fboxsep,
+  commentstyle=\color{eclipseGreen}, % style of comments
+  keywordstyle=\color{eclipsePurple}, % style of keywords
+  stringstyle=\color{eclipseBlue},
+  breaklines=true,
+  postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
+}
+\captionsetup[lstlisting]{position=top}
+
+
+\newcommand{\jsem}[1]{[\! [#1]\!]}
+\newcommand{\sem}[2][M\!,g]{\mbox{ $[\![ #2 ]\!]^{#1}$}}
+
+%%% FONTS
+\usepackage{MnSymbol}
+\usepackage{pdftexcmds}
+%\DeclareFontFamily{U}{cbgreek}{}
+%\DeclareFontShape{U}{cbgreek}{m}{n}{
+%	<-6>    grmn0500
+%	<6-7>   grmn0600
+%	<7-8>   grmn0700
+%	<8-9>   grmn0800
+%	<9-10>  grmn0900
+%	<10-12> grmn1000
+%	<12-17> grmn1200
+%	<17->   grmn1728
+%}{}
+%\DeclareFontShape{U}{cbgreek}{bx}{n}{
+%	<-6>    grxn0500
+%	<6-7>   grxn0600
+%	<7-8>   grxn0700
+%	<8-9>   grxn0800
+%	<9-10>  grxn0900
+%	<10-12> grxn1000
+%	<12-17> grxn1200
+%	<17->   grxn1728
+%}{}
+%
+%\DeclareRobustCommand{\qoppa}{%
+%	\text{\usefont{U}{cbgreek}{\normalorbold}{n}\symbol{19}}%
+%}
+%\DeclareRobustCommand{\Qoppa}{%
+%	\text{\usefont{U}{cbgreek}{\normalorbold}{n}\symbol{21}}%
+%}
+%\makeatletter
+%\newcommand{\normalorbold}{%
+%	\ifnum\pdf@strcmp{\math@version}{bold}=\z@ bx\else m\fi
+%}
+%\makeatother
+%
+\usepackage{cases}
+
+\lstdefinelanguage{Script}{
+	keywords={if, then, else, substring, remove, from, in, map, select, foldl, phi, xi, ell, id},
+	literate={+}{{{\color{RoyalBlue}+}}}1
+	{-}{{{\color{RoyalBlue}-}}}1
+	{/}{{{\color{RoyalBlue}/}}}1
+	{*}{{{\color{RoyalBlue}*}}}1
+	{@}{{{\color{RoyalBlue}@}}}1
+	{&&}{{{\color{RoyalBlue}\&\&}}}1
+	{||}{{{\color{RoyalBlue}||}}}1
+	{not}{{{\color{RoyalBlue}not}}}1
+	{>}{{{\color{RoyalBlue}>}}}1
+	{>=}{{{\color{RoyalBlue}>=}}}1
+	{<}{{{\color{RoyalBlue}<}}}1
+	{<=}{{{\color{RoyalBlue}<=}}}1
+	{==}{{{\color{RoyalBlue}==}}}1
+	{!=}{{{\color{RoyalBlue}!=}}}1
+	{:=}{{{\color{RoyalBlue}:=}}}1
+	{:}{{{\color{RoyalBlue}:}}}1
+	{tt}{{{\color{RoyalBlue}tt}}}1
+	{ff}{{{\color{RoyalBlue}ff}}}1,
+	%ndkeywords={+, -, /, *, ++, @, &&, ||, not, ==, !=, <=, >=, >, <, :=, .},
+	sensitive=true,
+	morestring=[b]",
+	frameshape={RYR}{Y}{Y}{RYR}
+}
+
+
+
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{sparql}{
+morecomment=[l][]{\#},
+morestring=[b][]\",
+morekeywords={BIND,URI,CONCAT,SELECT,CONSTRUCT,DESCRIBE,ASK,WHERE,FROM,NAMED,PREFIX,BASE,OPTIONAL,FILTER,GRAPH,LIMIT,OFFSET,SERVICE,UNION,EXISTS,NOT,BINDINGS,MINUS,a},
+sensitive=true
+}
+
+\lstdefinelanguage{cypher}{
+	morekeywords={MATCH,RETURN,WHERE,DISTINCT,WITH,CREATE,COUNT,AS,UNION,ALL,is,null,NOT,AND,OR},
+	sensitive=true,
+	morecomment=[l]{//}, % l is for line comment
+}
+\lstdefinelanguage{gremlin}{
+	morekeywords={g,V,match,as,hasLabel,out,has,inE,outV,as,between,select,groupCount,TinkerGraph,io,IoCore,readGraph,traversal,values,in,count,is},
+	sensitive=true
+}
+\lstdefinelanguage{biql}{
+	morekeywords={CREATE,SELECT,FROM,WHERE,AS,count},
+	sensitive=true
+0}
+\lstdefinelanguage{nosql}{
+	morekeywords={create,class,extends,edge,vertex,select,from,where,in,or,and,not,out,delete,insert,into,as},
+	sensitive=false
+}
+
+\usepackage{ifsym}
+%\usepackage{amssymb}
+
+%\DeclareRobustCommand{\ojoin}{\rule[0.10ex]{.3em}{.4pt}\llap{\rule[1.40ex]{.3em}{.4pt}}}
+%\newcommand{\joino}{\bowtie}
+%\newcommand{\leftouterjoin}{\tiny \textifsym{d|><|}}
+%\newcommand{\rightouterjoin}{\tiny \textifsym{|><|d}}
+%\newcommand{\fullouterjoin}{\tiny \textifsym{d|><|d}}
+
+%% Redefining XML Colors
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+\lstdefinelanguage{XML}
+{
+  morestring=[b]",
+  morestring=[s]{>}{<},
+  morecomment=[s]{<?}{?>},
+  stringstyle=\color{eclipseGreen},
+  identifierstyle=\color{eclipseBlue},
+  keywordstyle=\color{cyan},showstringspaces=false,
+  morekeywords={xmlns,xsi,noNamespaceSchemaLocation,type,id,x,y,source,target,version,tool,transRef,roleRef,objective,eventually}% list your attributes here
+}
+\lstdefinelanguage{antlr}{
+	moredelim=[s]{'}{'},% single quotes in green
+	moredelim=*[s]{options}{\}},%  options in black (until trailing })
+	comment=[l]{\#},%                                  define // comment
+	morekeywords={%
+		script,expr,BOOL,VARNAME,FUNVAR,EscapedString,NUMBER,WS%                                            literal strings listed here
+	},
+	alsoletter={:,|,;},%
+	morekeywords={:,|,;}%                                 define the special characters
+}
+\lstdefinelanguage{AQL}{
+	morekeywords={
+	FOR,IN,COLLECT,INTO,RETURN
+	},
+	morestring=[b]",
+	stringstyle=\color{eclipseGreen},
+	morecomment=[l]{--}, % l is for line comment
+}
+
+\renewcommand{\epigraphsize}{\small}
+\setlength{\epigraphwidth}{0.6\textwidth}
+\renewcommand{\textflush}{flushright}
+\renewcommand{\sourceflush}{flushright}
+% A useful addition
+\newcommand{\epitextfont}{\itshape}
+\newcommand{\episourcefont}{\scshape}
+
+\makeatletter
+\newsavebox{\epi@textbox}
+\newsavebox{\epi@sourcebox}
+\newlength\epi@finalwidth
+\renewcommand{\epigraph}[2]{%
+  \vspace{\beforeepigraphskip}
+  {\epigraphsize\begin{\epigraphflush}
+   \epi@finalwidth=\z@
+   \sbox\epi@textbox{%
+     \varwidth{\epigraphwidth}
+     \begin{\textflush}\epitextfont#1\end{\textflush}
+     \endvarwidth
+   }%
+   \epi@finalwidth=\wd\epi@textbox
+   \sbox\epi@sourcebox{%
+     \varwidth{\epigraphwidth}
+     \begin{\sourceflush}\episourcefont#2\end{\sourceflush}%
+     \endvarwidth
+   }%
+   \ifdim\wd\epi@sourcebox>\epi@finalwidth
+     \epi@finalwidth=\wd\epi@sourcebox
+   \fi
+   \leavevmode\vbox{
+     \hb@xt@\epi@finalwidth{\hfil\box\epi@textbox}
+     \vskip1.75ex
+     \hrule height \epigraphrule
+     \vskip.75ex
+     \hb@xt@\epi@finalwidth{\hfil\box\epi@sourcebox}
+   }%
+   \end{\epigraphflush}
+   \vspace{\afterepigraphskip}}}
+\makeatother
+
+
+\DeclareRobustCommand{\hlcyan}[1]{{\sethlcolor{cyan}\hl{#1}}}
+
+%% Nested graph symbols
+\usepackage[safe]{tipa}
+\newcommand{\bin}{\texttt{bin}}
+\newcommand{\smatch}{\textup{\textturnw}}
+\newcommand{\nested}{\textup{\textrtailn}}
+\newcommand{\ngraph}{\textup{\textcrg}}
+\newcommand{\genp}{\textup{\textbabygamma}}
+\newcommand{\ONTA}{\mstr{Entity}}
+\newcommand{\RELA}{\mstr{Relationship}}
+\newcommand{\ATTR}{\mstr{Attribute}}
+\newcommand{\SRC}{\mstr{src}}
+\newcommand{\DST}{\mstr{dst}}
+\DeclareDocumentCommand{\fullnested}{ O{\nested} O{\ngraph} }{\ifthenelse{\equal{#1}{}}{\nested}{#1} = (\ifthenelse{\equal{#2}{}}{\ngraph}{#2},O,\ell,\xi,\phi)}
+
+\declaretheorem[name=Lemma,numberwithin=section]{rlem}
+
+\usepackage{letltxmacro}
+\newcommand{\scriptline}[1]{\text{\lstinline[{language=Script}]{#1}}}
+\usepackage{marginnote}
+
+%\DeclareRobustCommand*{\scriptline}{%
+%	\ifmmode
+%	\let\SavedBGroup\bgroup
+%	\def\bgroup{%
+%		\let\bgroup\SavedBGroup
+%		\hbox\bgroup
+%	}%
+%	\fi
+%	\SavedLstInline
+%}
+
+\AtEndEnvironment{definition}{\qed}
+%\usepackage{scrextend}
+\usepackage{amssymb}
+\usepackage{extarrows}
+
+\newfloat{lstfloat}{htbp}{lop}
+\floatname{lstfloat}{Listing}
+\usepackage{cleveref}
+
+\let\Sectionmark\sectionmark
+\def\sectionmark#1{\def\Sectionname{#1}\Sectionmark{#1}}
+
+\def\igobble#1 {}
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%% GLOSSARY %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[savewrites,seeautonumberlist]{glossaries}
+\newglossarystyle{mystyle}{%
+	\glossarystyle{long}%
+	\renewenvironment{theglossary}%
+	{\begin{longtable}{p{3cm}p{\glsdescwidth}}}%
+		{\end{longtable}}%
+}
+\makeglossaries
+
+\newglossaryentry{transcodingOperator}{%
+	name=\ensuremath{\stigma},
+	description={Value Transcoding Function}
+}
+\newcommand{\transcoding}{\stigma\index{\stigma}}
+
+\newglossaryentry{data}{%
+	name=\ensuremath{D},
+	description={Data}
+}
+\newcommand{\data}{D\index{D}}
+
+\newglossaryentry{model}{%
+	name=\ensuremath{M},
+	description={Model}
+}
+\newcommand{\model}{M\index{M}}
+
+\newglossaryentry{metamodel}{%
+	name=\ensuremath{MM},
+	description={Model}
+}
+\newcommand{\metamodel}{MM\index{MM}}
+
+\newglossaryentry{abstr}{%
+	name=\ensuremath{\alpha},
+	description={Instance Of, Abstraction}
+}
+\newcommand{\abstr}{\alpha\index{\alpha}}
+\newcommand{\abstrTHIS}{\alpha\index{\alpha|textbf}}
+
+\newglossaryentry{translate}{%
+	name=\ensuremath{\tau},
+	description={(Data representation) Translation}
+}
+\newcommand{\ttransl}{\tau\index{\tau}}
+\newcommand{\ttranslTHIS}{\tau\index{\tau|textbf}}
+\newcommand{\ttranslIndex}[1]{\tau\index{\tau!#1}}
+
+\newglossaryentry{QTranslate}{%
+	name=\ensuremath{\Qoppa},
+	description={(Query) Translation}
+}
+\newcommand{\qtransl}{\Qoppa\index{\Qoppa}}
+\newcommand{\qtranslTHIS}{\Qoppa\index{\Qoppa|textbf}}
+\newcommand{\qtranslIndex}[1]{\Qoppa\index{\Qoppa!#1}}
+
+\newglossaryentry{langg}{%
+	name=\ensuremath{\mathcal{L}},
+	description={Query Language over a MetaModel ($\mathcal{L}_{MM}$)}
+}
+\newcommand{\langg}{\mathcal{L}\index{\mathcal{L}}}
+\newcommand{\lang}{\langg}
+
+\newglossaryentry{alignment}{%
+	name=\ensuremath{A},
+	description={(Ontological) Alignment}
+}
+\newcommand{\alignment}{A\index{A}}
+
+
+\newcommand{\GSMindex}[1]{\index{General Semistructured Model!#1}}
+
+
+
+
+
+\makeatletter
+\newenvironment{tsubarray}[1]{%
+	\vcenter\bgroup
+	\Let@ \restore@math@cr \default@tag
+	\baselineskip\fontdimen10 \scriptfont\tw@
+	\advance\baselineskip\fontdimen12 \scriptfont\tw@
+	\lineskip\thr@@\fontdimen8 \scriptfont\thr@@
+	\lineskiplimit\lineskip
+	\check@mathfonts
+	\ialign\bgroup\ifx c#1\hfil\fi
+	\normalfont\fontsize\sf@size\z@\selectfont\ignorespaces##\unskip\hfil\crcr
+}{%
+	\crcr\egroup\egroup
+}
+\makeatother
+\newcommand{\tsub}[1]{\begin{tsubarray}{l}#1\end{tsubarray}}

@@ -1,0 +1,51 @@
+\chapter{Dovetailing lemmas}
+
+\dtone*
+\begin{proof}
+	\label{proof:dtone}
+The proof can be carried out by simple rewriting. Given that:
+\[dt(x,y)=\frac{(x+y)(x+y+1)}{2}+y\]
+and consequently that:
+\[dt(x+1,y)=\frac{(x+y+1)(x+y+2)}{2}+y\]
+we have that
+\[\begin{split}
+	dt(x+1,y)-dt(x,y)&=\frac{(x+y+1)}{2}(\cancel{x+y}+2\cancel{-x-y})\\
+                         &=x+y+1\\
+\end{split}\]
+Therefore:
+\[dt(x+1,y) = dt(x,y) + x +y +1\]
+\end{proof}
+
+
+\dttwo*
+\begin{proof}
+		\label{proof:dttwo}
+We can prove it by induction over $i$. 
+\begin{description}
+	\item[$i=0$] holds by substitution of $i$ and reflexivity.
+	\item[$i=1$] holds by lemma \ref{dtone}.
+	\item[$i=n+1$] The induction hypothesis is the following:
+	\[dt(x+n,y)=dt(x,y)+n(x+y)+\sum_{j=0}^nj\]
+	Therefore, we have that:
+\[\begin{split}
+dt(x+n+1,y)&=dt(x+n,y)+x+y+(n+1)\\
+	&\overset{IH}{=}dt(x,y)+(n)(x+y)+\sum_{j=0}^nj+(x+y)+(n+1)\\
+	&=dt(x,y)+(n+1)(x+y)+\sum_{j=0}^{n+1}j
+\end{split}\]
+\end{description}
+\end{proof}
+
+\dtcreat*
+\begin{proof}
+The proof can be carried out by simple rewriting. Given that:
+\[dt(x,y)=\frac{(x+y)(x+y+1)}{2}+y\]
+and consequently that:
+\[dt(x,y+1)=\frac{(x+y+1)(x+y+2)}{2}+y+1\]
+we have that
+\[\begin{split}
+dt(x+1,y)-dt(x,y)&=1+\frac{(x+y+1)}{2}(\cancel{x+y}+2\cancel{-x-y})\\
+&=x+y+2\\
+\end{split}\]
+Therefore:
+\[dt(x+1,y) = dt(x,y) + x +y +2\]
+\end{proof}

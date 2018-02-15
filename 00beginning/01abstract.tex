@@ -1,0 +1,100 @@
+\epigraph{``No plan can predict everything. Some people will raise their heads, others will mutiny. The time will not cease to bestow losses and fame to whose who will continue the fight. [\dots] Do not pursue your actions according to a plan.''}{--- Luther Blissett, \textit{Q}, Epilogue}
+
+\chapter*{Abstract}
+Despite  graph  data gained increasing interest in social network, healthcare and bibliography network fields, no graph data framework suitable for both querying and integrating differently structured graph and (semi)structured data has been currently modelled and conceived. The reason could be found on both the lack of operators allowing combinations of (multiple) graphs in current graph query languages (graph joins), and on graph data structure  allowing neither data integration nor nested multidimensional representations (graph nesting). In order to make such data integration possible, this thesis proposes a novel model (\textsc{General Semistructured data Model}) allowing the representation of both graphs and arbitrarily nested contents (e.g., one node can be contained by more than just one parent node), thus allowing the definition of a nested graph model, where both vertices and edges may contain (overlapping) graphs.
+
+More importantly, three algorithms are provided for both graph joins and graph nesting operations: two algorithms are related to graph joins (\textsc{Graph Conjunctive Equijoin Algorithm} and \textsc{Graph Conjunctive Less-equal Algorithm}) and one algorithm is provided for graph nesting (\textsc{Two HOp Separated Patterns}). The evaluation of such algorithms on top of our opposed data model for secondary memory representation clearly showed the inefficiency of present query languages' query plan on top of their respective data models (relational, graph and document oriented). In all three algorithms the enhancement was possible by using an adjacency list graph representation, thus reducing the cost of joining the vertices with their respective outgoing (or ingoing) edges, and by associating hash values to both vertices and edges.
+
+As a secondary outcome of this thesis, a general data integration scenario is provided where both graph data and other semistructured and structured data could be represented and integrated on the \textsc{General Semistructured data Model}. The feasibility of this approach is outlined by a new query language (\textsc{General Semistructured Query Language}) over the former data model, also allowing to express both graph joins and graph nestings. This language is also capable of representing both traversal and data manipulation operators.
+
+\chapter*{Final Report}
+
+
+\phparagraph{List of publications}
+\begin{itemize}
+\item A. Petermann, G. Micale, \textbf{G. Bergami}, M. Junghanns, A. Pulvirenti, E. Rahm. ``\textit{Mining and Ranking of Generalized Multi-Dimensional Frequent Subgraphs}''. Proceedings of the Twelfth International Conference on Digital Information Management, Fukuoka, Japan, September 2017 (ICDIM 2017).
+\item \textbf{G. Bergami}, M. Magnani, D. Montesi. ``\textit{A Join Operator for Property Graphs}''. Proceedings of Sixth International Workshop on Querying Graph Structured Data, Venice, Italy, March 2017 (GraphQ 2017). (\href{http://jackbergus.alwaysdata.net/joinapp/}{Web App}, \href{https://www.slideshare.net/jackbergus/a-join-operator-for-property-graphs}{Slides}, \href{http://smartdata.cs.unibo.it/data/GRAPH/BolognaGraph2016.tar.gz}{Dataset})
+\item F. Bertini, \textbf{G. Bergami}, D. Montesi, P. Pandolfi. ``\textit{Predicting frailty in elderly people using socio-clinical databases}''. In 5th Workshop on Data Mining for Medicine and Healthcare, 2015. (\href{http://jackbergus.alwaysdata.net/calc/index.html}{Web App})
+\end{itemize}
+
+\phparagraph{Technical Reports}
+\begin{itemize}
+	\item \textbf{G. Bergami},  M. Magnani, D. Montesi. ``\textit{On Joining Graphs}''. Technical Report. 2016.  	arXiv:1608.05594 [cs.DB]
+\end{itemize}
+
+\phparagraph{Submitted Papers}
+\begin{itemize}
+	\item F. Bertini, \textbf{G. Bergami}, D. Montesi, G. Veronese,  G. Marchesini, P. Pandolfi. ``\textit{Predicting Frailty Condition in Elderly Using Multi-Dimensional Socio-Clinical Databases}'', Special Issue Paper on ``Smart Cities'': Proceedings of the IEEE. Submitted, 29$^{th}$ June, 2017. \texttt{0132-SIP-2017-PIEEE}
+\end{itemize}
+
+\phparagraph{Teaching Assistant Duties (Tutoring)}
+\begin{itemize}
+	\setlength\itemsep{1em}
+	\item \textsc{Laboratorio di Programmazione Internet} (2017) [78790]. Lecturer: \textit{Prof. Stefano Ferretti}. 
+	
+	\textbf{Topics}: The Bourne Shell. Java classes: String, Scanner, Integer, Double, Boolean. Arrays and Matrices. (\href{https://jackbergus.github.io/teaching/LPI17}{Web Page})
+	
+	
+	%%
+	\item \textsc{Basi di Dati} (2017) [10906]. Lecturer: \textit{Prof. Danilo Montesi}. 
+	
+	\textbf{Topics}: Relational Algebra, SQL query language. DBMS Architecture: Query Plans, B+ Trees, Hashing, Transactions. Conceptual Data Modelling. RDBMS vs. Querying and Programming Languages. (\href{https://jackbergus.github.io/teaching/BD#lab-sessions-2017}{Web Page})
+	
+	
+	%%
+	\item \textsc{Basi di Dati} (2016) [10906]. Lecturer: \textit{Prof. Danilo Montesi}. 
+	
+	\textbf{Topics}: Relational Algebra, SQL query language. DBMS Architecture: Query Plans, B+ Trees, Hashing, Transactions. Conceptual Data Modelling. RDBMS vs. Querying and Programming Languages. (\href{https://jackbergus.github.io/teaching/BD#lab-sessions-2016}{Web Page})
+	
+	
+	%%
+	\item \textsc{Basi di Dati} (2015) [10906]. Lecturer: \textit{Prof. Danilo Montesi}. 
+	
+	\textbf{Topics}: SQL query language. Conceptual Data Modelling. Querying and Programming Languages: Hibernate.
+\end{itemize}
+
+\phparagraph{Attended Lectures}
+\begin{itemize}
+	
+	\setlength\itemsep{1em}
+\item \textsc{Models and Algorithms for Matching and Assignment Problems} (2014/11/21 - 2012/12/19) [20H, 4 CFU]. Final Exam: \textbf{Yes}.
+
+Lecturer: \textit{Silvano Martello}, UNIBO.  (\href{http://www.dei.unibo.it/en/teaching/phd/ict/courses/models-and-algorithms-for-matching-and-assignment-problems}{Web Page})
+
+
+%%
+\item \textsc{Data Warehousing and Beyond: Advances and Challenges in Business Intelligence} (April 2015) [10H, 2 CFU]. Final Exam: \textbf{Yes}.
+
+Lecturer: \textit{Stefano Rizzi}, UNIBO. (\href{http://www.informatica.unibo.it/it/risorse/files/programma-business-intelligence-2015}{Handout})
+
+
+%%
+\item \textsc{Semantic Technologies} (2014/12/17 - 2014/12/19) [20H, 4 CFU]. Final Exam: \textbf{Yes}\footnote{Final Project}.
+
+Lecturer: \textit{Pier Luca Lanzi}, POLIMI \& IBM. (\href{https://www11.ceda.polimi.it/manifestidott/manifestidott/controller/MainPublic.do?evn_dettaglioinsegnamento=evento\&aa=2014\&k_corso_la=1330\&lang=IT\&caricaOffertaComune=true\&c_insegn=096877\&jaf_currentWFID=main}{Web Page})
+
+
+%%
+\item \textsc{Protection of Sensitive Information} (2015/03/09 - 2015/03/13) [13H, 5 CFU]. Final Exam: \textbf{Yes}.
+
+Lecturer: \textit{Catuscia Palamidessi}, \href{https://www.cs.unibo.it/projects/biss2015/}{BISS 2015}. (\href{http://www.lix.polytechnique.fr/~catuscia/teaching/Bertinoro2015/}{Web Page})
+
+
+%%
+\item \textsc{Introduction to Modern Cryptography} (2015/03/09 - 2015/03/13) [13H, 5 CFU].  Final Exam: \textbf{Yes}.
+
+Lecturer: \textit{Giuseppe Persiano}, \href{https://www.cs.unibo.it/projects/biss2015/}{BISS 2015}. (\href{https://drive.google.com/drive/u/1/folders/0B3tBL-tX2EdQMHNleklMVWpfNUk}{Google Drive})
+
+
+%%
+\item \textsc{2$^{nd}$ EATCS young researcher School \& Topdrim School} (2015/07/13 - 2015/07/22) [34H+11Workshop, 4,25 CFU]. Final Exam: \textbf{Yes}\footnote{Poster Session, 10 min talk}.  (\href{http://camerino2015.topdrim.eu/}{Web Page})
+
+
+
+%%
+\item \textsc{12$^{th}$ EDBT Summer School - Graph Data Management} (2015/08/31 - 2015/09/04) [30H, 5 CFU] Final Exam: \textbf{Yes}\footnote{Final Challenge}.  (\href{http://edbt2015school.win.tue.nl/}{Web Page})
+
+\end{itemize}
+
+%\glsaddall
+%\printglossary[style=mystyle]
