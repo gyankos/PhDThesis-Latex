@@ -1,0 +1,41 @@
+%compilewith=lualatex
+\RequirePackage{luatex85}
+\documentclass{standalone}
+\usepackage{tikz}
+\usetikzlibrary{graphs,graphdrawing,graphdrawing.trees}
+\begin{document}
+\begin{tikzpicture}
+  \begin{scope}%
+    [tree layout,level distance=10mm,text depth=.1em,text height=.8em]
+    \graph[fresh nodes] {
+      database -- {
+        Vendor -- {
+          id -- 001,
+          name -- Abigail,
+          surname -- Conner,
+          gender -- F
+        },
+        Vendor -- {
+            id -- 002,
+            name -- Baldwin,
+            surname -- Oliver,
+            gender -- M,
+            salesOrders -- {
+              salesOrder -- {
+                id -- 100,
+                date -- 30Dic2016,
+                deliveryDate -- 2Oct2017
+              },
+              salesOrder -- {
+                id -- 102,
+                date -- 13May2017,
+                deliveryDate -- 14May2017
+              }
+            }
+          },
+          ............
+      }
+    };
+  \end{scope}
+\end{tikzpicture}
+\end{document}

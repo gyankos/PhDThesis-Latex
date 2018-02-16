@@ -1,0 +1,187 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{GSQL Use cases}\label{ssec:travgraphop}
+After showing that GSQL may be used to query structured and semistructured data, I now want to show that such minimal operators' set may be also adopted for other and more practical use cases, such as \begin{mylist}
+	\item providing a semantics for graphs and semistructured traversal languages (Subsection \vref{traversalDef}),
+	\item providing nested graph operators including data mining manipulating ones (Subsection \vref{ssec:ngrahop}),
+	\item performing \textbf{is-a} aggregations by combining nested graphs with semistructured hierarchies (Subsection \vref{subsec:representingisa}),
+	\item and implementing the definition of a generalized graph grammar operator for nested graphs (Subsection \vref{sec:semistructunstradata}).
+\end{mylist}
+
+\subsection{Implementing traversal query languages' semantics ($\sigma$)}\label{traversalDef}
+\textit{Please refer to Section \vref{sec:gtl} for the graph query language terminology adopted in this subsection.}
+\bigskip
+
+Both graph selection and graphs extraction query languages rely on visiting the input data graph and then returning either the visited part (NautiLOD \cite{NautiLOD}) or the data that is reached after visiting these steps (XPath\index{XPath} \cite{xpath31}). If we consider trees as a specific kind of graph, both languages are (graphs) extraction languages, even though they substantially differ on how both traversing is performed and on the returned results: while the first language returns a collection or graphs that match a given specification, the second one returns a forest of trees that can be reached after the traversal process. These two languages may be also distinguished from the way they traverse the GSM data structure: while the first performs a navigation of the graph data structure by alternatively moving across objects belonging to different containments (vertices and edges) and does not necessarily involve a visit of the GSM by using $\varphi^*$ recursively, the second query language visits in depth ($\varphi$) all the objects belonging to the same root object and performs a visit in depth.
+
+Therefore, a combination of these two traversal approaches leads to a complete nested graph traversal language. Even though this thesis is not going to provide a user friendly syntax for such query language, it is going to provide an example on how to interpret such languages into GSQL, so that it can be used to navigate GSM data structures. Then, given that both languages may be represented in GSQL (and hence, at the semantics level), this means that such languages may be also freely integrated even at a syntactic level. The definition of another nested graph traversing language combining both features then comes for granted. The final language may provide the selection predicate, which is defined as follows:
+
+
+%The data structure traversal operation have the aim of selecting a subcomponent of a given data structure. Generally speaking, we can distinguish between two different approaches for data traversal: we can either select the final destination of the traversal and traverse it in depth (XPath), or traverse it in breadth and return the subset of the visited substructure (e.g., NautiLOD \cite{nautilod}). Moreover, each traversal query may have many different possible interpretations, and hence may be implemented differently. Therefore, the general effect of such operations is returning a substructure of a given data input.
+
+\begin{definition}[Selection]\index{GSQL!$\sigma$}
+	Given a GSM $\fullnested$, a traversal algorithm $s$ and a pattern  $P$, the selection operator $\sigma_P(\nested)$ returns a GSM which is a substructure of $\nested$ through the execution of the query $P$ on $\nested$ interpreted with $s$, where $s(P)$ is interpreted as a sequence of GSQL operators ($s(P)(\nested)$). Consequently:
+	\[\sigma_{s,P}(\nested)=(s(P))(\nested)=(\ngraph',O',\ell',\xi',\phi')\]
+	In particular each semantics ``$s$'' must guarantee to return a substructure, compliant to the constraints of the original input data. E.g., for nested graph we must ensure that
+	$\phi(\ngraph',\ONTA)\subseteq \phi(\ngraph,\ONTA)$, $\phi(\ngraph',\RELA)\subseteq \phi(\ngraph,\RELA)$ and $O'\subseteq O$, where each edge $i$ in $e'$ has source and target it $v'$ ($\forall i\in\phi(e'). \lambda(e')\in\phi(v')\times \phi(v')$).
+\end{definition}
+
+In the following subsections we're going to show how to define such $s$ expressions for translating traversal query languages into GSQL expressions.
+
+\phparagraph{XPath Traversals}
+In the footsteps of \cite{Magnani06}, we're going to analyse a minimal subset of XPath, merely concerning the path traversal, thus discarding all the axis notation and the selection predicates. The reason of doing so is that we want to use such language only for traversing the data structure in depth, and not to filter the obtained data, which can be easily achieved in our algebra via \texttt{map}. Moreover, on the footsteps of \cite{NautiLOD}, which did a similar approach for graph traversals, we're going to show that is possible to express a nested data structure traversal using algebraic operators. In particular, we're going to show that we can define the semantics $XPathInit$ interpreting the minimal XPath expressions.
+
+
+\begin{definition}[Minimal XPath]
+A minimal XPath expression $\texttt{<}\mu\texttt{XPath}\texttt{>}$ is formed by a concatenation of traversal operator \texttt{<c>}, that can be either \texttt{/} (direct descendant) or \texttt{//} (any node contained at any depth) to which a collection selector (\texttt{<s>}) may be applied (e.g. \texttt{/$^{\mstr{Tag}}$}, which means to select the nodes directly descendant from root contained in the \texttt{Tags} collection). 
+\[\texttt{<s>}:=\varepsilon\; |\; \star\;|\;\texttt{[name]}\]
+\[\texttt{<c>}:=\texttt{/}^\texttt{<s>}\;|\;\texttt{//}^\star\]
+\[\texttt{<}\mu\texttt{XPath}\texttt{>} :=\texttt{<c>}\texttt{<s>}\;|\;\texttt{<c>}\texttt{<s>}\texttt{<}\mu\texttt{XPath}\texttt{>}\]
+
+This language is associated to an interpretation function $XPathInit$; before evaluating the $\texttt{<}\mu\texttt{XPath}\texttt{>}$  expression $P$ via $XPath$, it preventively creates a new object with a fresh id $\omega$ where the result is going to be stored in $\phi(\omega,\mstr{result})$. Therefore:
+\[XPathInit(P) = n\mapsto XPath(P) (\texttt{elect}_\omega(\texttt{create}^\omega_{[],[],\jsem{\texttt{\{\mstr{result},[g]\}}}_\Gamma}(n)))\]
+At this point, we can define the semantics associated to the expression as follows:
+\[XPath(P) = n\mapsto \begin{cases}
+	\texttt{map}_{\ell,\xi,\phi\oplus \texttt{\{}\omega\texttt{,\{\mstr{result},}t(cSem(\texttt{<c>}))\texttt{\}\}} }(n) & P\equiv \texttt{<c>}\star\\
+	\texttt{map}_{\ell,\xi,\phi\oplus\texttt{\{}\omega\texttt{,\{\mstr{result},}\;t\big(\texttt{select(} cSem(\texttt{<c>}) \texttt{ : y -> \{<s> in y.\textbf{ell}\})}\big)\texttt{\}}\}}(n) & P\equiv \texttt{<c>}\texttt{<s>}\\
+	XPath(\texttt{<}\mu\texttt{XPath>}) (XPath(\texttt{<c><s>}) n ) & P\equiv \texttt{<c><s>}\texttt{<}\mu\texttt{XPath>}\\
+\end{cases}\]
+where the \texttt{union} of the \texttt{script} lists can be defined as \scriptline{union = x -> distinct \{x[0] ++  x[1]\}}, and the interpretation of the subSelectors is defined as follows:
+\[sSem(u,s)=\begin{cases}
+\texttt{u[s]} & s\neq \star\wedge s\neq \varepsilon\\
+\texttt{foldl \{[], map(u : y -> y[1]), union\}} & \textup{oth.}\\
+\end{cases}\]
+\[cSem(\texttt{<c>})=\begin{cases}
+ sSem(\texttt{x[0].\textbf{phi}},\texttt{<s>})\texttt{} & \texttt{<c>}\equiv\texttt{/}^\texttt{\texttt{<s>}}\\
+ sSem(\texttt{x[0].\textbf{varphiplus}},\star)\texttt{} & \texttt{<c>}\equiv\texttt{//}^{\star}\\
+\end{cases}\]
+
+\[t(expr)=\texttt{foldl \{[], g.\textbf{phi}[\mstr{result}], x}\mapsto\texttt{\{}expr\texttt{ ++ x[1]\}\}}\]
+\end{definition}
+
+Consequently, instead of using many distinct algebraic operator for performing a traversal of the nested structure as in \cite{Magnani06}, we may now traverse the whole data structure by providing the full XPath expression, and then performing the desired operation over the forest of selected substructures.
+
+%While the previous set of operators focused on the manipulation of one single nested graph by  them as either objects or multiple collections, the following operators use the nested representation without extending their representation.
+%h
+%Similarly to the selection operator for relational databases, we want to return a subgraph of one same initial graph. In this case, many graph traversal languages have been proposed, with different graph traversal semantics and complexity. Through this operator we leave the user to choose which is the best algorithm $s$ to perform the graph traversal query $P$, usually expressed as a (nested) graph, on top of our input data $\nested$. Please also note that the desired language $s$ should be able to express containment predicates as well as edge traversals.
+%
+
+\begin{example}
+As an example, let us try to express the XPath traversal query: \texttt{/medical/patient/name}. Given that $\tau_{XML}$ converts each tag into the \mstr{Tag} containment, we can rewrite the query as \texttt{/}$^{\mstr{Tag}}$\texttt{medical/}$^{\mstr{Tag}}$\texttt{patient/}$^{\mstr{Tag}}$\texttt{name}. By the definition of the aforementioned GSQL semantics for XPath, from $XPathInit($\texttt{/}$^{\mstr{Tag}}$\texttt{medical/}$^{\mstr{Tag}}$\texttt{patient/}$^{\mstr{Tag}}$\texttt{name}$)$ we obtain the following expression:
+\medskip
+
+%\[n\mapsto XPath(\texttt{/medical/patient/name})(\texttt{elect}_\omega(\texttt{create}^\omega_{[],[],\jsem{\texttt{\{\mstr{result},[g]\}}}_\Gamma}(n)}))\]
+\hspace*{-1.5cm}\vbox{\[XPathInit(P)(n) = XPath(\texttt{/}^{\mstr{Tag}}\texttt{medical/}^{\mstr{Tag}}\texttt{patient/}^{\mstr{Tag}}\texttt{name}) (\texttt{elect}_\omega(\texttt{create}^\omega_{[],[],\jsem{\texttt{\{\mstr{result},[g]\}}}_\Gamma}(n)))\]}
+\medskip
+
+\hspace*{-2cm}\vbox{\[\begin{split}
+XPath(&\texttt{/}^{\mstr{Tag}}\texttt{medical/}^{\mstr{Tag}}\texttt{patient/}^{\mstr{Tag}}\texttt{name})(\texttt{elect}_\omega(\texttt{create}^\omega_{[],[],\jsem{\texttt{\{\mstr{result},[g]\}}}_\Gamma}(n)))=\\
+	&XPath(\texttt{/}^{\mstr{Tag}}\texttt{patient/}^{\mstr{Tag}}\texttt{name})(XPath(\texttt{/}^{\mstr{Tag}}\texttt{medical})(\texttt{elect}_\omega(\texttt{create}^\omega_{[],[],\jsem{\texttt{\{\mstr{result},[g]\}}}_\Gamma}(n))))=\\
+	&XPath(\texttt{/}^{\mstr{Tag}}\texttt{name})(XPath(\texttt{/}^{\mstr{Tag}}\texttt{patient}(XPath(\texttt{/}^{\mstr{Tag}}\texttt{medical})(\texttt{elect}_\omega(\texttt{create}^\omega_{[],[],\jsem{\texttt{\{\mstr{result},[g]\}}}_\Gamma}(n))))))=\\
+\end{split}\]}
+\medskip
+
+In particular, each internal expression designing one part of the whole visiting step can be rewritten for \texttt{medical} as follows:
+
+\hspace*{-1.5cm}\vbox{\[\begin{split}
+XPath(\texttt{/}^{\mstr{Tag}}\texttt{medical})(n)&=\texttt{map}_{\ell,\xi,\phi\oplus\texttt{\{}\omega\texttt{,\{\mstr{result},}\;t\big(\texttt{select(} cSem(\texttt{/}^{\mstr{Tag}}) \texttt{ : y -> \{\mstr{medical} in y.\textbf{ell}\})}\big)\texttt{\}}\}}(n)\\
+	&=\texttt{map}_{\ell,\xi,\phi\oplus\texttt{\{}\omega\texttt{,\{\mstr{result},}\;t\big(\texttt{select(} sSem(\texttt{x[0].\textbf{phi}},\mstr{Tag}) \texttt{ : y -> \{\mstr{medical} in y.\textbf{ell}\})}\big)\texttt{\}}\}}(n)\\
+	&=\texttt{map}_{\ell,\xi,\phi\oplus\texttt{\{}\omega\texttt{,\{\mstr{result},}\;t\big(\texttt{select(} \texttt{x[0].\textbf{phi}[}\mstr{Tag}\texttt{]} \texttt{ : y -> \{\mstr{medical} in y.\textbf{ell}\})}\big)\texttt{\}}\}}(n)\\
+	&=\\
+\end{split}\]
+\[\texttt{map}_{\ell,\xi,\phi\oplus\texttt{\{}\omega\texttt{,\{\mstr{result},\;foldl \{[], g.\textbf{phi}[\mstr{result}], x}\mapsto\texttt{\{}\texttt{select(} \texttt{x[0].\textbf{phi}[}\mstr{Tag}\texttt{]} \texttt{ : y -> \{\mstr{name} in y.\textbf{ell}\})}\texttt{ ++ x[1]\}\}\}}\}}(n)\]}
+\end{example}
+
+Please note that the present semantics does not provide one substructure \index{GSM!substructure} of the GSM, while provides a collection of objects which are effectively substructures of the original GSM.
+
+\phparagraph{NautiLOD Traversals}\label{ph:NTLImpl}
+At this step, we want also to show that GSQL   is able to express any other graph traversal query: we can use the definition of nested graphs  to support the \textsc{MultiPointed Graphs} (MPG), and use NautiLOD as a language of reference \cite{NautiLOD}. Those MPGs are used to express the graph traversal semantics using a set of graphs operators that manipulate both graph data sets and graph collections. Even in this case, the algebraic operator can be used to provide the semantics for the graph traversal process and to select the subgraphs that match a given element. Similarly to Kripke Structures, each MPG associates  a source vertex and a target set: the source vertex represent the vertex where we start to traverse the graph, and the target set represents one of the possible ending nodes. We're going to use $\ell$ to store the starting node of the visit, and $\xi$ for storing the ending nodes. 
+
+The first class of operators are the ones over the graphs, where only the concatenation $\circ$ and a distinct union for MPGs\footnote{In the original paper, such operator is defined as $\cup$. Given that we have already used $\sqcup$ for our operator over GSMs and given that their operator also uses the } $\sqcup$ and MPGs' collections\footnote{In the original paper, such collection operator is defined as $\oplus$. We prefer to use the $\cup$ notation as the one originally addressed for GSMs, and hence, for labelled collections.}.  The first concatenation operator can be defined as follows:
+
+\begin{definition}[NautiLOD concatenation]
+Given two nested graphs $\nested_L$ and $\nested_R$ representing MPG pointed graphs, we can define the NautiLOD  concatenation for GSM  Pointed Graphs as follows:
+
+\[\phi_{\circ} = \left[\;\omega\mapsto \begin{cases}
+\phi(\omega) & \ell(o.\nested_R)\subseteq\xi(o.\nested_L)\\
+\emptyset & \textup{oth.}\\
+\end{cases}\;\right]\]
+\[\ell_\circ = \left[\omega\mapsto\begin{cases}
+\ell(o.\nested_L) & \ell(o.\nested_R)\subseteq\xi(o.\nested_L) \\
+\emptyset & \textup{oth.} \\
+\end{cases}\;\right]\qquad \xi_\circ = \left[\omega\mapsto\begin{cases}
+\xi(o.\nested_R) & \ell(o.\nested_R)\subseteq\xi(o.\nested_L) \\
+\emptyset & \textup{oth.} \\
+\end{cases}\;\right]\qquad\]
+
+
+\[\nested_L \circ \nested_R = \texttt{map}_{\ell\oplus \ell_\circ,\;\xi\oplus \xi_\circ,\;\phi\oplus \phi_\circ}(\nested_L \cup^\omega \nested_R)\] 
+\end{definition}
+
+On the other hand, the NautiLOD union of matched subgraph patterns can be defined as follows:
+
+\begin{definition}[NautiLOD union]
+	Given two nested graphs $\nested_L$ and $\nested_R$ representing MPG pointed graphs, we can define the NautiLOD  union for GSM  Pointed Graphs as follows:
+	
+	\[\phi_{\circ} = \left[\omega\mapsto \begin{cases}
+	\phi(\omega) & \ell(o.\nested_R)=\ell(o.\nested_L)\\
+	\phi(o.\nested_L) & \phi(o.\nested_R,\ONTA)=\phi(o.\nested_R,\RELA)=\emptyset\\
+	\phi(o.\nested_R) & \phi(o.\nested_L,\ONTA)=\phi(o.\nested_L,\RELA)=\emptyset\\
+	\emptyset & \textup{oth.}\\
+	\end{cases}\right]\]
+	\[\ell_\circ = \left[\omega\mapsto\begin{cases}
+	\ell(o.\nested_L) & \ell(o.\nested_R)=\ell(o.\nested_L) \\
+	\ell(o.\nested_L) & \phi(o.\nested_R,\ONTA)=\phi(o.\nested_R,\RELA)=\emptyset\\
+	\ell(o.\nested_R) & \phi(o.\nested_L,\ONTA)=\phi(o.\nested_L,\RELA)=\emptyset\\
+	\emptyset & \textup{oth.} \\
+	\end{cases}\right]\]
+	\[ \xi_\circ = \left[\omega\mapsto\begin{cases}
+	\xi(o.\nested_R)\cup \xi(o.\nested_L) & \ell(o.\nested_R)=\ell(o.\nested_L) \\
+	\xi(o.\nested_L) & \phi(o.\nested_R,\ONTA)=\phi(o.\nested_R,\RELA)=\emptyset\\
+	\xi(o.\nested_R) & \phi(o.\nested_L,\ONTA)=\phi(o.\nested_L,\RELA)=\emptyset\\
+	\emptyset & \textup{oth.} \\
+	\end{cases}\right]\qquad\]
+	
+	
+	\[\nested_L \sqcup \nested_R = \texttt{map}_{\ell\oplus \ell_\circ,\;\xi\oplus \xi_\circ,\;\phi\oplus \phi_\circ}(\nested_L \cup^\omega \nested_R)\] 
+\end{definition}
+
+Please also note that in the original paper is also relevant to extend the two previously-mentioned operations to graph collections, such that those operators can be applied to all the graphs appearing in the resulting collections. For this reason we can choose to instantiate the $\otimes\theta$-Product by replacing $\otimes$ with one of the aforementioned operators and by choosing a $\theta$ predicate that can be eventually the always true predicate. Please also note that the resulting collection must be re-labelled at the end of the step in order to achieve an uniform notation. Given that NautiLOD already provides two different and distinct semantics for graph traversal queries (\textsc{Success} and \textsc{Visit}), we can use the semantics of choice and provide it to the $\sigma$ operator. Given that the addressed paper already provides a full notation and description of such semantics which requires the aforementioned operators, we needed only to re-define such operators for a new data model and hence we are not going to provide a full definition of such semantics.
+
+\begin{example}
+Suppose that we now want to traverse a graph from any given initial paper $u$, of which we want to know its authors' affiliations. NautiLOD expressions, similar to XPaths', represent such graph traversal query as follows:
+\begin{center}
+\texttt{authoredBy/affiliatedTo}
+\end{center}
+Among all the possible semantics proposed by NautiLOD, we adopt in this example the \textsc{Successful} (S) over our nested (data) graph $\nested$. In particular, given that NautiLOD's action expressions are not relevant for our graph query purposes because they provide customizable side effects not affecting the final result, we may remove them from the query interpretation. Therefore, the interpretation of such semantics reduces to the rewriting of the NautiLOD expression: \begin{equation}\label{eq:ExampleBigsqcup}
+\bigsqcup S\jsem{\texttt{authoredBy/affiliatedTo}}
+\end{equation}
+ %for any possible matching $u$ into the $bigopz(\texttt{op},{\color{red}\nested'})$, 
+Equation \ref{eq:ExampleBigsqcup} subsumes the application of $\sqcup$ to all the nested graphs supporting MPGs structures and produced from the evaluation of ${\color{red}\nested'\eqdef S\jsem{\texttt{authoredBy/affiliatedTo}}}$ into a nested graph represented by the object with id $\omega_c$, representing a collection of MPGs expressed through objects representing nested graphs. By the definition of $\sqcup$, we can express this iterative concept by using our \texttt{fold} operator, where the newly created empty element $\omega_{c+1}$ represents the empty graph ($\Gamma_\bot$ in NautiLOD notation). Such requirement can be expressed as follows:
+\begin{equation}
+bigopz(\texttt{op},\nested):=\texttt{fold}_{\jsem{\omega_c\texttt{.\textbf{varphi}}},\;(o,\alpha)\mapsto\texttt{elect}_o({\nested})\texttt{op}\alpha}(\texttt{elect}_{\omega_{c+1}}(\texttt{create}^{\omega_{c+1}}_{[],[],[]}({\nested})))
+\end{equation}
+where $bigopz$ provides the definition of applying \texttt{op} recursively over each nested graph contained in ${\color{red}\nested'}$.
+
+
+Now, we want to decompose the path expressions into single edge class traversing: we can generate all the subgraphs of $\nested$ via the use of the nesting operator, by matching all the edges having the same label $a$ and by returning a new nested graph as the result of the aggregation. Last, the non-matched elements must be removed. 
+Therefore, such graph collection is going to be generated by the following expression:
+\[S\jsem{a}:=\texttt{elect}_\omega(\texttt{create}^\omega_{[],[],[[\mstr{return},\{o\in \phi(\ngraph,\RELA)|\ell(o)\cup\xi(o)\subseteq\phi(\ngraph,\ONTA)\}]]}(\nu^{\color{RoyalBlue}\texttt{tt}}_{GF_a,gen_a,\oplus_a}(\nested)))\]
+The helper functions for the $\nu$ operand are defined as follows:
+\[GF_a(o,p,o')=\begin{cases}
+\{o'\} & o\equiv \ngraph\wedge p=\RELA\wedge a\in\ell(o')\\
+\emptyset & \textup{oth.}\\
+\end{cases}\]
+\[\oplus_a(\alpha,e,\omega,s)=\texttt{create}^\omega_{\phi(e,\SRC),\phi(e,\DST),[[\ONTA,\phi(e,\SRC)\cup\phi(e,\DST)],[\RELA,[e]]]}(\alpha)\]
+\[gen_a(\tilde{o}_c,k,o,p)=\{(\tilde{o}+o)_{c+1}\}\]
+Please also note that, differently from NautiLOD, this expression is going to return all the subgraphs formed by an edge labelled $a$ and having distinct source and target vertices. Therefore, the required expression can be defined as follows:
+\[ \left(bigopz(\cup, S\jsem{\texttt{authoredBy}}\circ S\jsem{\texttt{affiliatedTo}})\right) \]
+\end{example}
+
+
+Similar considerations may be provided for the whole set of NautiLOD syntax, which  do not fall within the aims of the present thesis. Nevertheless, we showed that it is possible to provide a graph traversal semantics on GSM which are closed under the GSQL algebraic operators used to represent NautiLOD's semantics.
+

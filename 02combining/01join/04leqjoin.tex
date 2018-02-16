@@ -1,0 +1,99 @@
+
+
+\section{Graph Less-Equal Join}\label{sec:lessequaljoin}
+In this section we're going to extend the previous algorithm to support less equal predicates \index{algorithm!GLEA}, e.g. $A_i\leq A_j$. Hereby, in this scenario the \texttt{generateHash} function must associate $A_i$ values for the left operand and the $A_j$ values for the second operand. Given that our proposed GCEA algorithm is based on an extension of the sort merge join relational algorithm, we can simply extend it to support less-equal joins. Hereby, the only part of Algorithm \ref{alg:cogrouped} that has to be rewritten is the \textsc{PartitionHashJoin} procedure. The parts in which such algorithm differs from Algorithm \ref{alg:leqjoinalg} are remarked with blue text colour: in particular, instead of selecting the hash values that are in common between the two vertices' sets, we extract hashes $h_1$ for the first graph and $h_2$ for the second such that $h_1\leq h_2$.  For our experimental evaluation, we choose $A_i$ and $A_j$ to be the years of employment (\texttt{Year1} and \texttt{Year2}).
+
+
+
+\begin{algorithm}[!b]
+	\caption{Graph Less-Equal join Algorithm (GLEA)}\label{alg:leqjoinalg}
+	{
+		\begin{minipage}{\linewidth}
+			\begin{algorithmic}[1]
+				\Procedure{LEqJoin}{$G,G',\theta$}
+				\State \textit{hashFunction} = generateHash($\theta$);
+				\State \textit{omap}$_1$ = \textsc{OperandPartitioning}($G,$\textit{hashFunction})
+				\State \textit{omap}$_2$ = \textsc{OperandPartitioning}($G',$\textit{hashFunction})
+				\State $\overline{G}_1$ = \textsc{SerializeOperand}($G,$\textit{omap}$_1$)
+				\State  $\overline{G}_2$ = \textsc{SerializeOperand}($G',$\textit{omap}$_2$)
+
+				\Return{\textsc{PartitionHashJoin}($\overline{G}_1,\overline{G}_2,\theta$)}
+				\EndProcedure
+
+				\State
+
+
+
+
+
+				\Procedure{PartitionHashJoin}{$G_1,G_2,\theta$}:
+				\State $\theta'(u,u')$ := $\theta(u,v)\wedge (u\oplus u')(A_v)=u\wedge (u\oplus u')(A_v')=u'$;
+				\State $\Theta'(e,e')$ := $(e\oplus e')(A_e)=e \wedge (e\oplus e')(A_e')=e'$
+				\For{{\color{blue}$h_1\in${MinHashIterator}(\textit{HashOffset}$_1$)}}
+				\For{{\color{blue}$h_2\in${MaxHashIterator}(\textit{HashOffset}$_2$) s.t. $h_1\leq h_2$}}
+				\For{\textbf{each} $u\in \textit{VertexVals}_1[{\color{blue}h_1}.\textup{offset}_1]$, $u'\in \textit{VertexVals}_2[{\color{blue}h_2}.\textup{offset}_2]$}
+				\If{$\theta'(u,u')$}
+				\State{\textit{AdjFile}}.\textsc{Write}(V=\{$u\oplus u'$\},)
+				\For{{\color{blue}$h_1'\in${MinHashIterator}(
+						$out_{V}(u)$)}}
+				\For{{\color{blue}$h_2'\in${MaxHashIterator}($out_{V'}(u')$) s.t. $h_1'\leq h_2'$}}
+				\For{\textbf{each edge} $e\in out_{V}(u)[{\color{blue}hparticular_1'}.\textup{offset}_1]$, $e'\in out_{V'}(u')[{\color{blue}h_2'}.\textup{offset}_2]$ }
+				\If{$\theta'(e.\textup{outvertex},e'.\textup{outvertex})$\textbf{ and }$\Theta'(e,e')$}
+				\State \textit{AdjFile}.\textsc{Write}(E=\{$e\oplus e'$\})
+				\EndIf
+				\EndFor
+				\EndFor
+				\EndFor
+				\EndIf
+				\EndFor
+				\EndFor
+				\EndFor
+
+				\EndProcedure
+			\end{algorithmic}
+	\end{minipage}}
+\end{algorithm}
+
+%%%%%%%%%%%%
+
+
+%latex.default(round(t, digits = 2), file = "export.tex")%
+\begin{table}[!tbp]
+	\begin{center}
+		\begin{tabular}{crrrr}
+			\toprule
+			\multicolumn{1}{c}{Size (L,R)}&\multicolumn{1}{c}{Neo4J}&\multicolumn{1}{c}{PostgreSQL}&\multicolumn{1}{c}{Virtuoso}&\multicolumn{1}{c}{\textbf{GLEA C++} (ms)}\\
+			\midrule
+			$10^1$&$ 9,359.86\times$&$  82.61\times$&$   37.58\times$&$    0.15$\\
+			$10^2$&$ 2,374.98\times$&$  21.57\times$&$10,308.09\times$&$    1.17$\\
+			$10^3$&$28,368.97\times$&$ 191.32\times$&$>3.6\cdot 10^6$ ms&$   10.72$\\
+			$10^4$&$>3.6\cdot 10^6$ ms&$1616.22\times$&$>3.6\cdot 10^6$ ms&$   98.50$\\
+			$10^5$&$>3.6\cdot 10^6$ ms&$>3.6\cdot 10^6$ ms&$>3.6\cdot 10^6$ ms&$ 1,016.44$\\
+			$10^6$&$>3.6\cdot 10^6$ ms&$>3.6\cdot 10^6$ ms&$>3.6\cdot 10^6$ ms&$12,583.89$\\
+			\bottomrule
+		\end{tabular}
+		\caption{Graph Less-Equal Join running time. GLEA considers the time required to write the solution into secondary memory. Each data management system is compared with the most efficient implementation of GLEA in C++. Please note that the graph creation time, which is an order of magnitude less (Table \ref{fig:sumsize}) than the GLEA execution time.}
+		\label{tab:benchLEQ}
+	\end{center}
+\end{table}
+
+
+\begin{figure}[!p]
+	\begin{minipage}[t]{\textwidth}
+		\lstinputlisting[language=cypher,basicstyle=\ttfamily\small,literate={<=}{{ \hlcyan{ <= } }}1]{fig/03joins//cypher_leqjoin.cypher}
+		\caption{Cypher implementation for the graph less-equal join operator. Please note that the equivalence predicate has changed to \hlcyan{ <= }, while the pattern matching parts are fixed.}
+		\label{fig:CypherLEquiJoin}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[!p]
+	\begin{minipage}[t]{\textwidth}
+		\lstinputlisting[language=sparql,basicstyle=\ttfamily\scriptsize,literate={<=}{{\hlcyan{<=}}}1]{fig/03joins//sparql_leqjon.sparql}
+		\caption{SPARQL implementation for the graph less-equal join operator. Even in this case, the pattern matching is kept the same, while the only change is with the predicate \hlcyan{ <= }.}
+		\label{fig:SparqlLEquiJoin}
+	\end{minipage}
+\end{figure}
+
+Figures \ref{fig:CypherLEquiJoin} and \ref{fig:SparqlLEquiJoin} respectively represent the less-equal join for Cypher and SPARQL, that is going to be benchmarked against our algorithm. If we compare such queries to the ones firstly presented for the equi-join query (respectively Figure \vref{fig:CypherEquiJoin} and \ref{fig:SparqlEquiJoin}) The results of such comparisons is provided in Table \ref{tab:benchLEQ}, using the same experimental environment and dataset described in Section \vref{sub:results} for the previous algorithm. As we can see, the relational database is always more performant than the two graph databases, thus suggesting that the relational databases have more efficient query optimizations than graph databases. This final result remarks that the presented algorithm could be easily extended to fit other query evaluation scenarios.
+
+Please note that the same algorithm can be also used when we a conjunction between less-equal predicate, $A_i\leq A_j\wedge A_k\leq A_h$ and if there is a lexicographical order between the elements ${A_i\times A_k}\equiv A_j\times A_h$, then we can generate a hashing function $h$ such that if $i\leq j \wedge k\leq h$ holds, then the order is reflected by the hashing function $h(i,k)\leq h(j,h)$ \cite{BelazzouguiBPV11}.

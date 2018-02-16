@@ -1,0 +1,58 @@
+CONSTRUCT { 
+	?newSrc <http://jackbergus.alwaysdata.net/graph> "Result";
+	      <http://jackbergus.alwaysdata.net/edges/result> ?newDst; 
+	      <http://jackbergus.alwaysdata.net/property/Ip1> ?ip1;
+	      <http://jackbergus.alwaysdata.net/property/Organization1> ?org1;
+	      <http://jackbergus.alwaysdata.net/property/Year1> ?y1;
+	      <http://jackbergus.alwaysdata.net/property/Ip2> ?ip2;
+	      <http://jackbergus.alwaysdata.net/property/Organization2> ?org2;
+	      <http://jackbergus.alwaysdata.net/property/Year2> ?y2.
+	?newDst <http://jackbergus.alwaysdata.net/graph> "Result";
+	      <http://jackbergus.alwaysdata.net/property/Ip1> ?ip3;
+	      <http://jackbergus.alwaysdata.net/property/Organization1> ?org3;
+	      <http://jackbergus.alwaysdata.net/property/Year1> ?y3;
+	      <http://jackbergus.alwaysdata.net/property/Ip2> ?ip4;
+	      <http://jackbergus.alwaysdata.net/property/Organization2> ?org4;
+	      <http://jackbergus.alwaysdata.net/property/Year2> ?y4.
+} 
+FROM NAMED <leftpath/to/graph>
+FROM NAMED <rightpath/to/graph>
+WHERE
+{
+  GRAPH ?g { 
+  		?src1 <http://jackbergus.alwaysdata.net/property/Id> ?id1;
+	      <http://jackbergus.alwaysdata.net/property/Ip1> ?ip1;
+	      <http://jackbergus.alwaysdata.net/property/Organization1> ?org1;
+	      <http://jackbergus.alwaysdata.net/property/Year1> ?y1.
+  	}.
+  GRAPH ?h { 
+  		?src2 <http://jackbergus.alwaysdata.net/property/Id> ?id2;
+	      <http://jackbergus.alwaysdata.net/property/Ip2> ?ip2;
+	      <http://jackbergus.alwaysdata.net/property/Organization2> ?org2;
+	      <http://jackbergus.alwaysdata.net/property/Year2> ?y2.
+  	}
+  filter(?g=<leftpath/to/graph> && 
+         ?h=<rightpath/to/graph> &&
+         ( ?org1 = ?org2 ) && ( ?y1 =  ?y2 ))
+         
+  BIND (URI(CONCAT("http://jackbergus.alwaysdata.net/values/",?id1,"-",?id2)) AS ?newSrc)
+  
+  OPTIONAL {
+  		GRAPH ?g { 
+  			?src1 <http://jackbergus.alwaysdata.net/edges/edge> ?dst1.
+  			?dst1 <http://jackbergus.alwaysdata.net/property/Id> ?id3;
+	      <http://jackbergus.alwaysdata.net/property/Ip1> ?ip3;
+	      <http://jackbergus.alwaysdata.net/property/Organization1> ?org3;
+	      <http://jackbergus.alwaysdata.net/property/Year1> ?y3.
+  		}.
+		GRAPH ?h { 
+			?src2 <http://jackbergus.alwaysdata.net/edges/edge> ?dst2.
+			?dst2 <http://jackbergus.alwaysdata.net/property/Id> ?id4;
+	      <http://jackbergus.alwaysdata.net/property/Ip2> ?ip4;
+	      <http://jackbergus.alwaysdata.net/property/Organization2> ?org4;
+	      <http://jackbergus.alwaysdata.net/property/Year1> ?y4.
+  		}
+		FILTER ( ( ?org3 = ?org4 ) && ( ?y3 = ?y4 ) )
+		BIND (URI(CONCAT("http://jackbergus.alwaysdata.net/values/",?id3,"-",?id4)) AS ?newDst)
+	}
+}

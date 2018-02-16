@@ -1,0 +1,30 @@
+%%%%%
+\subsection{Graph ETL and $\qtransl^{\tau(\textup{--})}_{\abstr(D_i),H}(\abstr(D_i))$: the Transformation phase}\label{sec:ngusecases}
+%The following subsections provide some use cases on which such data model can be used. The following examples will also show that such data structure will allow to represent both graph and graph collection within the same data model.
+
+%% Opening
+% * What is the wider problem that we should try to solve?
+% * Say that this is an already known problem
+Despite the attempts of defining graph data warehouses \cite{Etcheverry2012a,EtcheverryV12b,
+	Zhao11}, a complete outline of graph ETLs is still missing, that is the process of 
+integrating multiple heterogeneous graph data sources into one final graph \cite{ChenYZHY08}. 
+All the required components for such process are already described in literature, and consists
+into two main phases, called \textit{transformation} and \textit{loading}. From the following definition it will be also evident that usually ETLs use a different sequence of operations that the one prospected by the previous GAV approach. Nevertheless, we're going to walk in the footsteps of GAV, as it provides a better formal approach.
+
+Concerning the \textit{transformation} phase, we first have to transform our data into a common representation. After doing so, we can clean data ($\nu_\cong$) and resolve
+all the ambiguities \cite{rahm2016case}. Then, we consider the informative need
+of the user expressed through a hub schema\index{schema!hub} (called ``conceptual graph model'' in Data Warehouse contexts \cite{jakawat}), expressing the
+graph schema to which the final graph must be compliant with. This graph schema, expressed
+as a graph pattern query, is used for aligning each graph data source \cite{Aligon201520}
+over a same representation through either approximate pattern matching \cite{DeVirgilio2015} or the aforementioned $\Qoppa$ operator. After the alignment phase, the data sources are finally transformed to match the alignment schema. 
+
+In the \textit{loading} phase, the graphs resulting from the previous phase
+are integrated into one final graph. This last step is still at its infancy:
+current graph joins only allow to return the vertices matching in both graph operands
+\cite{BergamiMM17}, and do not return both the matching and the non-matching vertices.
+As a consequence, the generalization of graph joins with
+disjunctive semantics in \textbf{full graph joins} is required. We will continue such discussion in Chapter \vref{cha:nesting}.
+
+In particular, this section will focus on one possible definition of the $\Qoppa$ operator, $\qtranslIndex{for nested schema alignment}$ $\qtransl^{\ttransl(\textup{--})}_{\abstr(D_i),H}(\abstr(D_i))$, within the data transformation phase embedding an alignment transformation step $\ttransl$: it will be showed how the general semistructured model allows to provide a common representation for comparing semistructured data in JSON and graphs through the definition of correspondences, and describe how the result of the alignment can be differently interpreted with respect to the different information need. Another definition of such operator within our proposed query language (defined as a generalization of the graph grammar approach) is going to be described on the next chapter at Section \vref{sec:semistructunstradata}.
+
+%By generalizing the data integration approaches provided in Section \vref{sec:oldschooldi}, we now wan to show that data integration can be also carried out among graphs, thus requiring alignments among both entities and relationships. The present thesis proposes a new approach to align relationships and integrate graph data by using the previous entity integration and alignment steps. Moreover, this procedure will be showed for both graphs (Section \ref{sss:gdi}) and nested graphs (Section \vref{sss:ngdi}). This last use case will lead to the most general graph integration scenario, that is ETL graph data integration.

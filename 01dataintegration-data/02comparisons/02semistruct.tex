@@ -3,7 +3,7 @@
 A data model is said to be \textbf{semistructured} if it relies on a fixed data model over which \textbf{no} constraints are imposed. Given this definition, we could now distinguish the \textbf{nested relational model} from the \textbf{XML data model}\index{XML|textbf}: even though both models rely on the relaxation of the 1NF\index{1NF} by allowing nested data representations as possible data values (thus allowing the representation of hierarchical data), the first model still requires the nested relations to be compliant to a given schema, while the second one does not. As a consequence, the first model still suffers from the ``data homogeneity'' problem addressed for the Relational Model in Section \vref{par:homog}, while the second does not. 
 
 \begin{figure}[!hpt]
-\lstinputlisting[language=XML,basicstyle=\ttfamily\small]{images/introduction/comparisons/semistruct/VendorSales.xml}
+\lstinputlisting[language=XML,basicstyle=\ttfamily\small]{fig/02models/VendorSales.xml}
 \caption{Representing the association between the \texttt{Vendors} and their \texttt{SalesOrder}s in Figure \ref{fig:instance} with an XML representation.}
 \label{fig:semistructXML}
 \end{figure}
@@ -17,12 +17,12 @@ A data model is said to be \textbf{semistructured} if it relies on a fixed data 
 
 \begin{table}[!t]
 \centering
-\includegraphics[scale=0.9]{images/introduction/comparisons/semistruct/01nestedaggr}
+\includegraphics[scale=0.9]{fig/02models/01nestedaggr}
 \caption{Representing the association between the \texttt{Vendors} and their \texttt{SalesOrder}s in Figure \ref{fig:instance} with a nested tabular representation. Each attribute containing a nested relation exposes both the name of the attribute and the schema associated to the relations that it contains. }
 \label{tab:semistructTable}
 \end{table}\begin{figure}[!t]
-\includegraphics[scale=0.7]{images/introduction/comparisons/semistruct/02anestedasTree.pdf}
-\includegraphics[scale=0.63]{images/introduction/comparisons/semistruct/02bnestedasTree.pdf}
+\includegraphics[scale=0.7]{fig/02models/02anestedasTree.pdf}
+\includegraphics[scale=0.63]{fig/02models/02bnestedasTree.pdf}
 \caption{Representing the association between the \texttt{Vendors} and their \texttt{SalesOrder}s with an tree representation of Figure \ref{fig:semistructXML}. Please note that the two trees represent the same XML document, that has been here split in two parts due to page size and readability limitations. The representation of choice is the one provided in \cite{Magnani06}, where no tag attributes are considered. The XML's empty tags are removed since they are not supported by the data model.}
 \label{fig:semistructXMLTree}
 \end{figure}
@@ -55,7 +55,7 @@ Given that property graphs do not relax 1NF\index{1NF}, we cannot say that they 
 
 \begin{table}[!t]
 \centering
-\includegraphics[scale=0.7]{images/introduction/comparisons/semistruct/02nestedaggrSales.pdf}
+\includegraphics[scale=0.7]{fig/02models/02nestedaggrSales.pdf}
 \caption{Extending the nested representation of Table \ref{tab:semistructTable} for showing the defect of the data representation over multiple nesting levels.}
 \label{tab:semistructTableMultipleNest}
 \end{table}

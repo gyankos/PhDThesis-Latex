@@ -1,0 +1,26 @@
+[
+  { "id":"0",
+    "data":{ "name": "Abigail", "surname": "Conner" },
+    "meta":{"label":"Author","graphs":["11"]}
+  },{
+    "id":"1",
+    "data":{ "name": "Cassie", "surname": "Norman" },
+    "meta":{"label":"Author","graphs":["11"]}
+  },{
+     "id":"2",
+     "data":{ "name": "Baldwin", "surname": "Oliver" },
+     "meta":{"label":"Author","graphs":["11"]}
+  },{
+    "id":"3",
+    "data":{ "title": "On Joining Graphs" },
+    "meta":{"label":"Paper","graphs":["11"]}
+  },{
+    "id":"4",
+    "data": { "title": "Object Databases" },
+    "meta":{"label":"Paper","graphs":["11"]}
+  },{
+    "id":"5",
+    "data":{ "title": "On Nesting Graphs" },
+    "meta":{"label":"Paper","graphs":["11"]}
+  }
+]

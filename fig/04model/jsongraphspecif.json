@@ -1,0 +1,43 @@
+{ "graph": {
+      "nodes": [{
+          "id": "0", "label": "Author",
+          "metadata": { "name": "Abigail", "surname": "Conner" }
+      },{
+          "id": "1", "label": "Author",
+          "metadata": { "name": "Cassie", "surname": "Norman" }
+      },{
+          "id": "2", "label": "Author",
+          "metadata": { "name": "Baldwin", "surname": "Oliver" }
+      },{
+          "id": "3", "label": "Paper",
+          "metadata": { "title": "On Joining Graphs" }
+      },{
+          "id": "4", "label": "Paper",
+          "metadata": { "title": "Object Databases" }
+      },{
+          "id": "5", "label": "Paper",
+          "metadata": { "title": "On Nesting Graphs" }
+      }],
+      "edges": [{
+          "id": "6", "label": "AuthorOf",
+          "source": "0", "target": "3",
+          "metadata": {}
+      },{
+          "id": "7", "label": "AuthorOf",
+          "source": "1", "target": "3",
+          "metadata": {}
+      },{
+          "id": "8", "label": "AuthorOf",
+          "source": "1", "target": "4",
+          "metadata": {}
+      },{
+          "id": "9", "label": "AuthorOf",
+          "source": "2", "target": "4",
+          "metadata": {}
+      },{
+          "id": "10", "label": "AuthorOf",
+          "source": "2", "target": "5",
+          "metadata": {}
+      }]
+    }
+}

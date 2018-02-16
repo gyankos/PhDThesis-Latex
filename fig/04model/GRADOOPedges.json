@@ -1,0 +1,22 @@
+[
+  { "id":"6", "source":"0", "destination":"3",
+    "data":{},
+    "meta":{"label":"AuthorOf","graphs":["11"]}
+  },{
+    "id":"7", "source":"1", "destination":"3",
+    "data":{},
+    "meta":{"label":"AuthorOf","graphs":["11"]}
+  },{
+     "id":"8", "source":"1", "destination":"4",
+     "data":{},
+     "meta":{"label":"AuthorOf","graphs":["11"]}
+  },{
+    "id":"9","source":"2","destination":"4",
+    "data":{},
+    "meta":{"label":"AuthorOf","graphs":["11"]}
+  },{
+    "id":"10","source":"2","destination":"3",
+    "data":{},
+    "meta":{"label":"AuthorOf","graphs":["11"]}
+  }
+]

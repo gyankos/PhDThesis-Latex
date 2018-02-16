@@ -1,0 +1,53 @@
+\documentclass[9pt]{standalone}
+
+
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{eurosym}
+\usepackage{textcomp}
+\usepackage{amssymb}
+
+\usepackage{tikz}
+\tikzstyle{none}=[inner sep=0pt]
+\tikzstyle{new}=[circle,fill=white,draw=black]
+\tikzstyle{smallnode}=[circle, inner sep=0mm, outer sep=0mm, minimum size=2mm, draw=black, fill=black]
+\tikzstyle{unselected}=[circle,draw=black,dashed]
+
+
+\usepackage{preview}
+\usetikzlibrary{automata,arrows,backgrounds,positioning,fit,calc}
+\PreviewEnvironment{tikzpicture}
+
+\tikzstyle{every node}=[font=\small]
+\tikzset{>=latex}
+\tikzstyle{user}[red] = [draw=#1,rounded corners,align=center,label={north:\{User\}}]
+
+\newcommand{\propval}[2]{\textsc{#1}=\textit{#2}}
+\newcommand{\user}[2]{\propval{Name}{#1}}
+\newcommand{\paper}[2]{\propval{Title}{#1}\\ \propval{Conference}{#2}}
+
+\begin{document}
+	\begin{tikzpicture}
+	
+	
+	
+	%\begin{scope}[yshift=-5.5cm,xshift=12cm]
+\clip (0.3,-2.5) rectangle (7.7, 1);
+\node[user] (a1) at (2,.25) {\user{Alice}{$t_1$}};
+\node[user] (a3) at (2,-2.25) {\user{Carl}{$t_1$}};
+\node[user] (a2) at (6.3,.25) {\user{Bob}{$t_2$}};
+\node[user] (a4) at (6.3,-2.25) {\user{Dan}{$t_2$}};
+	
+\path[->,orange] (a1.north east) edge node [anchor=south,sloped] {\{Follows\}} (a2.north west);
+\path[->,orange] (a2.south east) edge  node [anchor=south,sloped] {\{Follows\}\qquad} (a4.north east);
+\path[<-,orange] (a3.north west) edge node [anchor=north,sloped] {\{Follows\}\qquad} (a1.south west);
+\path[<-,orange] (a3.east) edge node [anchor=south,sloped] {\{Follows\}\qquad} (a4);
+%\path[<->,orange] (a3.north west) edge node [=south,sloped] {\{Follows\}\qquad} (a1.south west);
+	
+	
+	%\end{scope}
+	
+	\end{tikzpicture}
+\end{document}
+

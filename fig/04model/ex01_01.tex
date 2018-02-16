@@ -1,0 +1,121 @@
+\documentclass[tikz]{standalone}
+\usepackage[zerostyle=c,scaled=1.1]{newtxtt}
+\usetikzlibrary{matrix}
+\usetikzlibrary{fit}
+\begin{document}
+	\tikzset{
+		entity/.code={
+			\tikzset{
+				rounded corners,             
+				name=#1,
+				inner sep=2pt,
+				every entity/.try,
+			}%
+			\def\entityname{#1}%
+		},
+		entity anchor/.style={matrix anchor=#1},
+		every property/.style={
+			inner xsep=0.20cm, inner ysep=0.075cm, anchor=center
+		}
+	}
+	\def\property#1{\node[name=\entityname-#1, every property/.try]{\propertysplit#1;};}
+	\def\properties{\begingroup\catcode`\_=11\relax\processproperties}
+	\def\processproperties#1{\endgroup%
+		\gdef\propertycode{}%
+		\foreach \p in {#1}{%
+			\expandafter\expandafter\expandafter\gdef\expandafter\expandafter\expandafter\propertycode%
+			\expandafter\expandafter\expandafter{\expandafter\propertycode\expandafter\property\expandafter{\p}\\}%
+		}%
+		\propertycode%
+	}
+	\def\propertysplit#1:#2;{\textbf{#1}:#2}
+	
+	\def\entitynamenode{%
+		\node[every entity name/.try] (\entityname-name) {\textbf{\entityname}};
+		\draw (\entityname-name.south west) -- (\entityname-name.south east);
+		\\[1ex]
+	}
+	\tikzset{
+		every entity name/.style={every property/.try, align=center}
+	}
+	
+	\begin{tikzpicture}[every node/.style={font=\ttfamily}]
+	
+	
+	\matrix [entity=User,draw=red,label=south:{\quad\qquad\qquad\qquad\qquad1}] (a1) {
+		\entitynamenode
+		\properties{
+			Name : Abigail,
+			Surname : Jones
+		}
+	};
+	
+	\matrix [entity=User,draw=red,label=south:{\quad\qquad\qquad\qquad\qquad5}] at (10,0) (a5) {
+		\entitynamenode
+		\properties{
+			Name : Baldwin,
+			Surname : Smith
+		}
+	};
+	
+	\matrix [entity=User,draw=red,label={[align=center]east:\quad\\\quad\\2}] at (0,-3) (a2) {
+		\entitynamenode
+		\properties{
+			Name : Caitlin,
+			Surname : Abbott
+		}
+	};
+	
+	\matrix [entity=User,draw=red,label={[align=center]east:\quad\\\quad\\7}] at (0,-6) (a7) {
+		\entitynamenode
+		\properties{
+			Name : Damon,
+			Surname : Brent
+		}
+	};
+	
+	\matrix [entity=User,draw=red,label={[align=center]east:\quad\\\quad\\6}] at (5,-2) (a6) {
+		\entitynamenode
+		\properties{
+			Name : Ella,
+			Surname : Chester
+		}
+	};
+	
+	\matrix [entity=User,draw=red,label={[align=center]east:\quad\\\quad\\4}] at (5,-6) (a4) {
+		\entitynamenode
+		\properties{
+			Name : Francis,
+			Surname : Bloxam
+		}
+	};
+	
+	\matrix [entity=User,draw=red,label={[align=center]east:\quad\\\quad\\3}] at (10,-6) (a3) {
+		\entitynamenode
+		\properties{
+			Name : Francis,
+			Surname : McKellar
+		}
+	};
+	
+	%\matrix [entity=ResearchGate,color=green] at (5,-3) (L) {
+	%	\entitynamenode
+	%};
+	%\node [entity,draw=green,opacity=0.7,fit=(a1) (a2) (a3),label=south east:{1}] (L) {
+%
+%	};
+	
+	\draw[-latex] (a5) -- (a1) node [above,midway] { Follows  };
+	\draw[-latex] (a5) -- (a6) node [above,midway,sloped] { Follows  };
+	\draw[-latex] (a6) -- (a1) node [above,midway,sloped] { Follows  };
+	\draw[-latex] (a3) -- (a6.south east) node [above,midway,sloped] { Follows  };
+	\draw[-latex] (a3) -- (a5) node [above,midway,sloped] { Follows  };
+	\draw[-latex] (a1.south east) edge [bend right] node [above,midway,sloped] { Follows  } (a3.north west) ;
+	\draw[-latex] (a2) -- (a1) node [above,midway,sloped] { Follows  };
+	\draw[-latex] (a2) -- (a4) node [above,midway,sloped] { Follows  };
+	\draw[-latex] (a4) -- (a7) node [above,midway,sloped] { Follows  };
+	\draw[-latex] (a3) -- (a4) node [above,midway,sloped] { Follows  };
+
+	\end{tikzpicture}   
+	
+\end{document}

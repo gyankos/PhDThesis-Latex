@@ -1,0 +1,135 @@
+% Interaction diagram
+% Author: Pascal Seppecher
+% Based on diagram from Marco Miani.
+\documentclass[tikz]{standalone}
+\newcommand{\MonetaryLevel}{Monetary level}
+\newcommand{\RealLevel}{Real level}
+\newcommand{\Firms}{Firms}
+\newcommand{\Households}{Households}
+\newcommand{\Banks}{Banks}
+\newcommand{\Commodities}{Commodities}
+\newcommand{\LaborPower}{Labor power}
+\newcommand{\Wages}{Wages}
+\newcommand{\Consumption}{Consumption}
+\newcommand{\Credits}{Credits}
+\newcommand{\Withdrawals}{Withdrawals}
+\newcommand{\Deposits}{Deposits}
+\newcommand{\Repayments}{Repayments}
+
+
+\usetikzlibrary{matrix,node-families,positioning-plus,paths.ortho}
+\colorlet{myRed}{red!20}
+\colorlet{myBlue}{blue!20}
+\tikzset{
+	rows/.style 2 args={/utils/temp/.style={row ##1/.append style={nodes={#2}}},
+		/utils/temp/.list={#1}},
+	columns/.style 2 args={/utils/temp/.style={column ##1/.append style={nodes={#2}}},
+		/utils/temp/.list={#1}}}
+\makeatletter
+\tikzset{anchor/.append code=\let\tikz@auto@anchor\relax,
+	add font/.code=%
+	\expandafter\def\expandafter\tikz@textfont\expandafter{\tikz@textfont#1},
+	left delimiter/.style 2 args={append after command={\tikz@delimiter{south east}
+			{south west}{every delimiter,every left delimiter,#2}{south}{north}{#1}{.}{\pgf@y}}}}
+\makeatother
+
+\tikzstyle{place}=[circle,thick,draw=blue!75,fill=blue!20,minimum size=6mm]
+\tikzstyle{red place}=[place,draw=red!75,fill=red!20]
+\tikzstyle{green place}=[place,draw=green!75,fill=green!20]
+\tikzstyle{transition}=[rectangle,thick,draw=black!75,
+fill=black!20,minimum size=4mm]
+
+
+\begin{document}
+	
+	
+\begin{tikzpicture}[scale=1.1,on grid,
+my matrix/.style={
+	draw, matrix of nodes,
+	nodes={
+		Text Width/.expanded=\the\pgfmatrixcurrentcolumn,
+		inner xsep=.1\tabcolsep, inner ysep=+0pt, align=center},
+	inner sep=.1\pgflinewidth,
+	font=\strut\ttfamily,
+	rows={1}{fill=myRed}}
+]
+	\node at (-1.5,.1) {$V_{ResearchGate}$};
+	  \matrix[
+	  my matrix,
+	  columns={align=center}
+	  ] at (-1.5,-1.3)(m1) {
+	  \texttt{id}	 &  \textsc{Name} & $\ell_v$ \\
+		$6$ & Alice & \{User\}\\
+		$7$ & Bob  & \{User\}\\
+		$8$ & Carl & \{User\}\\
+		$9$ & Dan & \{User\}\\
+	  };
+	  
+	  \node at (-1.5,-3) {$E_{ResearchGate}$};
+	  \matrix[
+	  my matrix,
+	  columns={align=center},
+	  rows={1}{fill=myBlue}
+	  ] at (-1.5,-4.3)(e1) {
+	  \texttt{id}	&  \texttt{src} & \texttt{dst} & $\ell_e$ \\
+	  	$5$ & 6 & 7 & \{Follows\}\\
+	  	$6$ & 6 & 8 & \{Follows\}\\
+	  	$7$ & 7 & 9 & \{Follows\}\\
+	  	$8$ & 9 & 8 & \{Follows\}\\
+	  };
+	  
+	  \node at (6,.1) {$V_{Reference}$};
+	  \matrix[
+	  my matrix,
+	  columns={align=center},
+	  ] at (5,-1.3) (m2) {
+	  \texttt{id}	& \textsc{Title}& \textsc{Name} & $\ell_v$ \\
+	  	$1$ & Graphs & Alice & \{Paper\}\\
+	  	$2$ & Join & Alice & \{Paper\} \\
+	  	$3$ & OWL & Bob & \{Paper\}\\
+	  	$4$ & Project & Carl & \{Paper\}\\
+	  	$5$ & $\mu$-calc & Dan & \{Paper\}\\
+	  };
+	  
+	  \node at (6,-3) {$E_{Reference}$};
+	  \matrix[
+	  my matrix,
+	  columns={align=center},
+	  rows={1}{fill=myBlue}
+	  ] at (5,-4.3)(e2) {
+	  \texttt{id}	&  \texttt{src} & \texttt{dst} & $\ell_e$ \\
+	  	$1$ & 1 & 3 & \{Cites\}\\
+	  	$2$ & 2 & 4 & \{Cites\}\\
+	  	$3$ & 3 & 4 & \{Cites\}\\
+	  	$4$ & 4 & 5 & \{Cites\}\\
+	  };
+	  
+	  \path[->] (m1-2-3) edge node[above] {$\theta$} (m2-2-1);
+	  \path[->] (m1-2-3) edge  (m2-3-1);
+	  \path[->] (m1-3-3) edge node[above] {$\theta$} (m2-4-1);
+	  \path[->] (m1-4-3) edge node[above] {$\theta$} (m2-5-1);
+	  \path[->] (m1-5-3) edge node[above] {$\theta$} (m2-6-1);
+
+
+%%\path[->,very thick] (m1-2-1.west) edge [bend right=40] (e1-2-1.west);
+%%\path[->,very thick] (m1-2-1.west) edge [bend right=50] (e1-3-1.west);
+%%\path[->,very thick] (m1-3-1.west) edge [bend right=60] (e1-4-1.west);
+%%\path[->,very thick] (m1-5-1.west) edge [bend right=80] (e1-5-1.west);
+%%
+%%\path[->,very thick] (e1-2-4.east) edge [bend right=40] (m1-2-3.east);
+%%\path[->,very thick] (e1-3-4.east) edge [bend right=50] (m1-3-3.east);
+%%\path[->,very thick] (e1-4-4.east) edge [bend right=60] (m1-4-3.east);
+%%\path[->,very thick] (e1-5-4.east) edge [bend right=80] (m1-3-3.east);
+%%
+%%\path[->,very thick] (m2-2-1.west) edge [bend right=40] (e2-2-1.west);
+%%\path[->,very thick] (m2-3-1.west) edge [bend right=50] (e2-3-1.west);
+%%\path[->,very thick] (m2-4-1.west) edge [bend right=60] (e2-4-1.west);
+%%\path[->,very thick] (m2-5-1.west) edge [bend right=80] (e2-5-1.west);
+%%
+%%\path[->,very thick] (e2-2-4.east) edge [bend right=40] (m2-4-4.east);
+%%\path[->,very thick] (e2-3-4.east) edge [bend right=50] (m2-5-4.east);
+%%\path[->,very thick] (e2-4-4.east) edge [bend right=60] (m2-5-4.east);
+%%\path[->,very thick] (e2-5-4.east) edge [bend right=80] (m2-6-4.east);
+	
+\end{tikzpicture}
+\end{document}

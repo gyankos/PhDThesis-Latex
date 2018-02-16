@@ -1,0 +1,51 @@
+<Database>
+	<Vendor id="001">
+		<name>Abigail</name>
+		<surname>Conner</surname>
+		<gender>F</gender>
+		<salesOrder />
+	</Vendor>
+	<Vendor id="002">
+		<name>Baldwin</name>
+		<surname>Oliver</surname>
+		<gender>M</gender>
+		<salesOrders>
+			<saleOrder id="100">
+				<date>30-Dic-2016</date>
+				<deliveryDate>2-Oct-2017</deliveryDate>
+			</saleOrder>
+			<saleOrder id="102">
+				<date>13-May-2017</date>
+				<deliveryDate>14-May-2017</deliveryDate>
+			</saleOrder>
+		</salesOrders>
+	</Vendor>
+	<Vendor id="003">
+		<name>Cassie</name>
+		<surname>Norman</surname>
+		<gender>F</gender>
+		<salesOrder />
+	</Vendor>
+	<Vendor id="004">
+		<name>Darcy</name>
+		<surname>Parker</surname>
+		<gender>M</gender>
+		<salesOrders>
+			<saleOrder id="101">
+				<date>5-Jan-2017</date>
+				<deliveryDate>12-Feb-2017</deliveryDate>
+			</saleOrder>
+		</salesOrders>
+	</Vendor>
+	<Vendor id="005">
+		<name>Edmund</name>
+		<surname>Spencer</surname>
+		<gender>M</gender>
+		<salesOrders>
+			<saleOrder id="103">
+				<date>13-Jun-2017</date>
+				<deliveryDate>1-Aug-2017</deliveryDate>
+			</saleOrder>
+		</salesOrders>
+	</Vendor>
+</Database>

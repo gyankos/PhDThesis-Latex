@@ -1,0 +1,106 @@
+% Interaction diagram
+% Author: Pascal Seppecher
+% Based on diagram from Marco Miani.
+\documentclass[tikz]{standalone}
+\usepackage{tikz}
+\usepackage{amssymb}
+
+\usetikzlibrary{decorations.pathmorphing}
+\def\ojoin{\setbox0=\hbox{$\bowtie$}%
+	\rule[-.02ex]{.25em}{.4pt}\llap{\rule[\ht0]{.25em}{.4pt}}}
+\def\leftouterjoin{\mathbin{\ojoin\mkern-5.8mu\bowtie}}
+\def\rightouterjoin{\mathbin{\bowtie\mkern-5.8mu\ojoin}}
+\def\fullouterjoin{\mathbin{\ojoin\mkern-5.8mu\bowtie\mkern-5.8mu\ojoin}}
+\usetikzlibrary{positioning}
+\newcommand{\MonetaryLevel}{Monetary level}
+\newcommand{\RealLevel}{Real level}
+\newcommand{\Firms}{Firms}
+\newcommand{\Households}{Households}
+\newcommand{\Banks}{Banks}
+\newcommand{\Commodities}{Commodities}
+\newcommand{\LaborPower}{Labor power}
+\newcommand{\Wages}{Wages}
+\newcommand{\Consumption}{Consumption}
+\newcommand{\Credits}{Credits}
+\newcommand{\Withdrawals}{Withdrawals}
+\newcommand{\Deposits}{Deposits}
+\newcommand{\Repayments}{Repayments}
+\usetikzlibrary{arrows.meta}
+
+\newcommand{\yslant}{0.6}
+\newcommand{\xslant}{-0.8}
+\usetikzlibrary{calc,intersections,arrows.meta}
+\usepackage{tikz-3dplot}
+
+\usetikzlibrary{matrix,node-families,positioning-plus,paths.ortho}
+\colorlet{myRed}{red!20}
+\tikzset{
+	rows/.style 2 args={/utils/temp/.style={row ##1/.append style={nodes={#2}}},
+		/utils/temp/.list={#1}},
+	columns/.style 2 args={/utils/temp/.style={column ##1/.append style={nodes={#2}}},
+		/utils/temp/.list={#1}}}
+\makeatletter
+\tikzset{anchor/.append code=\let\tikz@auto@anchor\relax,
+	add font/.code=%
+	\expandafter\def\expandafter\tikz@textfont\expandafter{\tikz@textfont#1},
+	left delimiter/.style 2 args={append after command={\tikz@delimiter{south east}
+			{south west}{every delimiter,every left delimiter,#2}{south}{north}{#1}{.}{\pgf@y}}}}
+\makeatother
+
+
+\begin{document}
+	
+	
+\begin{tikzpicture}[scale=1.1,on grid,
+my matrix/.style={
+	draw, matrix of nodes,
+	nodes={
+		Text Width/.expanded=\the\pgfmatrixcurrentcolumn,
+		inner xsep=.1\tabcolsep, inner ysep=+0pt, align=center},
+	inner sep=.1\pgflinewidth,
+	font=\strut\ttfamily,
+	rows={1}{fill=myRed}}]
+
+
+\tikzstyle{place}=[circle,thick,draw=blue!75,fill=blue!20,minimum size=6mm]
+\tikzstyle{red place}=[place,draw=red!75,fill=red!20]
+\tikzstyle{green place}=[place,draw=green!75,fill=green!20]
+\tikzstyle{transition}=[rectangle,thick,draw=black!75,
+fill=black!20,minimum size=4mm]
+
+
+	
+
+	\begin{scope}[every node/.style={minimum size=1cm,node distance=2cm},
+		xshift=120,
+		%every node/.append style={yslant=\yslant,xslant=\xslant},
+		%yslant=\yslant,xslant=\xslant
+		]
+		\draw[black, thin] (-0.5,-0.5) rectangle (3.1,2.5); 
+		%\node[align=center] at (0.5,.95) {$G_1\rightouterjoin_{\theta'}^D G_2$\\$\backslash^E$\\$G_1\rightouterjoin_{\theta'} G_2$};
+		% Agents:
+		\node [place] (u1) {$w_1$};
+		\node [place] (w2) [right of=u1] {$w_2$};
+		%\node [place] (v2) at (2.7,0) {$v_2$};
+		\node [place] (u4) [above of=u1] {$z_4$};
+		\node [place] (u3) [above of=w2] {$z_3$};
+		\draw[-latex] decorate [decoration={snake}] {(u1) -- (w2)};
+		%\draw[-latex] (u4) -- (u3);
+				\draw[-latex] decorate [decoration={snake}] {(w2)--(u3)};
+				%\draw[-latex] decorate [decoration={zigzag}] {(u3)--(v2)};
+	\end{scope} 
+	
+	  \matrix[
+	  my matrix,
+	  columns={align=center},
+	  ] at (5.5,-1.8)(m2) {
+	  	&  \texttt{User} & \texttt{MsgTime1} & \texttt{MsgTime2}  \\
+	  	$w_1$ & Dan & \texttt{NULL} & 6\\
+	  	$w_2$ & Alice & \texttt{NULL}& 7\\
+	  	$z_3$ & Bob  & 3 & 3\\
+	  	$z_4$ & Carl & 2 & 2\\
+	  };
+		
+	
+\end{tikzpicture}
+\end{document}

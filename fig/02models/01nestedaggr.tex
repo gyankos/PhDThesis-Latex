@@ -1,0 +1,68 @@
+\documentclass{standalone}
+\usepackage{array}
+\usepackage[table]{xcolor}
+\usepackage{eulervm}
+\usepackage[osf,sc]{mathpazo}
+\usepackage{inconsolata}
+
+\begin{document}
+
+\begingroup
+\renewcommand\arraystretch{1.3}
+\noindent\begin{tabular}{
+  | >{\ttfamily\raggedright}c
+  | >{\ttfamily\raggedright}c
+  | >{\sffamily\raggedright}c
+  | >{\sffamily\raggedright}c
+  | >{\sffamily}c |
+}
+\hline
+\rowcolor{gray!20}\multicolumn{1}{|l|}{\bfseries\sffamily \texttt{id}}
+  & \multicolumn{1}{|l|}{\bfseries\sffamily \texttt{name}}
+  & \multicolumn{1}{l|}{\bfseries\sffamily \texttt{surname}}
+  & \multicolumn{1}{l|}{\bfseries\sffamily \texttt{gender}}
+  & \multicolumn{1}{l|}{\bfseries\sffamily \texttt{salesOrders(id,date,deliveryDate)}} \\
+\hline
+001 & Abigail & Conner & F & \\
+\hline
+002 & Baldwin & Oliver & M &  \begin{tabular}[t]{
+		| >{\ttfamily\raggedright}c
+		| >{\ttfamily\raggedright}c
+		| >{\ttfamily\raggedright}c |
+	}
+	\firsthline
+	\multicolumn{1}{|l|}{\cellcolor{gray!20}\bfseries id} & \multicolumn{1}{l|}{\cellcolor{gray!20}\bfseries date} & \multicolumn{1}{l|}{\cellcolor{gray!20}\bfseries deliveryDate} \\
+	\hline
+	100 & 30-Dic-2016 & 2-Oct-2017 \cr
+	\hline
+	102 & 13-May-2017 & 14-May-2017 \cr
+\end{tabular} \\
+\hline
+003 & Cassie & Norman & F & \\
+\hline
+004 & Darcy & Parker & M &  \begin{tabular}[t]{
+		| >{\ttfamily\raggedright}c
+		| >{\ttfamily\raggedright}c
+		| >{\ttfamily\raggedright}c |
+	}
+	\firsthline
+	\multicolumn{1}{|l|}{\cellcolor{gray!20}\bfseries id} & \multicolumn{1}{l|}{\cellcolor{gray!20}\bfseries date} & \multicolumn{1}{l|}{\cellcolor{gray!20}\bfseries deliveryDate} \\
+	\hline
+	101 & 5-Jan-2017 & 12-Feb-2017 \cr
+\end{tabular} \\
+\hline
+005 & Edmund & Spencer & M &  \begin{tabular}[t]{
+		| >{\ttfamily\raggedright}c
+		| >{\ttfamily\raggedright}c
+		| >{\ttfamily\raggedright}c |
+	}
+	\firsthline
+	\multicolumn{1}{|l|}{\cellcolor{gray!20}\bfseries id} & \multicolumn{1}{l|}{\cellcolor{gray!20}\bfseries date} & \multicolumn{1}{l|}{\cellcolor{gray!20}\bfseries deliveryDate} \\
+	\hline
+	103 & 13-Jun-2017 & 1-Aug-2017 \cr
+\end{tabular} \\
+\hline
+\end{tabular}
+\endgroup
+
+\end{document}

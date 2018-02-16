@@ -1,0 +1,117 @@
+\documentclass[tikz]{standalone}
+\usepackage[zerostyle=c,scaled=1.1]{newtxtt}
+\usetikzlibrary{matrix}
+\usetikzlibrary{fit}
+\begin{document}
+	\tikzset{
+		entity/.code={
+			\tikzset{
+				rounded corners,             
+				name=#1,
+				inner sep=2pt,
+				every entity/.try,
+			}%
+			\def\entityname{#1}%
+		},
+		entity anchor/.style={matrix anchor=#1},
+		every property/.style={
+			inner xsep=0.20cm, inner ysep=0.075cm, anchor=center
+		}
+	}
+	\def\property#1{\node[name=\entityname-#1, every property/.try]{\propertysplit#1;};}
+	\def\properties{\begingroup\catcode`\_=11\relax\processproperties}
+	\def\processproperties#1{\endgroup%
+		\gdef\propertycode{}%
+		\foreach \p in {#1}{%
+			\expandafter\expandafter\expandafter\gdef\expandafter\expandafter\expandafter\propertycode%
+			\expandafter\expandafter\expandafter{\expandafter\propertycode\expandafter\property\expandafter{\p}\\}%
+		}%
+		\propertycode%
+	}
+	\def\propertysplit#1:#2;{\textbf{#1}:#2}
+	
+	\def\entitynamenode{%
+		\node[every entity name/.try] (\entityname-name) {\textbf{\entityname}};
+		\draw (\entityname-name.south west) -- (\entityname-name.south east);
+		\\[1ex]
+	}
+	\tikzset{
+		every entity name/.style={every property/.try, align=center}
+	}
+	
+	\begin{tikzpicture}[every node/.style={font=\ttfamily}]
+	
+	
+	%% GREEN
+	\matrix [entity=Community,draw=green,densely dotted,line width=4pt,label=south:{\quad\qquad\qquad\qquad\qquad8}] (GREEN) {
+		\entitynamenode
+		\properties{
+			UserCount : 5
+		}
+	};
+	
+	%% BLUE
+	\matrix [entity=Community,draw=blue,line width=4pt,label=south:{\quad\qquad\qquad\qquad\qquad9}] at (10,0) (BLUE) {
+		\entitynamenode
+		\properties{
+			UserCount : 3
+		}
+	};
+	
+	%% RED
+	\matrix [entity=Community,draw=red,loosely dotted,line width=4pt,label=south:{\quad\qquad\qquad\qquad\qquad10}] at (10,-6) (RED) {
+		\entitynamenode
+		\properties{
+			UserCount : 3
+		}
+	};
+	
+	\matrix [entity=User,draw=red,label={[align=center]east:\quad\\\quad\\7}] at (0,-6) (a7) {
+		\entitynamenode
+		\properties{
+			Name : Damon,
+			Surname : Brent
+		}
+	};
+	
+	\draw[-latex] (GREEN) -- node [below,sloped,align=center,fill=white,draw=black] 
+	{ \small{\underline{\textbf{Follows}}}
+	} ++ (a7) ;
+	
+	\draw[-latex] (GREEN) -- node [above,sloped,align=center,fill=white,draw=black] 
+	{ \small{\underline{\textbf{Follows}}} 
+	} 
+	++ (BLUE) ;
+	
+	\draw[-latex] (BLUE) edge [bend right]
+	               node [above,align=center,fill=white,draw=black] 
+	               { \small{\underline{\textbf{Follows}}}
+	               } 
+	          (GREEN);
+	
+	\draw[-latex] (GREEN) edge [bend right=17] 
+	               node [below,align=center,fill=white,draw=black,sloped] {\small{\underline{\textbf{Follows}}}}
+	          (RED) ;
+	          
+	\draw[-latex] (RED) edge [bend right=17] 
+	          node [above,sloped,align=center,fill=white,draw=black] 
+	          {\small{\underline{\textbf{Follows}}}
+	          }
+	          (GREEN) ;
+	          
+	\draw[-latex] (BLUE) -- 
+	node [above,sloped,align=center,fill=white,draw=black] 
+	{ \small{\underline{\textbf{Follows}}}
+	} ++(RED);
+
+	\draw[-latex] (RED) edge [bend right=80] 
+	               node [below,sloped,align=center,fill=white,draw=black] 
+	               { \small{\underline{\textbf{Follows}}} 
+	               }
+	         (BLUE);
+
+	
+
+	\end{tikzpicture}   
+	
+\end{document}

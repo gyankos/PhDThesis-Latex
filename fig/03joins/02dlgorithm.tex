@@ -1,0 +1,17 @@
+\documentclass{standalone}
+\input{tikz.conf}
+\usepackage{multicol}
+\usepackage{amsmath}
+\begin{document}
+\begin{tikzpicture}
+	\begin{scope}[start chain,node distance=0cm,yshift=70,xshift=-23,minimum height=1.5em]
+\node[label=above:{\textit{V}},draw,fill=yellow!30,on chain] (v1) {1$\oplus$1};
+\node[label=above:{\textit{E}},draw,fill=teal!30,on chain] (hx) {1$\oplus$1};
+\node[label=above:{\textit{V}},draw,fill=yellow!30,on chain] (v1) {1$\oplus$2};
+\node[label=above:{\textit{E}},draw,fill=teal!30,on chain] (hx) {2$\oplus$2};
+\node[label=above:{\textit{V}},draw,fill=yellow!30,on chain] (v1) {3$\oplus$4};
+\node[label=above:{\textit{V}},draw,fill=yellow!30,on chain] (v1) {2$\oplus$3};
+\node[label=above:{\textit{V}},draw,fill=yellow!30,on chain] (v1) {4$\oplus$5};
+\end{scope};
+\end{tikzpicture}
+\end{document}

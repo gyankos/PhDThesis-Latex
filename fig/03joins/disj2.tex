@@ -1,0 +1,62 @@
+\documentclass[9pt]{standalone}
+
+
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{eurosym}
+\usepackage{textcomp}
+\usepackage{amssymb}
+
+\usepackage{tikz}
+\tikzstyle{none}=[inner sep=0pt]
+\tikzstyle{new}=[circle,fill=white,draw=black]
+\tikzstyle{smallnode}=[circle, inner sep=0mm, outer sep=0mm, minimum size=2mm, draw=black, fill=black]
+\tikzstyle{unselected}=[circle,draw=black,dotted]
+
+
+\usepackage{preview}
+\usetikzlibrary{automata,arrows,backgrounds,positioning,fit,calc}
+\PreviewEnvironment{tikzpicture}
+
+\tikzstyle{every node}=[font=\small]
+\tikzset{>=latex}
+\tikzstyle{user}[red] = [draw=#1,rounded corners,align=center,label={north:\{Employee\}}]
+\tikzstyle{proj}[blue] = [draw=#1,rounded corners,align=center,label={north:\{User,Paper\}}]
+
+\newcommand{\propval}[2]{\textsc{#1}=\textit{#2}}
+\newcommand{\user}[2]{\propval{Name}{#1}}
+\newcommand{\proj}[2]{\propval{Title}{#2}\\ \propval{1Author}{#1}\\ \propval{Name}{#1}}
+
+\begin{document}
+	\begin{tikzpicture}
+	
+	
+	
+	%\begin{scope}[yshift=-5.5cm,xshift=12cm]
+\clip (-0.2,-4.25) rectangle (12.1, 2);
+\node[proj] (a1) at (1.7,0) {\proj{Alice}{Graphs}};
+\node[proj] (a2) at (5.5,0) {\proj{Alice}{Join}};
+\node[proj] (a4) at (1.7,-2.7) {\proj{Carl}{Projection}};
+\node[proj] (a3) at (10.3,0) {\proj{Bob}{OWL}};
+\node[proj] (a5) at (10.3,-2.7) {\proj{Dan}{$\mu$-calc}};
+	
+\path[->,purple!60!orange,very thick,dotted] (a1.north east) edge [bend left=33] node [anchor=south,sloped] {\{Follows,Cites\}} (a3.north west);
+\path[->,orange] (a2) edge node [anchor=south,sloped] {\{Follows\}} (a3);
+\path[->,orange] (a1.south west) edge node [anchor=north,sloped] {\{Follows\}} (a4.north west);
+\path[->,orange] (a3.south east) edge node [anchor=south,sloped] {\{Follows\}} (a5.north east);
+\path[->,orange] (a5.south west) edge node [anchor=south,sloped] {\{Follows\}} (a4.south east);
+\path[->,purple!60!orange,very thick,dotted] (a2) edge  node [anchor=north,sloped] {\{Follows,Cites\}} (a4.north east);
+\path[->,purple] (a4.south east) edge [bend right] node [anchor=south,sloped] {\{Cites\}} (a5.south west);	
+\path[->,purple] (a3) edge  node [anchor=north,sloped] {\{Cites\}} (a4.east);
+
+	
+%\path[->,purple!60!orange,very thick,dotted] (a1.north east) edge [bend left=33] node [anchor=south,sloped] {\{Cites,Coact\}} (a2.north west);
+%\path[<-,purple!60!orange,very thick,dotted] (a3.north west) edge [bend left] node [anchor=north,sloped] {\{Cites,Coact\}\qquad} (a1b.south west);
+%\path[->,purple!60!orange,very thick,dotted] (a4.north west) edge node [anchor=south,sloped] {\{Cites,Coact\}\qquad} (a1b.south east);
+%	\path[->,purple!60!orange,very thick,dotted] (a4.north west) edge [bend left] node [anchor=north,sloped] {\{Cites,Coact\}\qquad} (a1.east);
+	%\end{scope}
+	
+	\end{tikzpicture}
+\end{document}
+
