@@ -1,2 +1,18 @@
 \BOOKMARK [0][]{chapter.1}{1 Introduction}{}% 1
 \BOOKMARK [1][-]{section.1.1}{1.1 Graph Data: Use Cases}{chapter.1}% 2
+\BOOKMARK [-1][]{part.1}{I Related Works}{}% 3
+\BOOKMARK [0][]{chapter.2}{2 Data integration: a data representation-independent approach}{part.1}% 4
+\BOOKMARK [1][-]{section.2.1}{2.1 Preliminaries: data representation dependent approach}{chapter.2}% 5
+\BOOKMARK [2][-]{subsection.2.1.1}{2.1.1 Structured Data integration: Integrating entities represented with different schemas}{section.2.1}% 6
+\BOOKMARK [2][-]{subsection.2.1.2}{2.1.2 Semistructured Data Integration: Integrating multiple relations into a common representation}{section.2.1}% 7
+\BOOKMARK [2][-]{subsection.2.1.3}{2.1.3 Structured and Semistructured data integration: schema alignment as a data cleaning step}{section.2.1}% 8
+\BOOKMARK [2][-]{subsection.2.1.4}{2.1.4 Integrating unstructured data via semistructured representation}{section.2.1}% 9
+\BOOKMARK [2][-]{subsection.2.1.5}{2.1.5 Alignign \(Nested\) Graphs}{section.2.1}% 10
+\BOOKMARK [1][-]{section.2.2}{2.2 In-Database Integration}{chapter.2}% 11
+\BOOKMARK [2][-]{subsection.2.2.1}{2.2.1 Preliminaries: towards a uniform data representation}{section.2.2}% 12
+\BOOKMARK [2][-]{subsection.2.2.2}{2.2.2 Aggregations}{section.2.2}% 13
+\BOOKMARK [1][-]{section.2.3}{2.3 Integration among different databases}{chapter.2}% 14
+\BOOKMARK [2][-]{subsection.2.3.1}{2.3.1 Preliminaries: Description Logic and Ontologies}{section.2.3}% 15
+\BOOKMARK [2][-]{subsection.2.3.2}{2.3.2 Ontology Alignments and Data Integration}{section.2.3}% 16
+\BOOKMARK [2][-]{subsection.2.3.3}{2.3.3 Query Rewriting}{section.2.3}% 17
+\BOOKMARK [1][-]{section.2.4}{2.4 Conclusions}{chapter.2}% 18

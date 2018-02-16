@@ -1,0 +1,70 @@
+\documentclass[crop=false]{standalone}
+\usepackage{geometry}
+\usepackage{stix}
+\usepackage{amssymb}
+\geometry{paperwidth=77mm,paperheight=30mm,scale=1,showframe}
+\usepackage[table]{xcolor}
+\usepackage{array,tikz}
+\usepackage{inconsolata}
+\newcolumntype{s}{>{\sffamily\arraybackslash}c}
+\newenvironment{groupme}{}{}
+\newcommand\headcell[1]{%
+  \multicolumn{1}{l|}{\bfseries #1}%
+}
+\newcommand\firstheadcell[1]{%
+  \multicolumn{1}{|l|}{\bfseries #1}%
+}
+\newcommand\firstsubheadcell[1]{%
+  \multicolumn{1}{|l|}{\cellcolor{gray!20}\bfseries #1}%
+}
+\newcommand\subheadcell[1]{%
+  \multicolumn{1}{l|}{\cellcolor{gray!20}\bfseries #1}%
+}
+\usetikzlibrary{positioning,arrows.meta,tikzmark,decorations.pathreplacing}
+\newcommand\markme[2][]{%
+  \tikzmark{#2#1-l}#2\tikzmark{#2#1-r}%
+}
+\standaloneenv{groupme}
+\begin{document}
+%\begin{groupme}
+  \renewcommand\arraystretch{1.3}%
+  \ttfamily
+  \noindent\tikzmark{B}\begin{tabular}{ | *{2}{c|}  }
+    \hline
+    \rowcolor{gray!20}\firstheadcell{\markme{type}}
+    & \headcell{\markme{$\boxbar$ quantity}} \\
+    \hline
+    House Cleaner &  \begin{tabular}[t]{ | *{2}{l|} }
+      \firsthline
+      \firstsubheadcell{category} & \subheadcell{$\boxplus$ quantity}\\
+      \hline
+      Cleaner & 1 \cr
+      \hline
+      Soap & 11\\
+    \end{tabular} \\
+    \hline
+    Food &  $\boxplus$ 3 \\
+    		\hline
+  \end{tabular}\tikzmark{E}%
+  \begin{tikzpicture}[overlay, remember picture, font=\sffamily]
+    \foreach \i in {B,E,b,s,n} {
+      \coordinate (\i) at ({pic cs:\i});
+%       \node [font=\tiny, red] at (\i) {\i};
+    }
+    \foreach \i in {name,id,salesOrders,gender,surname} {
+      \foreach \j in {l,r}
+      {
+        \coordinate (\i-\j) at ({pic cs:\i-\j});
+%         \node [font=\tiny, red] at (\i-\j) {\i-\j};
+      }
+    }
+    %\path [draw, thick, decorate, decoration={brace, mirror, amplitude=10pt}] ([xshift=-2.5pt, yshift=2.5ex]id-l -| B) coordinate (tl) -- ([yshift=-1ex]b -| tl) coordinate (bl) node [midway, xshift=-10pt, rotate=90, anchor=south] {Relation};
+    %\draw [Latex-Latex, thick, red] ([xshift=2.5pt]n -| E) coordinate (nr) -| ([xshift=15pt]s -| nr) coordinate [pos=.75] (c) -- (s -| nr) coordinate (sr);
+    %\draw [thick, red] (c) -| ([xshift=10pt, yshift=-10pt]c |- bl) coordinate (c1) -| (c1 -| b) -- ++(0,-5pt) node [below, anchor=north] {Conflicting IDs!!};
+    %\node (a) [rounded corners, top color=blue!50!cyan!75, bottom color=blue!50!cyan, text=white, draw=blue!50!cyan, thick, above=20mm of gender-r |- tl] {Attributes};
+    %\draw [thick, -Latex] (a) edge (id-l |- tl) edge (name-r |- tl) edge (surname-r |- tl) edge (gender-r |- tl) -- (salesOrders-r |- tl);
+  \end{tikzpicture}%
+%\end{groupme}
+%\vfill
+%\clearpage
+\end{document}

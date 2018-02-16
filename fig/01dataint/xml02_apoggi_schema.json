@@ -1,0 +1,18 @@
+{
+  "hospital": {
+    "patient": [{
+      "SSN": SSNID,
+      "Surname": Str,
+      "Name": Str,
+      "cure": Integer
+    }*],
+    "treatment": [{
+      "trId": Integer,
+      "description": Str
+    }*],
+    "ward": [{
+      "name": Str,
+      "admitted": SSNID
+    }*]
+  }
+}

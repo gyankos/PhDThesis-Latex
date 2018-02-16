@@ -1,0 +1,46 @@
+\documentclass[tikz]{standalone}
+\usepackage{eulervm}
+\usepackage[osf,sc]{mathpazo}
+\usepackage{inconsolata}
+\usetikzlibrary{matrix,node-families,positioning-plus,paths.ortho}
+\colorlet{myRed}{red!20}
+\colorlet{myBlue}{blue!40}
+\tikzset{
+  rows/.style 2 args={/utils/temp/.style={row ##1/.append style={nodes={#2}}},
+    /utils/temp/.list={#1}},
+  columns/.style 2 args={/utils/temp/.style={column ##1/.append style={nodes={#2}}},
+    /utils/temp/.list={#1}}
+}
+\makeatletter
+\tikzset{anchor/.append code=\let\tikz@auto@anchor\relax,
+  add font/.code=%
+    \expandafter\def\expandafter\tikz@textfont\expandafter{\tikz@textfont#1},
+  left delimiter/.style 2 args={append after command={\tikz@delimiter{south east}
+    {south west}{every delimiter,every left delimiter,#2}{south}{north}{#1}{.}{\pgf@y}}}}
+\makeatother
+\begin{document}
+\begin{tikzpicture}[
+  >=latex, node distance=4cm,
+  entity/.style={
+    draw, matrix of nodes,
+    nodes={
+      Text Width/.expanded=4\tikzmatrixname,
+      inner xsep=+.5\tabcolsep, inner ysep=+0pt, align=left},
+    inner sep=.5\pgflinewidth,
+    font=\strut\ttfamily,anchor=base,
+    rows={1}{fill=myRed}}
+  ]
+  \matrix[entity] (m1) {
+    type & category & product \\
+    House Cleaner & Cleaner & Shiny \\
+    House Cleaner & Cleaner & Brighty \\
+    House Cleaner & Soap & Clean Hand \\
+    House Cleaner & Soap & Marseille \\
+    Food & Diary Product & Milk \\
+    Food & Diary Product & Yogurt \\
+    Food & Drink & Water \\
+    Food & Drink & Coffee \\
+  };
+
+\end{tikzpicture}
+\end{document}

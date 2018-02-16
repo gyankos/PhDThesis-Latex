@@ -1,0 +1,108 @@
+%\section{Classifying Graph Query Languages}\label{subsec:traversal}
+
+
+\subsection{Graph Traversal and Pattern Matching Languages}\label{sec:gtl}
+%%\subsection{Graph Traversal Languages}
+\begin{table}
+	\centering
+\hspace*{-1cm}
+\begin{tabularx}{\textwidth}{m{0.2\linewidth}|m{0.2\linewidth}|m{0.7\linewidth}}
+	\toprule
+	Graph Language & Query & Result \\
+	\midrule
+	Wenfei Fan et al. \cite{n3} & Graph + REGEX & 1 single transformed matched graph\\\hline
+	GraphLOG \par \cite{consens1990a,GraphLogAggr} & Graph + REGEX & 1 single transformed matched graph\\\hline
+	Isomorphism & Graph & Morphisms defining a collection of matched sub\-graphs\\\hline
+	NautiLOD \cite{NautiLOD} & REGEX & Matched graph (or vertex) collections\\\hline
+	Description Logic \cite{BotoevaCCRX16, Baader2010} & Description Logic & Vertices from which the graph can be matched\\\hline
+	NLR$^+$ \cite{Barcelo2013} & REGEX + registers & Register-based morphisms over satisfiability \\\hline
+	Gremlin \cite{Rodriguez15} & Gremlin & Bag of values $V\cup E$ and side effects\\\hline
+	XPath \cite{xpath31} & REGEX & Subtrees reached after traversing the expression\\
+	\bottomrule
+\end{tabularx}
+\caption{An example of graph traversal and graph pattern matching query languages: as we can see, there are huge differences between those graph query languages, both on the query representation and on the provided result and on its semantics.}
+\label{tab:messedtables}
+\end{table}
+
+In present literature there are two distinct types of languages allowing the subgraphs ``extraction'' from a single graph operand:  the first approach is to write an expression in a given language $\mathcal{T}$ such that its interpretation involves a visit of the graph, while the second approach is to express such query with another graph (eventually enriched with other path expressions), thus directly providing the data structure to be searched within the graph. In both cases, there are solutions allowing to perform the graph visit via ``tractable'' algorithms, such that the graph visit happens at most in a polynomial time with respect to the graph data size \cite{n3,NautiLOD,Barcelo2013}. Consequently, such solutions do not necessarily involve to run a subgraph isomorphism  problem, except when expressly requested by specific semantics \cite{JunghannsKAPR17}.
+
+Table \vref{tab:messedtables} shows that there is no strict classification under which we can label such graph languages, even though we can observe that they all rely on a same mechanism: each query has to be interpreted by a specific semantics transforming such query into an intermediate language expression (e.g. a generic program) over which the graph data input can be provided as an input and returned as an output. Consequently, we can just distinguish these query languages by the result they provide, either a single graph or a collection of graphs. For both languages we introduce a new denomination, and call the former ``graph selection languages'' and ``graphs extraction languages'' the latter. 
+
+\subsubsection{Graphs Extraction Languages}\label{subsec:gpm}
+%Similarly to the graph traversal languages outlined in the previous subsection, graph queries can be expressed using a graph data structure $m$. Unlike the previous query languages where one single matching graph was returned, these languages provide a collection of graph elements matching $m$.
+
+Since the graph data structure does not allow an uniform representation for both graphs and graph collections, we'll represent for the moment such operator with an operator from graph to graph collections (which are here expressed  via a collection of ``morphisms''), as the one outlined in \cite{JunghannsKAPR17}.
+
+\begin{definition}[Graphs Extraction Languages]\label{sec:graphamatch}
+	Given a \textbf{graphs extraction language} $\mathcal{L}$ and a query $P$ for such language expressed as a graph or a regex (or both),
+	the interpretation $m_P(G)$ of $P$ over an input graph $G$ returns a set of functions
+	$f_i$ called \textbf{morphisms} \index{morphism|textbf} mapping each object in $\varphi^*(\ngraph_P)$ into a list of objects in $\partof{O_\nested}$. In particular:
+	\[m_P(\nested)=\{f_i\colon\varphi^*(\ngraph_P)\to  \partof{O_\nested}\}_{i\leq n}\]
+	%Moreover, we can represent the set of matchings $m_P(\nested)$ as one single binary function $\smatch(m_P(\nested),t)$, where $s$ is the set of the matched functions and$t$ is a transcoding associating to each function $f_i$ an expression $t(i)\in \lang$.
+	%\[\smatch(s,t)=x\mapsto y\mapsto \min_{\substack{f_i\in s\\ y=t(i)}} f_i(x)\]
+	%Such morphisms can be then represented as nested graph edges, 
+	
+	%%%%Given the similarities with this operator with the splitting operator $\varsigma$ \cite{Magnani2006}, such operator can be defined as follows\footnote{For the moment we'll notate such operator as $\tilde{\varsigma}$, because the actual pattern matching operator for nested graphs will be discussed later on in Definition \vref{def:splitting}. This distinct definition is required because, in spite of traditional property graphs, can represent both graph and graph collections in a uniform way.}:
+	%%%%\[\tilde{\varsigma}_m(G)=\Set{\gamma\subseteq G|\exists \varepsilon\in \jsem{m}^{\mathcal{L}}.\varepsilon \colon \gamma\leftrightarrow m}\]
+\end{definition}
+
+
+
+\subsubsection{Graph Selection Languages}
+
+%A graph traversing language plays the same role as XPath for semistructured data, that is they allow to traverse the graphs and, they return the graph that was visited at the same time. This thesis is not going to provide the whole details for each language, regarding both their expressive power and computational complexity of their query evaluation, except when this play a key role within the same structure: the aim of this section is to analyse what this languages are able to compute. Since most of the graph traversal query languages are expressed as graphs, we can freely assume that any query $t$ is expressed in a graph form. Nevertheless, all the languages belonging to this language can meet the following definition:
+
+\begin{definition}[Graph Selection Language]\label{def:travselect}
+  Given a \textbf{graph selection language }\index{query language!graph selection} $\mathcal{L}$ and a query $t$ for such language expressed as a graph (or both),
+the interpretation $\jsem{t}^{\mathcal{L}}$ of $t$ over an input graph $G$ returns, it it exists, an (homo)morphism\index{morphism|textbf} $\varepsilon:\gamma\to t$ such that $\gamma\subseteq G$ is the least upper bound\footnote{An \textit{upper bound} for $X$ in poset $(S,\preceq)$ is an element $M \in S$ such that $\forall x \in X. x \preceq M$. $T$ is also a \textbf{least upper bound} for $X$ in $S$, denoted by $\sup(X)$, if $\forall x\in X. x\preceq T\wedge \forall d\in X. (\forall x\in X. x\preceq d)\wedge T\preceq d$.} of all the subgraphs $\gamma'$ of $G$ satisfying $t$:
+\[\jsem{t}^{\mathcal{L}}(G)=\Set{\varepsilon:\gamma\to t| \gamma = \sup(\{\gamma'\subseteq G|t(\gamma')\}), \varepsilon(\gamma)=t}\]
+
+Since this operation acts as a selection function for the graph, the returned graph can be expressed through the following selection operator\index{selection|textbf}:
+\[\sigma_t(G)=\begin{cases}
+  (V\cap \dom(\varepsilon_V),E\cap \dom(\varepsilon_E)) & \varepsilon \in \jsem{t}^{\mathcal{L}}(G)\\
+  (\emptyset,\emptyset) & oth.
+\end{cases}\]
+\end{definition}
+
+As a consequence, this selection operator appears to be more general than the graph selections provided in graph literature \cite{apacheflink}, where there are only predicates over vertices and edges, that are included by the aforementioned graph traversal operator, from now on called ``selection''. I now provide some examples of graph selection languages in the following subsections.
+
+%With an abuse of notation we will always refer to $\varepsilon_V(V)$ as $\varepsilon_V(V\cap \dom(\varepsilon_V))$, in order to use a more compact (even if less precise) shorthand. 
+
+\phparagraph{GraphLOG}
+The \textbf{GraphLOG} \cite{consens1990a} query language was one of the first graph query languages to be designed: it subsumes a graph
+data structure (\textit{direct labelled multigraph})  where no properties are associated, neither to vertices
+nor to edges. Such query language is conceived to be visually representable, and hence path queries are
+represented as graphs, where simple regular expressions can be associated to the edges. The concept of
+visually representing graph traversal queries involving path regex-es was later on adopted in \cite{n3},
+where some algorithms are showed for implementing such query language in polynomial time in the dimension of the data. Such language
+does not support some path summarization queries that were introduced in GraphLOG \cite{GraphLogAggr}.
+
+
+
+\phparagraph{Gremlin}
+Yet another graph traversal language, \textbf{Gremlin}, has proven to be Turing Complete \cite{Rodriguez15}:
+this is not a desired feature for query languages since usually query languages must guarantee that
+each query evaluation must always converge and that it must always return an answer in a ``reasonable'' amount of time.
+Another problem with this query language is based on its path navigation semantics \cite{ThakkarPAV17}:
+while all the other graph traversal languages return the desired subgraph, Gremlin returns
+a bag of values (e.g. vertices, values, edges). This peculiarity does not allow the user to take advantage
+of partial query evaluations and to combine them in a final result. This feature is
+also shared by other other path navigation algebras, such as the one for Cypher\footnote{Please note that the algebra \cite{ThakkarPAV17} for Gremlin and the other one \cite{Neo4jAlg,MartonSV17} for Cypher are substantially the same, with some minor changes.} \cite{Neo4jAlg,MartonSV17}, which algebra only considers  the graph traversal aspects of the language.
+%\phparagraph{Other graph traversal languages}
+
+
+\phparagraph{NautiLOD}
+The \textbf{NautiLOD} \cite{NautiLOD} query language was conceived for performing path queries (defined through
+path expressions with REGEX-es) over
+RDF graphs. Nonwithstanding the usage of recursion operators via Kleene Star, the same paper shows  that queries can be evaluated in polynomial time.
+%Since such graph query language distinguishes within the semantics the vertices from the edges, the outcome of their evaluaton can be clearly used to recreate a final graph.
+While other graph pattern matching query languages provide as an outcome of their evaluation a blob of both graph vertices and edges (e.g. Gremlin), its interpretation can be mapped into a combination of algebraic graph operators, through which a graph collection is provided in return. We're going to discuss this query language's interpretation at page \pageref{ph:NTLImpl}, where we're going to adopt it for traversing nested graphs.
+
+%\begin{definition}[Pattern Matching]
+%	\label{def:pmfunct}
+%	Given a matching algorithm $m$ over (nested) graphs, the interpretation $m_P$ over a nested graph $\nested$ returns a set of functions
+%	$f_i$ mapping each object in $\varphi^*(\ngraph_P)$ into a list of objects in $\partof{O_\nested}$. In particular:
+%	\[m_P(\nested)=\{f_i\colon\varphi^*(\ngraph_P)\to  \partof{O_\nested}\}_{i\leq n}\]
+%	Moreover, we can represent the set of matchings $m_P(\nested)$ as one single binary function $\smatch(m_P(\nested),t)$, where $s$ is the set of the matched functions and$t$ is a transcoding associating to each function $f_i$ an expression $t(i)\in \lang$.
+%	\[\smatch(s,t)=x\mapsto y\mapsto \min_{\substack{f_i\in s\\ y=t(i)}} f_i(x)\]
+%\end{definition}

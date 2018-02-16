@@ -1,0 +1,39 @@
+<medical_hospital>
+  <patient>
+    <SSN>BCDVHZ59S23F743S</SSN>
+    <Surname>Bocedi</Surname>
+    <Name>Venhz</Name>
+    <dob>23/11/1959</dob> <!-- from SSN-->
+    <address />
+    <cure_treatmentId>505</cure_treatmentId>
+  </patient>
+  <patient>
+    <SSN>BCDVHZ59S23F743S</SSN>
+    <Surname>Bocedi</Surname>
+    <Name>Venhz</Name>
+    <dob>23/11/1959</dob>
+    <address>via San Biagio 1, Morozzo, Cuneo</address>
+    <cure_treatmentId>1</cure_treatmentId>
+  </patient>
+  <treatment_entry>
+    <id>505</id>
+    <patientSSno>BCDVHZ59S23F743S</patientSSno>
+    <date />
+    <symptomps />
+    <diagnosis />
+    <medication>Epley maneuver</medication>
+  </treatment_entry>
+  <treatment_entry>
+    <id>1</id>
+    <patientSSno>BCDVHZ59S23F743S</patientSSno>
+    <date>01/01/2017</date>
+    <symptomps>fluid draining from the ear,
+    trouble swallowing</symptomps>
+    <diagnosis icd9="210.2">Right parotid
+      neoplastic formation</diagnosis>
+    <medication>Radiotherapy</medication>
+  </treatment_entry>
+  <ward name="Emergency">
+    <admittedPatient>BCDVHZ59S23F743S</admittedPatient>
+  </ward>
+</medical_hospital>

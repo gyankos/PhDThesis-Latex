@@ -1,0 +1,70 @@
+\documentclass[tikz]{standalone}
+\usepackage{eulervm}
+\usepackage[osf,sc]{mathpazo}
+\usepackage{inconsolata}
+\usetikzlibrary{
+  % https://github.com/Qrrbrbirlbel/pgf/blob/master/tikzlibrarypositioning-plus.code.tex
+  positioning-plus,
+  % https://github.com/Qrrbrbirlbel/pgf/blob/master/tikzlibrarynode-families.code.tex
+  node-families,
+  chains,backgrounds}
+\begin{document}
+\begin{tikzpicture}[
+  >=latex, thick,
+  node distance=1cm and 1.8cm,
+  my edge/.style={->}, my edge'/.style={<-},
+  box/.style={
+    shape=rectangle, draw, fill, font=\strut,
+    rounded corners},
+  wh box/.style={box, fill=white, Minimum Height=all,inner sep=0pt, text width=24mm,align=center},
+  bl box/.style={box, text=white, align=center, text width=1.8cm, Minimum Height=all},
+  gr box/.style={box, thick, inner sep=+.5cm, draw=gray, fill=gray!25}
+]
+
+
+%% Products
+\begin{scope}[start chain=1 going below,nodes={wh box, Minimum Width=d}]
+\foreach \Text[count=\cnt from 1] in {Shiny, Brighty, CleanHand, Marseille, Milk, Yogurt, Water, Coffee}
+\node[on chain=1] (p\cnt) {\Text};
+\end{scope}
+\node[above=of p1] (p) {\Large \texttt{Product}};
+
+%% Categories
+\begin{scope}[nodes={wh box, Minimum Width=d}]
+\foreach \Text[count=\cnt from 1,evaluate=\cnt as \cnti using \cnt+2] in {Cleaner, Soap, Diary Product, Drink}
+\node[left=44 mm of p\cnti] (c\cnt) {\Text};
+\end{scope}
+\node[left=24 mm of p] (c) {\Large \texttt{Category}};
+\node[left=24 mm of p8] (c8) {};
+
+%% Types
+\node[wh box, Minimum Width=d,left=22 mm of c2] (t1) {House Cleaner};
+\node[wh box, Minimum Width=d,left=22 mm of c3] (t2) {Food};
+\node[left=24 mm of c] (t) {\Large \texttt{Type}};
+\node[left=44 mm of c8] (t8) {};
+
+
+\begin{scope}[on background layer, nodes=gr box]
+  \node[gr box,fit=(p)(p8)] {};
+  \node[gr box,fit=(c)(c8)] {};
+  \node[gr box,fit=(t)(t1)(t8)] {};
+\end{scope}
+
+
+
+
+\draw[my edge'] (t1) -- (c1);
+\draw[my edge'] (c1) -- (p1);
+\draw[my edge'] (c1) -- (p2);
+\draw[my edge'] (t1) -- (c2);
+\draw[my edge'] (c2) -- (p3);
+\draw[my edge'] (c2) -- (p4);
+\draw[my edge'] (t2) -- (c3);
+\draw[my edge'] (c3) -- (p5);
+\draw[my edge'] (c3) -- (p6);
+\draw[my edge'] (t2) -- (c4);
+\draw[my edge'] (c4) -- (p7);
+\draw[my edge'] (c4) -- (p8);
+
+\end{tikzpicture}
+\end{document}

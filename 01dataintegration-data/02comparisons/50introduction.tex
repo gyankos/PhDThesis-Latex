@@ -1,0 +1,20 @@
+\section{Classifying Graph Query Languages}\label{sec:dbqlang}
+
+%\chapter{Languages, Systems and Libraries}\label{sec:dbqlang}
+%\epigraph{``\textup{Chi insegna convien tenti mille strade, dia mille stimoli, usi mille termini, pensi mille modi
+%	ed adoperi ogni maniera, che anche i sassi, per così dire, ne ricevano dell'impressione.}''
+%
+%	``\textit{Those who teach must attempt a thousand roads, give thousands of stimuli, use a thousand words,
+%		think in all possible ways and work every way, so that even stones, so to speak, could be
+%		impressed}''.}{--- Francesco Antonio Marcucci\\ (1717 – 1798)}
+
+Graph Query Languages can be categorised in three main classes;
+\begin{alphalist}
+	\item the first class  tries to find a
+	possible match for a specific traversal  or for extracting all the subgraphs that match a given pattern (Section \vref{sec:gtl}): as a consequence such graph
+	queries do not necessarily manipulate the graph data structure (Except for GraphLOG).
+	\item The second class are graph grammars, that are used to rewrite parts of a same graph by using rewriting rules (Section \vref{subsec:ggram}).
+	\item The third class are graph algebras, that extend the previous operations with set and simil-relational algebra operations for graphs (Section \vref{cite:galg}).
+	\item The last class of languages are ``proper'' graph query languages, that include within their expressive power all the aforementioned class of operations (Section \vref{subsec:proper}).
+\end{alphalist}
+

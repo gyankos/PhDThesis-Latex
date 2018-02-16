@@ -1,0 +1,26 @@
+{
+  "medical hospital": [{
+    "patient": [{
+      "SSN": SSNID,
+      "Surname": Str,
+      "name": Str,
+      "dob": Date,
+      "address": String,
+      "cure_treatmentId", Integer
+    }*],
+    "treatment_entry": [{
+      "id": Integer,
+      "patientSSno": SSNID,
+      "date": Date,
+      "symptomps": Str,
+      "diagnosis": {
+        "icd9": Float,
+        "#text": Str
+      },
+      "medication": Str
+    }*],
+    "ward": [{
+        "name": Str,
+        "admittedPatient": SSNID
+    }]
+}

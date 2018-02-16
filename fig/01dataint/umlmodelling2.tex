@@ -1,0 +1,235 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage[simplified]{pgf-umlcd}
+\usepackage{eulervm}
+\usepackage[osf,sc]{mathpazo}
+\usepackage{inconsolata}
+\usetikzlibrary{matrix,positioning-plus,paths.ortho,fit,background}
+\tikzset{
+	rectangle with rounded corners north west/.initial=4pt,
+	rectangle with rounded corners south west/.initial=4pt,
+	rectangle with rounded corners north east/.initial=4pt,
+	rectangle with rounded corners south east/.initial=4pt,
+}
+\makeatletter
+\pgfdeclareshape{rectangle with rounded corners}{
+	\inheritsavedanchors[from=rectangle] % this is nearly a rectangle
+	\inheritanchorborder[from=rectangle]
+	\inheritanchor[from=rectangle]{center}
+	\inheritanchor[from=rectangle]{north}
+	\inheritanchor[from=rectangle]{south}
+	\inheritanchor[from=rectangle]{west}
+	\inheritanchor[from=rectangle]{east}
+	\inheritanchor[from=rectangle]{north east}
+	\inheritanchor[from=rectangle]{south east}
+	\inheritanchor[from=rectangle]{north west}
+	\inheritanchor[from=rectangle]{south west}
+	\backgroundpath{% this is new
+		% store lower right in xa/ya and upper right in xb/yb
+		\southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+		% construct main path
+		\pgfkeysgetvalue{/tikz/rectangle with rounded corners north west}{\pgf@rectc}
+		\pgfsetcornersarced{\pgfpoint{\pgf@rectc}{\pgf@rectc}}
+		\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+		\pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
+		\pgfkeysgetvalue{/tikz/rectangle with rounded corners north east}{\pgf@rectc}
+		\pgfsetcornersarced{\pgfpoint{\pgf@rectc}{\pgf@rectc}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+		\pgfkeysgetvalue{/tikz/rectangle with rounded corners south east}{\pgf@rectc}
+		\pgfsetcornersarced{\pgfpoint{\pgf@rectc}{\pgf@rectc}}
+		\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+		\pgfkeysgetvalue{/tikz/rectangle with rounded corners south west}{\pgf@rectc}
+		\pgfsetcornersarced{\pgfpoint{\pgf@rectc}{\pgf@rectc}}
+		\pgfpathclose
+	}
+}
+\makeatother
+
+\makeatletter
+\newenvironment{minsizebox}[2]{%
+	\pgfmathsetlength\@tempdima{#2}%
+	\pgfmathsetlength\pgf@yc{\pgfkeysvalueof{/pgf/inner ysep}}%
+	\advance\@tempdima by -2\pgf@yc
+	\begin{lrbox}{\@tempboxa}%
+		\begin{minipage}[t]{#1}%
+			\vspace{0pt}%
+		}{%
+	\end{minipage}%
+\end{lrbox}%
+\ifdim\@tempdima>\dp\@tempboxa
+\dp\@tempboxa=\@tempdima
+\fi
+\box\@tempboxa
+}
+\makeatother
+
+\begin{document}
+
+\tikzset{
+		entity/.code={
+			\tikzset{
+				rounded corners,             
+				name=#1,
+				inner sep=2pt,
+				every entity/.try,
+			}%
+			\def\entityname{#1}%
+		},
+		elabel/.style = {
+			above,midway,sloped
+		},
+		eprop/.style = {
+			draw=black, text width=2.2cm, below, midway, sloped
+		},
+		entity anchor/.style={matrix anchor=#1},
+		every entity/.style={
+			draw,
+		},
+		every property/.style={
+			inner xsep=0.20cm, inner ysep=0.075cm, anchor=west, text width=1.75in
+		}
+	}
+	\def\property#1{\node[name=\entityname-#1, every property/.try]{\propertysplit#1;};}
+	\def\properties{\begingroup\catcode`\_=11\relax\processproperties}
+	\def\processproperties#1{\endgroup%
+		\gdef\propertycode{}%
+		\foreach \p in {#1}{%
+			\expandafter\expandafter\expandafter\gdef\expandafter\expandafter\expandafter\propertycode%
+			\expandafter\expandafter\expandafter{\expandafter\propertycode\expandafter\property\expandafter{\p}\\}%
+		}%
+		\propertycode%
+	}
+	\def\propertysplit#1:#2;{\textbf{#1}:#2}
+	
+	\def\entitynamenode{%
+		\node[every entity name/.try] (\entityname-name) {\textbf{\entityname}};
+		\draw (\entityname-name.south west) -- (\entityname-name.south east);
+		\\[1ex]
+	}
+	\tikzset{
+		every entity name/.style={every property/.try, align=center}
+	}
+	
+
+\begin{tikzpicture}[every node/.style={font=\ttfamily}, node distance=0.5in]
+
+
+%%%% MODEL 
+	\begin{class}{Employee}{4,-8.5}
+		\attribute{id }
+		\attribute{name}
+		\attribute{surname}
+		\attribute{gender}
+	\end{class}
+	
+	
+	\begin{class}{Vendor}{0,-14.5}
+		\inherit{Employee}
+	\end{class}
+	
+	\begin{class}{Manager}{8,-14.2}
+		\inherit{Employee}
+		\attribute{department}
+	\end{class}
+
+	\begin{class}{SalesOrder}{-8,-13.8}
+		\attribute{id }
+		\attribute{date}
+		\attribute{deliveryDate}
+	\end{class}
+	
+	\begin{class}{Product}{-17,-13.65}
+		\attribute{id }
+		\attribute{name}
+		\attribute{category}
+		\attribute{price}
+	\end{class}
+
+	\unidirectionalAssociation{Manager}{coordinates}{1..N}{Vendor}
+	\unidirectionalAssociation{Vendor}{process}{0..N}{SalesOrder}
+	\aggregation{SalesOrder}{items}{0..N}{Product}
+
+
+
+\draw[very thick] (-19,-8) -- (14,-8);
+
+%% MODEL
+	\node at (13,-5.8) {\textsc{\textbf{Model}}};
+	\draw[dashed] (-19,-5.5) -- (14,-5.5);
+	\begin{class}{Employee}{4,-6}
+	\end{class}
+	
+	
+	\begin{class}{Vendor}{0,-7}
+	\end{class}
+	
+	\begin{class}{Manager}{8,-7}
+	\end{class}
+	
+	\begin{class}{SalesOrder}{-8,-7}
+	\end{class}
+	
+	\begin{class}{Product}{-17,-7}
+	\end{class}
+
+%% LEGEND
+
+\node[below=of Product] (p) {Container};
+\node[right=of p] (p2) {Conent};
+\node[right=of p2] (p2a) {Aggregation};
+\aggregation{p}{name}{cardinality}{p2};
+
+
+\node[below=of p] (p3) {Source};
+\node[below=of p2] (p4) {Target};
+\node[right=of p4] (p4a) {Association};
+\unidirectionalAssociation{p3}{name}{cardinality}{p4};
+
+\node[below=of p3] (p5) {Child};
+\node[below=of p4] (p6) {Father};
+\node[right=of p6] (p6a) {Generalization};
+\draw [umlcd style inherit line] (p6) -- (p5);
+ \begin{pgfonlayer}{background}
+\node[fill=yellow!20,fit=(p)(p6a),draw=black,label=above:{\color{purple}Legend},shape=rectangle with rounded corners] {};
+\end{pgfonlayer}
+
+
+
+%% MetaModel
+
+\node at (13,-9) {\textsc{\textbf{UML Model}}};
+\node at (13,0) {\textsc{\textbf{MetaModel}}};
+
+\node[text width=10em,minimum height=6em]  at (-17,-1) {\begin{minsizebox}{12em}{6em}\texttt{Product(id,name,category,price)}\\
+	$dom(\texttt{id})=\mathbb{N}$\\
+	$dom(\texttt{name})=String$\\
+	$dom(\texttt{category})=String$\\
+	$dom(\texttt{price})=\mathbb{Q}$\end{minsizebox}};
+
+\node[text width=10em,minimum height=6em] at (-9,-1) {\begin{minsizebox}{13em}{6em}\texttt{SalesOrder(id,date,deliveryDate)}\\
+	$dom(\texttt{id})=\mathbb{N}$\\
+	$dom(\texttt{date})=Date$\\
+	$dom(\texttt{deliveryDate})=Date$\\
+	\\
+	\texttt{item}$\mathcal{R}$(salesOrder,Product)\end{minsizebox}};
+
+\node[text width=10em,minimum height=6em] at (-1,-4) {\begin{minsizebox}{13em}{6em}\texttt{Vendor(id,name,surname,gender)}\\
+	Vendor<:Employee\\
+	\\
+	\texttt{processes}$\mathcal{R}$(vendor,salesOrder)\end{minsizebox}};
+
+\node[text width=10em,minimum height=6em] at (3,-1) {\begin{minsizebox}{13em}{6em}\texttt{Employee(id,name,surname,gender)}\\
+	$dom(\texttt{id})=\mathbb{N}$\\
+	$dom(\texttt{name})=String$\\
+	$dom(\texttt{surname})=String$\\
+	$dom(\texttt{gender})=Boolean$\end{minsizebox}};
+
+\node[text width=13em,minimum height=6em] at (8,-4) {\begin{minsizebox}{13em}{6em}\texttt{Manager(id,name,surname,gender,department)}\\
+	Manager<:Employee\\
+	$dom(\texttt{department})=String$\\
+	\texttt{coordinates}$\mathcal{R}$(manager,vendor)\end{minsizebox}};
+\node at (14,0) {};
+
+\end{tikzpicture}
+\end{document}

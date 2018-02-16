@@ -1,0 +1,188 @@
+\documentclass[tikz,border=5]{standalone}
+\usepackage{eulervm}
+\usepackage[osf,sc]{mathpazo}
+\usepackage{inconsolata}
+\usetikzlibrary{matrix,positioning-plus,paths.ortho,fit}
+\begin{document}
+	\tikzset{
+		entity/.code={
+			\tikzset{
+				rounded corners,
+				name=#1,
+				inner sep=2pt,
+				every entity/.try,
+			}%
+			\def\entityname{#1}%
+		},
+		elabel/.style = {
+			above,midway,sloped
+		},
+		eprop/.style = {
+			draw=black, text width=2.2cm, below, midway, sloped
+		},
+		entity anchor/.style={matrix anchor=#1},
+		every entity/.style={
+			draw,
+		},
+		every property/.style={
+			inner xsep=0.20cm, inner ysep=0.075cm, anchor=west, text width=1.75in
+		}
+	}
+	\def\property#1{\node[name=\entityname-#1, every property/.try]{\propertysplit#1;};}
+	\def\properties{\begingroup\catcode`\_=11\relax\processproperties}
+	\def\processproperties#1{\endgroup%
+		\gdef\propertycode{}%
+		\foreach \p in {#1}{%
+			\expandafter\expandafter\expandafter\gdef\expandafter\expandafter\expandafter\propertycode%
+			\expandafter\expandafter\expandafter{\expandafter\propertycode\expandafter\property\expandafter{\p}\\}%
+		}%
+		\propertycode%
+	}
+	\def\propertysplit#1:#2;{\textbf{#1}:#2}
+
+	\def\entitynamenode{%
+		\node[every entity name/.try] (\entityname-name) {\textbf{\entityname}};
+		\draw (\entityname-name.south west) -- (\entityname-name.south east);
+		\\[1ex]
+	}
+	\tikzset{
+		every entity name/.style={every property/.try, align=center}
+	}
+
+	\begin{tikzpicture}[every node/.style={font=\ttfamily}, node distance=0.5in]
+
+%% START
+
+%% In may ... portugal
+\matrix[entity=Portugal] (portugal) {
+	\entitynamenode
+};
+\matrix[entity=In May 1898,below=of portugal] (inmay) {
+	\entitynamenode
+	\properties{
+		prop: in
+	}
+};
+
+\draw[->] (portugal) edge node [left,midway] {when?} (inmay);
+
+%% celebrated the anniversary
+\matrix[entity=400th anniversary,right=2cm of portugal] (anniversary) {
+	\entitynamenode
+	\properties{
+	 		det: the
+	}
+};
+
+\draw[->] (portugal) edge node [above,midway] {celebrated} (anniversary);
+
+%%
+\matrix[entity=arrival,below=4cm of anniversary] (arrival) {
+	\entitynamenode
+	\properties{
+	 		det: the
+	}
+};
+
+\matrix[entity=explorer,below left=of arrival] (explorer) {
+	\entitynamenode
+	\properties{
+	 		det: this
+	}
+};
+\draw[->] (arrival) edge node [left,midway] {who?} (explorer);
+
+\matrix[entity=India,below right=of arrival] (india) {
+	\entitynamenode
+	\properties{
+	 		prop: in
+	}
+};
+\draw[->] (arrival) edge node [right,midway] {where?} (india);
+
+
+\node[rounded corners,draw=blue,fit=(arrival) (explorer) (india)]  (what) {
+};
+
+\draw[->] (anniversary) edge node [left,midway] {what?} (what);
+
+	%
+	% \matrix [entity=discovery,fill=orange!20]  (discovery) {
+	% 	\entitynamenode
+	% 	\properties{
+	% 		det: The
+	% 	}
+	% };
+	% \matrix [entity=publication,fill=orange!20,right,right=of discovery]  (publication) {
+	% 	\entitynamenode
+	% };
+	% \node[rounded corners,draw=blue,fit=(discovery) (publication),label=above left:{\color{blue}\texttt{conj:and}}]  (a) {
+	% };
+	%
+	% \matrix [entity=1987,fill=orange!20,right,below=of discovery]  (year) {
+	% 	\entitynamenode
+	% };
+	% \draw[->] (discovery) -- node[sloped,above,midway] {when} (year);
+	%
+	% %% An early correspondence
+	% \matrix [entity=correspondence,fill=orange!20,right,below=of year]  (correspondence) {
+	% 	\entitynamenode
+	% 	\properties{
+	% 		det: an,
+	% 		adj: early
+	% 	}
+	% };
+	% \draw[->] (year) -- node[sloped,above,midway] {what} (correspondence);
+	% %% ////
+	%
+	%
+	% \matrix [entity=Einstein,fill=orange!20,below=of correspondence]  (Einstein) {
+	% 	\entitynamenode
+	% };
+	% \matrix [entity=Maric,fill=orange!20,right,right=of Einstein]  (Maric) {
+	% 	\entitynamenode
+	% };
+	% \node[rounded corners,draw=blue,fit=(Einstein) (Maric),label=above left:{\color{blue}\texttt{conj:and}}]  (parentsEM) {
+	% };
+	%
+	% \draw[->] (correspondence.south) -- node[sloped,above,midway] {between} (parentsEM.north west);
+	%
+	% %% THEY HAD DAUGHTER
+	% \matrix [entity=they,fill=orange!20,right=of publication]  (they) {
+	% 	\entitynamenode
+	% };
+	% \matrix [entity=daughter,fill=orange!20,right,right=of they]  (daughter) {
+	% 	\entitynamenode
+	% 	\properties{
+	% 		det: a
+	% 	}
+	% };
+	% \draw[->] (they) -- node [above] {had} (daughter);
+	% %% THEY HAD DAUGHTER
+	%
+	% \node[rounded corners,draw=blue] [fit=(they) (daughter)]  (b) {
+	% };
+	% \draw[->] (a) edge[bend left] node [above] {revealed} (b);
+	%
+	% \matrix [entity=parents,fill=orange!20,below=of daughter]  (parents) {
+	% 	\entitynamenode
+	% 	\properties{
+	% 		det: a,
+	% 		poss: her
+	% 	}
+	% };
+	% \matrix [entity=which,fill=orange!20,left=of parents]  (which) {
+	% 	\entitynamenode
+	% };
+	%
+	% \draw[->] (which) edge [bend left]
+	%                   coordinate [midway] (stawyingwith)
+	%                   node [left, near start] {staying with}
+	%           (parents);
+	% \node[rounded corners,draw=blue,fit=(parents) (which) (stawyingwith)]  (c) {
+	% };
+	% \draw[->] (daughter.east) edge [bend left] node [midway,above,sloped] {acl:recl} (c.east);
+
+	\end{tikzpicture}
+
+\end{document}

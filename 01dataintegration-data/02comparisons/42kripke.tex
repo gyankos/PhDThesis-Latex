@@ -1,0 +1,21 @@
+\phparagraph{Kripke Structure}
+Kripke structures have been defined for model checking purposes in Finite Model Theory:
+it is proved that $\mu$-calculus model checking (that is graph model checking with fix-point
+operators) could be performed in polynomial time on the size of the graph \cite{GradelBook}. 
+
+\begin{definition}[Kripke Structure]\label{def:kripke}
+	\index{graph!Kripke structure}
+	A \textbf{Kripke structure} \cite{Kri63} is defined as a tuple $(S,I,R,L)$, where:
+	\begin{itemize}
+		\item $S$ is the set of the states (nodes),
+		\item $I\subseteq S$ is the set of the initial states,
+		\item $R\subseteq S\times S$ is a set of edges such that $\forall s\in S. \exists s'\in S. (s,s')\in R$
+		\item A (multiple) labelling function $L$ over the states in $S$.
+	\end{itemize}
+	Any deadlock state $s$ could be modelled through a self-loop over $s$.
+\end{definition}
+
+In current graph data models, the set $I$ of the initial states can be ignored\footnote{On the other hand, the concept of initial and final state is going to be relevant for the forthcoming NautiLOD graphs, where such additional information is required to evaluate graph traversal queries with fixpoints in polynomial time.}, that is because all the data elements, both vertices and edges, could be all considered as data entry points. This simple data structure was even used within our technical report \cite{BergamiMM16} that introduced for the first time the definition of graph joins. This
+model is very useful since it could be showed that any complex data structure (such as LTSs,
+that have labelled edges) could be mapped into this very
+simple model \cite{Nicola1990}. Hereby, property graphs (introduced in the following paragraph) can be expressed within this data model. Last, given that this data structure cannot provide attributes or labels for the edges, it is not really used for data representation, since in those scenarios we're usually looking for more informative data structures.

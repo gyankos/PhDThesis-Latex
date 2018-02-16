@@ -1,0 +1,18 @@
+<medical>
+  <patient ssNo="BCDVHZ59S23F743S">
+    <name>Bocedi, Venhz</name>
+    <dob>23/11/1959</dob>
+    <address>via San Biagio 1, Morozzo, Cuneo</address>
+  </patient>
+  <record>
+    <patientSSno>BCDVHZ59S23F743S</patientSSno>
+    <entry id="1">
+      <date>01/01/2017</date>
+      <symptomps>fluid draining from the ear,
+       trouble swallowing</symptomps>
+      <diagnosis icd9="210.2">Right parotid
+       neoplastic formation</diagnosis>
+      <medication>Radiotherapy</medication>
+    </entry>
+  </record>
+</medical>

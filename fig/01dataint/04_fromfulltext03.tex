@@ -1,0 +1,84 @@
+\documentclass[tikz,4pt]{standalone}
+
+\usetikzlibrary{arrows,shapes,positioning}
+\usetikzlibrary{calc,decorations.markings}
+
+% \begin{tikzpicture}
+%   \node[doc,align=left] (x) {{\large \textbf{Balance disorder}}\\
+%   \dots The symptoms may be recurring \\
+%   or relatively constant. When \\
+%   symptoms exist, they may include: \\
+%   a sensation of dizziness or vertigo,\\
+%   lightheadedness or feeling woozy, \\
+%   problems reading and difficulty \\
+%   seeing or disorientation \dots
+% };
+
+%
+% \node[doc,align=left] at (0,-6) {\dots\\
+% \textbf{General symptoms}: \textit{780}\\
+%   $\to$ Alteration of consciousness, \textit{780.0}\\
+%   $\to$ Hallucinations, \textit{780.1}\\
+%   $\to$ Syncope and collapse, \textit{780.2}\\
+%   $\to$ Dizziness and giddiness, \textit{780.4}\\
+%   $\to$ \dots\\};
+%
+% \node[doc] at (7,-6) {\includegraphics[width=\textwidth]{tumorSalivary.jpg}};
+
+\begin{document}
+
+
+\begin{tikzpicture}
+\node (av) {General symptoms};
+\node[right=of av] (avi) {780};
+\draw[latex-latex] (av) edge node [above,midway,sloped] {hasCode} (avi);
+
+\node[below right=of av] (am) {Alteration of consciousness};
+\node[right=of am] (ami) {780.0};
+\draw[latex-] (av) edge[bend right] node [above,midway,sloped] {isA} (am);
+\draw[latex-latex] (am) edge node [above,midway,sloped] {hasCode} (ami);
+
+\node[below=of am] (ae) {Hallucinations};
+\node[right=of ae] (aei) {780.1}; % 780.2
+\draw[latex-] (av) edge[bend right] node [above,midway,sloped] {isA} (ae);
+\draw[latex-latex] (ae) edge node [above,midway,sloped] {hasCode} (aei);
+
+%     $\to$ Peripheral, \textit{386.10}\\
+\node[below=of ae] (ap) {Syncope and collapse};
+\node[right=of ap] (api) {780.2}; % 780.2
+\draw[latex-] (av) edge[bend right] node [above,midway,sloped] {isA} (ap);
+\draw[latex-latex] (ap) edge node [above,midway,sloped] {hasCode} (api);
+
+\node[below=of ap] (ac) {Dizziness and giddiness};
+\node[right=of ac] (aci) {780.4};
+\draw[latex-] (av) edge[bend right] node [above,midway,sloped] {isA} (ac);
+\draw[latex-latex] (ac) edge node [above,midway,sloped] {hasCode} (aci);
+
+%%%%
+
+\node[right=of aci] (v) {Vertigo};
+\draw[<->] (v) edge node [above,midway,sloped] {hasCode} (aci);
+
+\node[below right=of v] (m) {M\'eni\`ere's disease};
+\node[right=of m] (mi) {386.00};
+\draw[->] (v) edge[bend right] node [above,midway,sloped] {symptomOf} (m);
+\draw[<->] (m) edge node [above,midway,sloped] {hasCode} (mi);
+
+\node[below=of m] (e) {Vestibular};
+\node[right=of e] (ei) {386.10};
+\draw[->] (v) edge[bend right] node [above,midway,sloped] {canBe}  (e);
+\draw[<->] (e) edge node [above,midway,sloped] {hasCode} (ei);
+
+%     $\to$ Peripheral, \textit{386.10}\\
+\node[below=of e] (p) {Peripheral};
+\draw[->] (v) edge[bend right] node [above,midway,sloped] {canBe}  (p);
+\draw[<->] (p) edge[bend right] node [above,midway,sloped] {hasCode} (ei);
+
+\node[below=of p] (c) {Cerebral dysfunction};
+\node[right=of c] (ci) {386.2};
+\draw[->] (v) edge[bend right] node [above,midway,sloped] {symptomOf}  (c);
+\draw[<->] (c) edge node [above,midway,sloped] {hasCode} (ci);
+
+\end{tikzpicture}
+
+\end{document}

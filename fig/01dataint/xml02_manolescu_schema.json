@@ -1,0 +1,23 @@
+{
+  "medical": {
+    "patient": [{
+      "ssNo": SSNID,
+      "name": Str,
+      "dob": Date,
+      "address": String
+    }*],
+    "record": [{
+      "patientSSno": SSNID,
+      "entry": {
+        "id": Integer,
+        "date": Date,
+        "symptomps": Str,
+        "diagnosis": {
+          "icd9": Float,
+          "#text": Str
+        },
+        "medication": Str
+      }
+    }*]
+  }
+}

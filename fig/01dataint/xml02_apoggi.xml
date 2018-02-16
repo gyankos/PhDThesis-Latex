@@ -1,0 +1,15 @@
+<hospital>
+  <patient>
+    <SSN>BCDVHZ59S23F743S</SSN>
+    <Surname>Bocedi</Surname>
+    <Name>Venhz</Name>
+    <cure>505</cure>
+  </patient>
+  <treatment>
+    <trId>505</trId>
+    <description>Epley maneuver</description>
+  </treatment>
+  <ward name="Emergency">
+    <admitted>BCDVHZ59S23F743S</admitted>
+  </ward>
+</hospital>

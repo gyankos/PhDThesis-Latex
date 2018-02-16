@@ -1,0 +1,17 @@
+\subsection{Graph Grammars}\label{subsec:ggram}
+The concept on which  graph grammars are based is similar to grammars generating programming languages: such grammars are defined through a collection of ``rewriting rules'' $H\to T$, called \textit{productions}, where $H$ is a non-terminal symbol while $T$ is a collection of both terminal and non-terminal symbols. In particular, $H\to T$ means that each occurrence of $H$ produced while expanding the rules must be replaced by $T$. Similarly, graph grammars are expressed through ``rewriting rules'' allowing to re-write a subgraph into one subgraph, while keeping the former connections valid. In particular, this thesis will consider single-pushout graph grammars formalized over traditional graphs as follows:
+
+\begin{definition}[Graph Grammar]
+	\index{graph grammar}\label{def:graphgrammar}
+  A single-pushout graph grammar $\mathcal{G}$ \cite{ModCheckWithGG,Lowe93} is a collection of productions $G_H\xrightarrow{\varphi}G_T$, where $G_H$ is the pattern graph and $G_T$ is the rewriting graph, and $\varphi$ is the identity function mapping all the vertices and edges in $G_H$ that are preserved in $G_T$.
+
+  For each production rule $G_H\xrightarrow{\varphi}G_T$, given a morphism $\varphi$ mapping the subgraph $\gamma\subseteq G$ of a given graph $G=(V,E)$ into the pattern graph $G_H$, the rewriting of $G$ is defined as the graph $(V_\tau,\restr{E_\tau}{V_\tau})$, where the vertex set $V_\tau$ and $E_\tau$ are defined as follows:
+  \[V_\tau = (V_{G_T}\backslash \cod(\varphi))\cup \varphi(V_G)\]
+  \[E_\tau = (E_{G_T}\backslash \cod(\varphi))\cup \varphi(E_G)\]
+  while $\restr{E_\tau}{V_\tau}$ is a restriction of all the edges in $E_\tau$ wth $V_\tau$ as defined in \cite{ModCheckWithGG} where all the source and destination edges appear in $V_\tau$.
+\end{definition}
+
+On the other hand, these languages do not guarantee to be invariant to the order of the application of the grammar rules $\mathcal{G}$ over the graph input, and hence different production rules application strategies can be carried out to provide the desired result. %Even if in some cases these problems can be partially solved by using a different data structure, as showed for the first time within this thesis in Section \ref{sec:semistructunstradata}, the problem remains. As we will see later on, 
+This problem still appears in current graph query languages implicitly adopting such techniques (e.g. Cypher), which internally apply the graph grammar's rewriting rules while generating new graphs. Moreover, such formalizations only applies when $G_H$ actually matches as a subgraph as a subgraph of the input graph operand.
+
+Last, there are a few problems in applying such technique to current graph query languages: the first aspect is that the graph $G_H$ is often used as a pattern matching query, and hence it often does not represent the actual data stored in a graph $G$, but some general features that have to be present. Moreover, since such graph pattern matching techniques can return more than one possible match through one or more morphisms, such techniques fails at rewriting graphs in $G_T$ using the different morphisms. We're going to later on generalize such concept in Section \ref{subsec:gggSec} after studying the other query languages and, above all, (proper) graph query languages, where these graph rewriting concepts are used even if they haven't been formalized yet.

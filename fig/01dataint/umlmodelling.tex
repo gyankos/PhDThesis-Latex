@@ -1,0 +1,321 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage[simplified]{pgf-umlcd}
+\usepackage{eulervm}
+\usepackage[osf,sc]{mathpazo}
+\usepackage{inconsolata}
+\usetikzlibrary{matrix,positioning-plus,paths.ortho}
+
+\makeatletter
+\newenvironment{minsizebox}[2]{%
+	\pgfmathsetlength\@tempdima{#2}%
+	\pgfmathsetlength\pgf@yc{\pgfkeysvalueof{/pgf/inner ysep}}%
+	\advance\@tempdima by -2\pgf@yc
+	\begin{lrbox}{\@tempboxa}%
+		\begin{minipage}[t]{#1}%
+			\vspace{0pt}%
+		}{%
+	\end{minipage}%
+\end{lrbox}%
+\ifdim\@tempdima>\dp\@tempboxa
+\dp\@tempboxa=\@tempdima
+\fi
+\box\@tempboxa
+}
+\makeatother
+
+\begin{document}
+
+\tikzset{
+		entity/.code={
+			\tikzset{
+				rounded corners,             
+				name=#1,
+				inner sep=2pt,
+				every entity/.try,
+			}%
+			\def\entityname{#1}%
+		},
+		elabel/.style = {
+			above,midway,sloped
+		},
+		eprop/.style = {
+			draw=black, text width=2.2cm, below, midway, sloped
+		},
+		entity anchor/.style={matrix anchor=#1},
+		every entity/.style={
+			draw,
+		},
+		every property/.style={
+			inner xsep=0.20cm, inner ysep=0.075cm, anchor=west, text width=1.75in
+		}
+	}
+	\def\property#1{\node[name=\entityname-#1, every property/.try]{\propertysplit#1;};}
+	\def\properties{\begingroup\catcode`\_=11\relax\processproperties}
+	\def\processproperties#1{\endgroup%
+		\gdef\propertycode{}%
+		\foreach \p in {#1}{%
+			\expandafter\expandafter\expandafter\gdef\expandafter\expandafter\expandafter\propertycode%
+			\expandafter\expandafter\expandafter{\expandafter\propertycode\expandafter\property\expandafter{\p}\\}%
+		}%
+		\propertycode%
+	}
+	\def\propertysplit#1:#2;{\textbf{#1}:#2}
+	
+	\def\entitynamenode{%
+		\node[every entity name/.try] (\entityname-name) {\textbf{\entityname}};
+		\draw (\entityname-name.south west) -- (\entityname-name.south east);
+		\\[1ex]
+	}
+	\tikzset{
+		every entity name/.style={every property/.try, align=center}
+	}
+	
+
+\begin{tikzpicture}[every node/.style={font=\ttfamily}, node distance=0.5in]
+
+%%%% OBJECTS
+\draw[dashed] (-19,-8.5) -- (14,-8.5);
+\node at (13,-9) {\textsc{\textbf{Data}}};
+
+\matrix [entity=Vendor,fill=orange!20] at (0,-10) (a1) {
+		\properties{
+			name :  Abigail,        
+			surname :  Conner,
+			gender :  F
+		}
+	};
+	\matrix [entity=Vendor,fill=orange!20] at (0,-16) (a2) {
+		\properties{
+			name :  Baldwin,        
+			surname :  Oliver,
+			gender :  M
+		}
+	};
+	\matrix [entity=Vendor,fill=orange!20] at (0,-13) (a3) {
+		\properties{
+			name :  Cassie,        
+			surname :  Norman,
+			gender :  F
+		}
+	};
+	\matrix [entity=Vendor,fill=orange!20] at (0,-19) (a4) {
+		\properties{
+			name :  Darcy,        
+			surname :  Parker,
+			gender :  M
+		}
+	};
+	\matrix [entity=Vendor,fill=orange!20] at (0,-22) (a5) {
+		\properties{
+			name :  Edmund,        
+			surname :  Spencer,
+			gender :  M
+		}
+	};
+	
+	
+	\matrix [entity=SalesOrder,fill=green!10] at (-8,-13.5) (s1) {
+		\properties{
+			date :  30-Dec-2016,        
+			deliveryDate :  2-Oct-2017
+		}
+	};
+	\matrix [entity=SalesOrder,fill=green!10] at (-8,-16) (s3) {
+		\properties{
+			date :  13-May-2017,        
+			deliveryDate :  14-May-2017
+		}
+	};
+	\matrix [entity=SalesOrder,fill=green!10] at (-8,-19) (s2) {
+		\properties{
+			date :  5-Jan-2017,        
+			deliveryDate :  12-Feb-2017
+		}
+	};
+	\matrix [entity=SalesOrder,fill=green!10] at (-8,-22.5) (s4) {
+		\properties{
+			date :  13-June-2017,        
+			deliveryDate :  1-Aug-2017
+		}
+	};
+	
+	\draw[->,very thick] (a2) -- (s1) node [elabel] {processes};
+	\draw[->,very thick] (a2) -- (s3) node [elabel] {processes};
+	\draw[->,very thick] (a4) -- (s2) node [elabel] {processes};
+	\draw[->,very thick] (a5) -- (s4) node [elabel] {processes};
+	
+	
+	
+		\matrix [entity=Manager,fill=yellow] at (8,-13) (m1) {
+			\properties{
+				name :  Irma,        
+				surname :  Abbott,
+				gender :  F
+			}
+		};
+		\matrix [entity=Manager,fill=yellow] at (8,-16) (m2) {
+			\properties{
+				name :  Langdon,        
+				surname :  Attaway,
+				gender :  M
+			}
+		};
+		\matrix [entity=Manager,fill=yellow] at (8,-19) (m3) {
+			\properties{
+				name :  Madge,        
+				surname :  Bailey,
+				gender :  F
+			}
+		};
+		
+		
+		
+%		\matrix [entity] at (0,-24.5) (e) {
+%			\entitynamenode
+%		};
+%		\draw[->] (a1.east) edge [bend left=100]  node [sloped,above,near start] {isa}  (e.east);
+%		\draw[->] (a3.east) edge [bend left=90]  node [sloped,above,near start] {isa}  (e.east);
+%		\draw[->] (a2.east) edge [bend left=80]  node [sloped,above,near start] {isa}  (e.east);
+%		\draw[->] (a4.east) edge [bend left=70]  node [sloped,above,near start] {isa}  (e.east);
+%		\draw[->] (a5.south) -- node [sloped,above] {isa} (e.north);
+%		
+%		\draw[->] (m1.west) edge [bend right=100] node [sloped,below, near start] {isa} (e.west);
+%		\draw[->] (m2.west) edge [bend right=70] node [sloped,above,near start] {isa} (e.west);
+%		\draw[->] (m3) edge [bend right] node [sloped,above] {isa} (e);
+	
+	
+	\draw[->,very thick] (m1) -- (a1) node [elabel] {coordinates};
+	\draw[->,very thick] (m2) -- (a2) node [elabel] {coordinates};
+	\draw[->,very thick] (m1) -- (a3) node [elabel] {coordinates};
+	\draw[->,very thick] (m2) -- (a4) node [elabel] {coordinates};
+	\draw[->,very thick] (m2) -- (a5) node [elabel] {coordinates};
+	
+	
+	
+	\path[node distance=.05em, font=\bfseries] 
+	node[east above=of a1] {001}
+	node[east above=of a2] {002}
+	node[east above=of a3] {003}
+	node[east above=of a4] {004}
+	node[east above=of a5] {005}
+	node[east above=of s1] {100}
+	node[east above=of s2] {101}
+	node[east above=of s3] {102}
+	node[east above=of s4] {103}
+	node[east above=of m1] {050}
+	node[east above=of m2] {051}
+	node[east above=of m3] {052};
+
+	\matrix [entity=Product,fill=blue!30] at (-17,-13.5)(p1) {
+		\properties{
+			name : Coffee,
+			category : Drink,
+			price: 2.57 
+		}
+	};
+	\matrix [entity=Product,fill=blue!30] at (-17,-10.5)(p2) {
+		\properties{
+			name : Milk,
+			category : Diary Product,
+			price : 0.80 
+		}
+	};
+	\matrix [entity=Product,fill=blue!30] at (-17,-16.5)(p3) {
+		\properties{
+			name : Shiny,
+			category : Cleaner,
+			price : 4.10
+		}
+	};
+	\matrix [entity=Product,fill=blue!30] at (-17,-19.5) (p4) {
+		\properties{
+			name : Marseille,
+			category : Soap,
+			price : 0.99
+		}
+	};
+	
+	% 
+	% \matrix[
+	% relation
+	% ] at (11,-4) (m4) {
+	% 	order & product \\
+	% 	100 & 100 \\
+	% 	100 & 101 \\
+	% 	101 & 103 \\
+	% 	102 & 103 \\
+	% 	102 & 102 \\
+	% };
+	\draw[->,very thick] (s1) -- (p1) node [elabel] {item} 
+	                                  node [eprop]  {\texttt{\textbf{quantity}} : 1} ;
+	\draw[->,very thick] (s1) -- (p2) node [elabel] {item} 
+	                                  node [eprop]  {\texttt{\textbf{quantity}} : 2} ;
+	\draw[->,very thick] (s2) -- (p4) node [elabel] {item} 
+	                                  node [eprop]  {\texttt{\textbf{quantity}} : 1} ;
+	\draw[->,very thick] (s3) -- (p4) node [elabel] {item} 
+	                                  node [eprop,text width=2.6cm]  {\texttt{\textbf{quantity}} : 10} ;
+	\draw[->,very thick] (s3) -- (p3) node [elabel] {item} 
+	                                  node [eprop]  {\texttt{\textbf{quantity}} : 1} ;
+
+
+
+%%%% MODEL 
+	\node at (13,-5.8) {\textsc{\textbf{Model}}};
+	\draw[dashed] (-19,-5.5) -- (14,-5.5);
+	\begin{class}{Employee}{4,-6}
+	\end{class}
+	
+	
+	\begin{class}{Vendor}{0,-7}
+	\end{class}
+	
+	\begin{class}{Manager}{8,-7}
+	\end{class}
+
+	\begin{class}{SalesOrder}{-8,-7}
+	\end{class}
+	
+	\begin{class}{Product}{-17,-7}
+	\end{class}
+
+	%\unidirectionalAssociation{Manager}{coordinates}{1..N}{Vendor}
+	%\unidirectionalAssociation{Vendor}{process}{0..N}{SalesOrder}
+	%\aggregation{SalesOrder}{items}{0..N}{Product}
+
+%% MetaModel
+\node at (13,0) {\textsc{\textbf{MetaModel}}};
+
+\node[text width=10em,minimum height=6em]  at (-17,-1) {\begin{minsizebox}{12em}{6em}\texttt{Product(id,name,category,price)}\\
+	$dom(\texttt{id})=\mathbb{N}$\\
+	$dom(\texttt{name})=String$\\
+	$dom(\texttt{category})=String$\\
+	$dom(\texttt{price})=\mathbb{Q}$\end{minsizebox}};
+
+\node[text width=10em,minimum height=6em] at (-9,-1) {\begin{minsizebox}{13em}{6em}\texttt{SalesOrder(id,date,deliveryDate)}\\
+	$dom(\texttt{id})=\mathbb{N}$\\
+	$dom(\texttt{date})=Date$\\
+	$dom(\texttt{deliveryDate})=Date$\\
+	\\
+	\texttt{item}$\mathcal{R}$(salesOrder,Product)\end{minsizebox}};
+
+\node[text width=10em,minimum height=6em] at (-1,-4) {\begin{minsizebox}{13em}{6em}\texttt{Vendor(id,name,surname,gender)}\\
+	Vendor<:Employee\\
+	\\
+	\texttt{processes}$\mathcal{R}$(vendor,salesOrder)\end{minsizebox}};
+
+\node[text width=10em,minimum height=6em] at (3,-1) {\begin{minsizebox}{13em}{6em}\texttt{Employee(id,name,surname,gender)}\\
+	$dom(\texttt{id})=\mathbb{N}$\\
+	$dom(\texttt{name})=String$\\
+	$dom(\texttt{surname})=String$\\
+	$dom(\texttt{gender})=Boolean$\end{minsizebox}};
+
+\node[text width=13em,minimum height=6em] at (8,-4) {\begin{minsizebox}{13em}{6em}\texttt{Manager(id,name,surname,gender,department)}\\
+	Manager<:Employee\\
+	$dom(\texttt{department})=String$\\
+	\texttt{coordinates}$\mathcal{R}$(manager,vendor)\end{minsizebox}};
+
+\node at (14.5,0) {};
+
+\end{tikzpicture}
+\end{document}

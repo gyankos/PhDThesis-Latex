@@ -1,0 +1,94 @@
+\section{Unstructured Data: Full Text Documents}\label{sec:unstructured}
+In contrast with structured data, \textbf{unstructured data}\index{data!unstructured} relies on a data representation that could not be directly handled by any domain-specific program to extract information, process it and provide results in the same format. Such kind of pieces of information include full-text documents, audio, image and video formats \cite{SintSSF09}. Within this thesis, we will particularly address the full-text documents even if some of the following illustrated techniques may also apply to the other aforementioned formats.
+
+The need of retrieving machine readable information from full text was clear since the early days of computer science  \cite{Luhn58}, when IBM imagined a Business Intelligence System that was able to retrieve full text documents by using single words (\textit{keywords}) as indexes (see Subsection \vref{subsec:unstructlang} for more details). Anyhow, this project was too ambitious for those times, when only small full text corpora were available \cite{Singhal01}. All the research effort was then moved towards the analysis of structured documents and to develop a query language on top of it \cite{Codd71a}. During the 1990s, the first full text corpora was delivered \cite{nlacat} and hence, the Information Retrieval field could finally became a meaningful research topic. 
+
+With the increase of the volume of the corpora and the rise of the World Wide Web, it became more relevant that the combination of classical Information Retrieval's  keyword-indexed document based search \cite{Manning} with lexical similarities \cite{KohailBiemann} was no more sufficient to achieve hight \textit{precision} scores. As a result, at the beginning of the 2000s \cite{Brants03} Natural Language Processing techniques such as \textit{dependency graphs}\index{graph!dependency graph}, initially developed for Computational Linguistic research for providing a graph structured semantic representation of the text \cite{Iglesias}, were firstly addressed for increasing the precision of IR techniques. By doing so, problems like multi-word recognition \cite{Lossio-Ventura2014}, word similarity \cite{SemSim} and multilingual word disambiguation \cite{MultiWordSense} could be finally solved by using specific (multilanguage) knowledge bases, such as \textbf{BabelNet} \cite{Navigli12} or \textbf{WordNet} \cite{WordNet}. Moreover, the usage of (e.g., OWL) ontologies such as \textbf{YAGO} \cite{IBMWatson} and reasoning techniques on top of such graph-structured data, could even help with the increase of the recall values \cite{WeltyM06}. 
+
+As an outcome of an NLP oriented Information Retrieval approach, it was  not only possible to extract full documents satisfying some user information need, but also to extract the passages from one single document containing only the relevant information for the user. Such process, called \textbf{Information Extraction (IE)}, is relevant in  biology, where we could extract which genes interact with each other \cite{MalloryZRA16} or even between different documents by using a bibliographical network \cite{Song14Discovering}. This approach was also used to analyze  clinical data \cite{medical}, or even providing answers to open-domain questions as in the case of \textbf{IBM Watson} \cite{IBMWatson} and \textbf{DeepDive} \cite{PalomaresAKR16}. 
+In particular, \textbf{Information Extraction (IE)} techniques extract graph representations of full text documents in two main phases: \textbf{Entity Extraction}\index{entity} and \textbf{Relation Extraction}\index{relationship} \cite{Sarawagi}. In the first phase, entities are structured by querying the unstructured document  or using some other statistical techniques. The second phase allows to extract relations among the previously extracted entities: in order to do so, grammatical relations can be preliminarly extracted from the text through dependency graphs \cite{MarneffeDSHGNM14}.
+This last task can be more profitably used within domain specific applications, where the relationships are known beforehand \cite{ZhangRCSWW17}. In those other use cases, universal dependencies techniques may be used instead.% but cannot be used in general purposes scenarios, like IBM Watson, where Wikipedia documents can be analysed and extracted.
+
+Finally, graph data representation of full-texts allows to later perform either specific graph mining algorithms \cite{Samatova} such as clustering \cite{Chen10} and association rules, or basic graph metric operations, such as betweenness centrality and degree distribution \cite{Newman}. 
+	
+\subsection{Query Languages}\label{subsec:unstructlang}
+The aim of a query language is to return (either partly or as a whole) and manipulating some data. Contrary to this commonsense, classical Information Retrieval \cite{Manning} can only return (sub)sets of documents stored in huge document collections satisfying the user's information need. This consideration also applies for more standardized IR query languages, such as  \textsc{Context Query Language}\footnote{\url{http://www.loc.gov/standards/sru/cql}}, which are not able to extract relevant information from the given document.
+
+\begin{algorithm}[!t]
+\begin{algorithmic}
+\For{\textbf{each} $D_i\in \mathcal{D}$}
+	\For{\textbf{each} $t_j\in D_i$}
+	\If{$t_j\in V$}
+		\State{$IX[t_j] \leftarrow IX[t_j] \cup\{ (i,j)\}$}
+	\EndIf
+	\EndFor
+\EndFor	
+\end{algorithmic}
+\caption{Initializing an Invertex Index for classical information retrieval queries.}
+\label{algo:invertexindex}	
+\end{algorithm}
+
+
+\begin{definition}[Classical Information Retrieval]
+	\index{information retrieval}
+The ground truth is composed of a document collection $\mathcal{D}=\Set{D_1,\dots, D_n}$. Each document $D_i\in \mathcal{D}$ is indexed using a set $V$ of relevant terms ($t\in V$), called \textbf{vocabulary}. Each document $D_i\in \mathcal{D}$ is defined as a list of \textbf{terms} $D_i=\Set{t_1,\dots t_{m_i}}$. Each document is indexed using the vocabulary terms through \textbf{inverted indices} $IX$: such index associates for each term $t\in V$ a set of pairs $(i,j)$ defining that the term $t$ occurs in document $d_i$ as the $j$-th term. Such indices could be initialized as showed in Algorithm \ref{algo:invertexindex}.
+\end{definition} 
+
+Classical Information Retrieval does not provide a formalization of how to translate an user's full text query into a formal language. To make matters worse, some approximated frequence-base approaches such as TF-IDF are ill defined so that, in the worse case scenario, negative frequencies could be obtained\footnote{``\textit{The counter-intuitive negative weights referred to in section 1.3 would normally arise only in the case of a term which occurred in a very large portion of the collection. As this is a very rare occurrence in most collections, this has not been seen as a problem}.'' \cite{IDFNegative}}. For this reason, only exact information retrieval approaches will be considered within this thesis. In particular, the ``Boolean IR Query'' language could be formalized as follows:
+
+\begin{definition}[Boolean IR Query]
+A full text query $ftq$ is defined as follows:
+\begin{enumerate}
+	\item A string ``$k$'', where $k$ is a string (\textit{keyword})  containing no empty characters, is a $ftq$.
+	\item A string ``$k_1\quad k_2\quad\dots\quad k_n$'', containing $n$ space separated keywords  is a $ftq$.
+	\item ``$ftq_1 \textbf{ AND } ftq_2$'' is a $ftq$.
+	\item ``$ftq_1 \textbf{ OR } ftq_2$'' is a $ftq$.
+	\item ``$(ftq)$'' is a $ftq$.
+	\item[$\circ$.] Nothing else is a $ftq$.
+\end{enumerate} 
+Given an inverted index $IX$, the interpretation $\sem[IX]{ftq}$ of a $ftq$ returns the set of documents satisfying  $ftq$:
+\begin{enumerate}
+	\item $\sem[IX]{k} = \Set{D_i|\exists j. (i,j)\in IX[k]}$ 
+	\item $\sem[IX]{k_1\quad\dots\quad k_n} = \Set{D_i|\exists j. \bigwedge_{h=1}^{n}  (i,j+h-1)\in IX[k_h]}$ 
+	\item $\sem[IX]{ftq_1 \textbf{ AND } ftq_2}=\sem[IX]{ftq_1}\cap \sem[IX]{ftq_2}$.
+	\item $\sem[IX]{ftq_1 \textbf{ OR } ftq_2}=\sem[IX]{ftq_1}\cup \sem[IX]{ftq_2}$.
+	\item $\sem[IX]{(ftq)}=\sem[IX]{ftq}$.
+\end{enumerate} 
+\qed
+\end{definition}
+
+We now want to provide an exaple to show that the aforementioned semantics for a Boolean IR query is the usual intended meaning for a full-text query.
+
+\begin{example}
+The following table represent an example of document corpus that could be used for information retrieval:
+
+\begin{tabular}{c|l}
+\toprule
+	Document Id & Content \\
+\midrule
+	$D_1$ & The quick brown fox jumps over the lazy dog \\
+	$D_2$ & Jack be nimble, Jack be quick. And Jack jump over the candle stick \\
+	$D_3$ & And it seems to me you lived your life like a candle in the wind.\\
+\bottomrule
+\end{tabular}
+	
+If we want to perform the query ``\textit{quick}'', then we could easily see that it evaluates to $\{D_1,D_2\}$, while ``\textit{candle}'' evaluates to $\{D_2,D_3\}$ because the inverted index $IX$ from the document collection is accessed and the stored values are simply returned. 
+
+At this step, the interpretation of the query ``\textit{quick}''\textbf{ AND }``\textit{candle}'' we have that such query evaluates to $\{D_2\}$ because in that document both terms appears, while the query ``\textit{quick candle}'' returns no document because in no document those two words appear consecutively.
+\end{example}
+
+
+The previously defined query language is so simple that we cannot extract multiterms and avoid some intermediate characters. For these reasons, cascading grammar rules have been considered for term extraction techniques, jointly with dictionary and regex matching. Nevertheless, such approach have been supplanted by relational algebra techniques \cite{IBMReiss}, providing a ``semantic'' for such grammar rules that could boost their performance by using relational algebra rewriting rules. This implies that we must provide a structured representation for the unstructured document. 
+
+\begin{definition}[Span]
+	\index{span}
+Given a document $D$ represented as a collection of characters $c_1\dots c_n$, a \textbf{span} \cite{IBMReiss} is an interval represented as a pair $(i,j)$ identifying a term $c_i\dots c_j$ within the document. Each span could be represented as a tuple $t=(i,j)$ of a relation $r(R)$ having schema $R=(\texttt{begin},\texttt{end})$.
+\end{definition}
+
+After obtaining such spans through either regexes or dictionary extraction techniques over a full text document (\textit{span extraction operators}), we can aggregate such spans with given rewriting rules by composing the previously extracted term (\textit{span aggregation operators}) %\todo{\'E necessario fornire qui la definizione esplicita di ogni operatore?}.
+ Even though such last operators could be still expressed through a composition of the standard relational operators plus a \textit{while-loop}\index{$\lambda$} operator as the one described in \cite{Calders2006}, they were implemented as distinct operators for efficiency reasons.
+
+To the best of our knowledge, the only other algebra over full text documents that has been defined is the one for retrieving and querying full text information within semistructured documents \cite{BurattiM07} but again, such algebra is not able to recombine textual contents but only to filter and score them as the other IR query languages.
+
+
+

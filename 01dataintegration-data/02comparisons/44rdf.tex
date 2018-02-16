@@ -1,0 +1,33 @@
+\phparagraph{RDF Model}\label{sec:rdfmodel}
+\index{graph!RDF|textbf}
+This other graph data model is used in the semantic web  and in the ontology field to describe Linked Data
+\cite{NautiLOD,Hartig2015}.  Consequently, modern reasoners such as \textbf{Jena} \cite{Jena} or \textbf{Pellet} \cite{Pellet}
+assume such data structure as the default graph data model.
+
+\begin{definition}[RDF (Graph Data) Model]
+	An \textbf{RDF (Graph data) model}\index{graph!RDF|textbf} \cite{GutierrezInclusion} is defined as a
+	set of triples $(s,p,o)$, where $s$ is called ``subject'', $p$ is the ``predicate'' and $o$ is the ``object''.
+	Such triple describes an edge with label $p$ linking the source vertex $s$ to the destination vertex $o$.
+	Such predicate can even appear as a source vertex
+	whenever additional information is provided \cite{DasSPCB14}.
+	 Each
+	vertex is either identified by a unique URI identifier or by a blank node $b_i$. Each predicate is only described by
+	an URI identifier. \qedsymbol
+\end{definition}
+
+Even if this data model provides unique resource identifiers as a common basis, it does not allow to store some
+attribute-value information inside each node. Consequently, each entity's attribute is mapped as an edge linking the
+resource to its property.
+ \cite{DasSPCB14} shows that
+ property graphs can be entirely mapped into RDF triplestore systems
+ as follows:
+ \begin{definition}[Property Graph over Triplestore]\label{def:map}
+ 	Given a property graph $G=(V,E,A_v,A_e)$, each vertex
+ 	$v_i\in V$ induces a set of triples $(v_i,\alpha,\beta)$ for each $\alpha\in A_v$ such that $v_i(\alpha)=\beta$
+ 	having $\beta\neq\texttt{NULL}$. Each edge $e_j\in E$ induces a set of triples $(s,e_j,d)$ such that
+ 	$\lambda(e_j)=(s,d)$ and another set of triples $(e_j,\alpha',\beta')$ for each $\alpha'\in A_e$ such that
+ 	$e_j(\alpha')=\beta'$ having $\beta'\neq\texttt{NULL}$. Each property graph $G$ is stored as a distinct
+ 	named graph.
+ \end{definition}
+
+The inverse morphism is not always possible because RDF properties can be even used as either source or targets for other properties, while edges within the property graph model can be only used to link other vertices. 

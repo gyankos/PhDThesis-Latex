@@ -1,0 +1,163 @@
+
+\subsection{(Proper) Graph Query Languages}\label{subsec:proper}
+A graph query language is ``proper'' when its expressive power includes all the aforementioned query languages, and possibly expressing the graph algebraic operators. In particular, such languages are able to express graph grammars' rewriting rules for both updating the data within the given graph database, and creating new elements:
+\begin{itemize}
+	\item in Cypher, the following keywords are used: \texttt{SET} for setting new values within vertices and edges, \texttt{MERGE} for merging set of attributes within a single node or edges, \texttt{REMOVE} for removing labels and properties from vertices and edges, and \texttt{CREATE} for the creating of new nodes, edges and paths \cite{CypherCheat}.
+	\item in SPARQL, \texttt{INSERT} and \texttt{DELETE} clauses allow to create and remove RDF triplets \cite{sparql11update2013}.
+\end{itemize} 
+Moreover, they can express graph traversal queries \cite{Kostylev2015} and pattern matching ones \cite{JunghannsKAPR17}. Even if graph grammars seems to allow to extend arbitrarily the expressive power of such query language by allowing to express some new graph operators, in some cases a direct algebraic implementation proves to be more efficient than the pattern matching (or graph traversing) plus graph transformation mechanism. This intuition was proved for the graph join operator that is going to be presented in Chapter \vref{cha:join}, where a straightforward implementation of such operator proved to be more efficient than the query matching and rewriting.
+
+%All the following graph query languages offer only a limited support to pattern extraction from graphs,
+%except from SPARQL, that has been recently extended in order to allow path traversal queries \cite{Kostylev2015}.
+%Consequently, such languages focus more on the graph data manipulation part.
+%% Da non confondersi con quello di Facebook
+
+Last, even though these languages can be closed under either property graphs or RDF data, graphs must not be considered as their main output result, since specific keywords like  \texttt{RETURN} for Cypher and \texttt{CONSTRUCT} for SPARQL must be used to force the query result to return graphs. Given also the fact that such languages have not been formalized from the graph returning point of view, such languages prove to be quite slow in producing new graph outputs. 
+
+The following paragraphs will provide a round up of the features of such proper graph query languages.
+
+
+\phparagraph{BiQL}
+\textbf{BiQL} \cite{BiQL,BiQL2} is a SQL-like query language that allows to (i) update the data graph with new vertices
+and edges, (ii) filter the desired vertices through a \texttt{WHERE} clause, (iii) extract desired subgraph through
+path expressions and (iv) provide some basics path and vertex summarization results. This language has not got a
+formal semantics yet and it is still under development, but has the aim to develop a closed language under query
+compositionality. The query patterns do not allow expressing regex-es over the paths.
+
+
+\phparagraph{SPARQL}
+At the time of writing, the most studied graph query language  both in terms of
+semantics and expressive power is \textbf{SPARQL}, as it is the most time-worn language among those that are both well-known
+and implemented. Some studies on the expressive power of SPARQL \cite{SparQLExpr,Perez2009} showed that
+it allows to write very costly queries that can be computed more
+efficiently whether only a specific class of (equivalent) queries is allowed. As a result, the design flaws
+of a query language relapse on the computational cost of the allowed queries. These problems could be avoided
+from the very beginning whether the formal study had preceded the practical implementation and definition of the language.
+However, such limitations do not preclude some interesting properties: the algebraic language used to
+formally represent SPARQL performs queries' incremental evaluations \cite{SparqlIncr}, and hence
+allows to boost the querying process while data undergoes updates (both incremental and decremental).
+Anyway, a lot of research has been carried out \cite{Perez2009} and efficient query plans have been implemented \cite{sparqlScalable}, even when multiple
+graphs are took in input.
+These results involve the interpretation and the  execution of ``optional  joins''  paths \cite{SIGMOD2015Atre},
+thus allowing to check whether the graph conjunctive join conditions are not met for the outgoing edges.
+While SPARQL was originally designed to return tabular results,
+later extensions (SPARQL 1.1) tried to overcome to such problem with the \texttt{CONSTRUCT} clause,
+that returns a new graph.
+and to the \texttt{CONSTRUCT} clauses are not included in the SPARQL algebra optimizations.
+However, \texttt{CONSTRUCT} is required for produce a graph as a final outcome of our
+graph join query.
+Last but not least, the usage of so-called \textit{named graphs}
+allows to perform queries over two distinct RDF graphs.
+
+\phparagraph{LDQL}
+The NautiLOD language was later on extended in \textbf{LDQL} \cite{Hartig2015,HartigP15a}, where SPARQL patterns are added
+and different path union and concatenation are allowed. For this specific graph query language the time
+complexity of the query evaluation has not been studied at the time of the writing. Even if it is claimed that
+such language is more general than SPARQL, this language do not allow to create new graphs and to concatenate
+vertex values through the \texttt{BIND} clause, since most of the SPARQL operations are not matched
+by the sole RDFs triple matching.
+
+\phparagraph{Cypher}
+Cypher \cite{Neo4jMan,Robinson,CypherCheat} is yet another SQL-like graph query language for property graphs. No formal semantics for this
+language were defined from the beginning as in GraphQL, but nervelessly some theoretic results have been carried out
+for a subset of \textbf{Cypher} path queries \cite{Neo4jAlg} by using an algebra adopting a path implementation
+over the relational data model. Similarly to BiQL, this language does not allow to express complex
+graph traversal patterns, but it allows to update a property graph and to produce a new graph
+as a result.
+
+\begin{comment}
+
+\begin{table*}[!tb]
+	\centering
+	\begin{adjustbox}{max width=\textwidth}
+		\begin{threeparttable}
+			\begin{tabular}{|c|c|c|c|c|c|c|c|} \hline
+				\small
+				& \multicolumn{2}{c}{Closure Property}\vline & \multicolumn{4}{c}{Graph Operators} \vline& \\
+				& Input\tnote{a} & Output\tnote{a} & \shortstack{Update \\ Values} & Summarization\tnote{a} & Graph Join & \shortstack{Traversal with \\ Branches} & \shortstack{Incremental \\ Update} \\\hline
+
+				GraphLOG & Labelled Graph
+				& Labelled Graph
+				& \xmark
+				& \cmark(over Paths)
+				& \xmark
+				& \cmark, graphical, RegEx
+				& \xmark\\\hline
+
+
+				NautiLOD & WLOD
+				& WLOD
+				& \xmark
+				& \xmark
+				& \xmark
+				& \cmark, disjunctive, RegEx
+				& \xmark\\\hline
+
+				Gremlin & PG
+				&  \shortstack{Bag of vertices,\\ edges or values}
+				& \xmark
+				& \cmark (Bag)
+				& \xmark
+				& \cmark
+				& Titan Script\tnote{b}\\\hline
+
+				%%				OrientDB NoSQL & Graph (Table)
+				%%				&  {Graph (Nested Table)}
+				%%				& \cmark
+				%%				& \cmark (Nested Table)
+				%%				& \xmark
+				%%				& \cmark
+				%%				& SQL update\\\hline
+
+				BiQL & PG, only edge weight
+				& PG, only edge weight
+				& \cmark
+				& \cmark (PG)
+				& \xmark
+				& \xmark
+				& \xmark\\\hline
+
+				SPARQL & RDF Graph
+				& Table, Graph
+				& \xmark
+				& \xmark
+				& \xmark
+				& \shortstack{Triples with variables,\\ Property Path}
+				& \shortstack{With \cite{SparqlIncr} \\ algebra}\\\hline
+
+				LDQL & WLOD
+				& WLOD
+				& \xmark
+				& \xmark
+				& \xmark
+				& \shortstack{SPARQL Triples,\\ NautiLOD}
+				& \xmark \\\hline
+
+				Cypher & PG
+				& PG or Tables
+				& \cmark
+				& \cmark (Tables)
+				& \xmark
+				&  \shortstack{\cmark, no RegEx}
+				& \xmark\\\hline
+
+				GRAD & GRAD
+				& GRAD
+				& \xmark
+				& \xmark
+				& \xmark
+				&  \shortstack{\xmark, separately in GraphQL}
+				& (possible) \\\hline
+
+			\end{tabular}
+			\begin{tablenotes}
+				\small
+				\item[a] PG, shorthand for Property Graph
+				\item[b] \texttt{http://s3.thinkaurelius.com/docs/titan/0.5.0/hadoop-distributed-computing.html}
+			\end{tablenotes}
+		\end{threeparttable}
+	\end{adjustbox}
+	\caption{Comparing graph query languages}
+	\label{tab:summinglang}
+\end{table*}
+\end{comment}

@@ -1,0 +1,81 @@
+\documentclass[tikz,border=5]{standalone}
+\usepackage{eulervm}
+\usepackage[osf,sc]{mathpazo}
+\usepackage{inconsolata}
+\usetikzlibrary{matrix,positioning-plus,paths.ortho,fit}
+\begin{document}
+	\tikzset{
+		entity/.code={
+			\tikzset{
+				rounded corners,
+				name=#1,
+				inner sep=2pt,
+				every entity/.try,
+			}%
+			\def\entityname{#1}%
+		},
+		elabel/.style = {
+			above,midway,sloped
+		},
+		eprop/.style = {
+			draw=black, text width=2.2cm, below, midway, sloped
+		},
+		entity anchor/.style={matrix anchor=#1},
+		every entity/.style={
+			draw,
+		},
+		every property/.style={
+			inner xsep=0.20cm, inner ysep=0.075cm, anchor=west, text width=1.75in
+		}
+	}
+	\def\property#1{\node[name=\entityname-#1, every property/.try]{\propertysplit#1;};}
+	\def\properties{\begingroup\catcode`\_=11\relax\processproperties}
+	\def\processproperties#1{\endgroup%
+		\gdef\propertycode{}%
+		\foreach \p in {#1}{%
+			\expandafter\expandafter\expandafter\gdef\expandafter\expandafter\expandafter\propertycode%
+			\expandafter\expandafter\expandafter{\expandafter\propertycode\expandafter\property\expandafter{\p}\\}%
+		}%
+		\propertycode%
+	}
+	\def\propertysplit#1:#2;{\textbf{#1}:#2}
+
+	\def\entitynamenode{%
+		\node[every entity name/.try] (\entityname-name) {\textbf{\entityname}};
+		\draw (\entityname-name.south west) -- (\entityname-name.south east);
+		\\[1ex]
+	}
+	\tikzset{
+		every entity name/.style={every property/.try, align=center}
+	}
+
+	\begin{tikzpicture}[every node/.style={font=\ttfamily}, node distance=0.5in]
+
+%% START
+
+%% In may ... portugal
+\matrix[entity=Vasco da Gama] (blasco) {
+	\entitynamenode
+};
+
+\matrix[entity=Kappad Beach,right=2cm of blasco] (india) {
+	\entitynamenode
+	\properties{
+		prop: in
+	}
+};
+
+\matrix[entity=27th of May 1498,below left=of india] (date) {
+	\entitynamenode
+	\properties{
+		prop: on,
+		det: the
+	}
+};
+
+\draw[-latex] (blasco) edge node [above,midway] {landed} (india);
+\draw[latex-] (date) edge node [above,midway] {when?} (india);
+
+\end{tikzpicture}
+
+\end{document}
