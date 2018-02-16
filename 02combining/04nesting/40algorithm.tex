@@ -2,17 +2,17 @@
 	\centering
 	\begin{minipage}[!t]{\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{images/nesting/patterns/01_preliminar_question.pdf}
+		\includegraphics[width=\textwidth]{fig/06nesting/01_preliminar_question.pdf}
 		\subcaption{Comparing the vertex summarization pattern and the path summarization patterns. We suppose that edge grouping references ($\gamma_E^{src}$ and $\gamma_E^{dst}$) correspond to the same vertex appearing as a vertex grouping reference ($\gamma_V$) Such correspondence is directly marked my the user itself providing the query by drawing morphisms (correspondences) between the vertex and the path summarization patterns (red edges). The intersections between the two patterns may be directly outlined by the user itself that provides the query (blue edges, representing other morphisms).}
 		\label{fig:patcomparison}
 	\end{minipage} \begin{minipage}[!t]{0.45\textwidth}
 		\centering
-		\includegraphics[width=1\textwidth]{images/nesting/patterns/02_edge_analysis.pdf}
+		\includegraphics[width=1\textwidth]{fig/06nesting/02_edge_analysis.pdf}
 		\subcaption{Path summarization pattern sharing an $\alpha$ area of common patterns shared between the patterns, which are necessairly not the edge grouping references by definition.}
 		\label{fig:edgewithIntersectionNonSRC}
 	\end{minipage}\quad \begin{minipage}[!t]{0.45\textwidth}
 		\centering
-		\includegraphics[width=1\textwidth]{images/nesting/patterns/03_edge_analysis.pdf}
+		\includegraphics[width=1\textwidth]{fig/06nesting/03_edge_analysis.pdf}
 		\subcaption{Path summarization pattern not sharing a common $\alpha$ area, although $\gamma_E^{src}$ and $\gamma_E^{dst}$ must always be present in $g_E$ by hypothesis. This constraint guarantees that the newly created edge will be associated to a nested vertex originating from the vertex summarization pattern.}
 		\label{fig:edgeWithNoIntersection}
 	\end{minipage}
@@ -112,7 +112,7 @@ Let us now restrict $\alpha$ to one single vertex and two edges: for each vertex
 
 \begin{figure}
 \centering
-\includegraphics[height=.8\textheight]{/mnt/DEC4763AC47614CD/thesis/imgs/10nesting/test}
+\includegraphics[height=.8\textheight]{fig/06nesting/test}
 \caption{Extending the serialized graph data structure presented for graph join for the nesting operation. In particular, the present data structure extends each vertex representation in $VertexVals$ (Figure \vref{fig:graphstructure}) in order to fully supports the nested graph data model:
 entities and relationships may now be contained into another data node (either a vertex or an edge). The first block of the serialized data structure contains the pointers towards the memory regions containing data which may vary in size. The fuchsia nodes remark the memory spaces where such data containments may be stored. Moreover, ingoing edges are stored as well as outgoing edges. }\label{nestedGraphVertex}
 \end{figure}

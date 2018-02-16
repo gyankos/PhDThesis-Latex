@@ -2,7 +2,6 @@
 
 \epigraph{\textit{Did she say: ``He yelled, \lq Frame stories are an example of nestings in literature!\rq\;''?}.}{--- An example of a nested quote.}
 
-\newcommand{\trf}{\hl{\texttt{[REF]}}}
 Graph data management systems play an increasing role in present data analytics, because they allow flexible analyses of relationships among data objects. In fact, graphs have been already used as a fundamental data structure for representing data within different contexts (corporate data \cite{success,Park2016355}, social networks \cite{xie,BrodkaK14}, statistical correlations \cite{StatisticalModels} and linked data \cite{Vasilyeva13,BarabucciEARMARK}). Despite the increasing production of graph data, a general operator aggregating with a roll-up fashion one single graph is missing. This operator should create \textbf{nested vertices} and \textbf{nested edges}, which may contain other graphs; we would also like that those components may be freely unnested. The edges connecting the nested vertices do not necessarily represent a partition of the input graph, but the presence of an edge between two summarized vertices represents the existence (within the input graph) of an edge (or more generally a path) between the partitions which the aforementioned vertices represent. Therefore, such desired outcome extends the \textit{vertex summarization} class of aggregations: those strategies prefer to group the vertices as in relational \texttt{Group By} strategies, and then aggregate the edges accordingly \cite{JunghannsPR17}. These class of operations restrict the ability of aggregating by paths, that are limited to the set of edges connecting the vertices belonging to two (different) class of vertices. It follows that such class of aggregations   do not allow to freely aggregate the edges into final nested edges. 
 
 
@@ -10,7 +9,7 @@ Graph data management systems play an increasing role in present data analytics,
 	\centering
 	\begin{minipage}[!t]{0.6\textwidth}
 		\centering
-		\includegraphics[width=1\textwidth]{imgs/03introduction/04bibliography}
+		\includegraphics[width=1\textwidth]{fig/06nesting/04bibliography}
 		\subcaption{Input bibliographical network.}
 		\label{fig:inputbibex2}
 	\end{minipage}
@@ -18,7 +17,7 @@ Graph data management systems play an increasing role in present data analytics,
 
 	\begin{minipage}[!t]{\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{imgs/03introduction/042nested}
+		\includegraphics[width=\textwidth]{fig/06nesting/042nested}
 		\subcaption{Nested result: given two \texttt{Author}s $\color{orange}a$ and $\color{orange}a'$, there exist two  \texttt{coauthorship} edges, $\color{blue}a\to a'$ and $\color{blue}a'\to a$ if and only if they share some authored paper contained respectively in $\phi({\color{blue}a\to a'},\ONTA)$ and $\phi({\color{blue}a'\to a},\ONTA)$. Moreover, each author $\color{orange}a$ is associated to the set of his authored papers $\phi({\color{orange}a},\ONTA)$. }
 		\label{fig:outputnested}
 	\end{minipage}
@@ -48,12 +47,12 @@ We also investigate a data structure and a general algorithm to optimize graph n
 	\centering
 	\begin{minipage}[!t]{0.5\textwidth}
 		\centering
-		\includegraphics[width=.7\textwidth]{images/nesting/patterns/00_vertex_pattern.pdf}
+		\includegraphics[width=.7\textwidth]{fig/06nesting/00_vertex_pattern.pdf}
 		\subcaption{Vertex summarization pattern.}
 		\label{fig:vertexPat}
 	\end{minipage} \begin{minipage}[!t]{0.5\textwidth}
 		\centering
-		\includegraphics[width=1\textwidth]{images/nesting/patterns/00_path_pattern.pdf}
+		\includegraphics[width=1\textwidth]{fig/06nesting/00_path_pattern.pdf}
 		\subcaption{Path summarization pattern.}
 		\label{fig:pathPat}
 	\end{minipage}

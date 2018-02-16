@@ -2,7 +2,7 @@
 
 This appendix provides the script notation for the mathematical notation used in the GSQL definitions. We chose to use the latter instead of \texttt{script} due to the fact that this notation is more compact and more readable. On the other hand, a \texttt{script} implementation of such functions shows how such definitions can be implemented in any system. Therefore, this appendix is going to provide the implementation of the aforementioned mathematical notation.
 
-\phparagraph{Script for $\psi_\cup$}
+{\par\LARGE Script for $\psi_\cup$\par}
 
 The associated \texttt{script} expression can be defined as follows: 
 \begin{lstlisting}[language=script]
@@ -15,7 +15,7 @@ fold [o.phi,
 \end{lstlisting}
 Please remember that \texttt{k} is a pair, where \texttt{k[0]} is the current element of \scriptline{o.phi} while \texttt{k[0][1]} is the accumulated value that, in our case, is the step-by-step reformulation of the containment.
 
-\phparagraph{Script for $\psi_\backslash$}
+{\par\LARGE Script for $\psi_\backslash$\par}
 
 Before providing the definition of $\psi_\backslash$ in \texttt{script}, we must define some script utility functions, such as some set (or, as in this case, list) operations. 
 
@@ -57,7 +57,7 @@ map(keys : x -> {{x,
    )
 \end{lstlisting}
 
-\phparagraph{Script for $\psi_\cap$}
+{\par\LARGE Script for $\psi_\cap$\par}
 
 Similarly to the previous step, we have to perform the intersection over all the operands over the common set of attributes.
 

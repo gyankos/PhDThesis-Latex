@@ -1,0 +1,141 @@
+\documentclass[tikz,border=5]{standalone}
+\usepackage{eulervm}
+\usepackage[osf,sc]{mathpazo}
+\usepackage{inconsolata}
+\usetikzlibrary{matrix,positioning-plus,paths.ortho,fit}
+
+\usetikzlibrary{calc}
+\usepackage{color}
+\definecolor{webgreen}{rgb}{0,.5,0}
+\begin{document}
+	\tikzset{
+		entity/.code={
+			\tikzset{
+				rounded corners,             
+				name=#1,
+				inner sep=2pt,
+				every entity/.try,
+			}%
+			\def\entityname{#1}%
+		},
+		elabel/.style = {
+			above,midway,sloped
+		},
+		eprop/.style = {
+			draw=black, text width=2.2cm, below, midway, sloped
+		},
+		entity anchor/.style={matrix anchor=#1},
+		every entity/.style={
+			draw,
+		},
+		every property/.style={
+			inner xsep=0.20cm, inner ysep=0.075cm, anchor=west, text width=1.75in
+		}
+	}
+	\def\property#1{\node[name=\entityname-#1, every property/.try]{\propertysplit#1;};}
+	\def\properties{\begingroup\catcode`\_=11\relax\processproperties}
+	\def\processproperties#1{\endgroup%
+		\gdef\propertycode{}%
+		\foreach \p in {#1}{%
+			\expandafter\expandafter\expandafter\gdef\expandafter\expandafter\expandafter\propertycode%
+			\expandafter\expandafter\expandafter{\expandafter\propertycode\expandafter\property\expandafter{\p}\\}%
+		}%
+		\propertycode%
+	}
+	\def\propertysplit#1:#2;{\textbf{#1}:#2}
+	
+	\def\entitynamenode{%
+		\node[every entity name/.try] (\entityname-name) {\textbf{\entityname}};
+		\draw (\entityname-name.south west) -- (\entityname-name.south east);
+		\\[1ex]
+	}
+	\tikzset{
+		every entity name/.style={every property/.try, align=center}
+	}
+	
+	\begin{tikzpicture}[every node/.style={font=\ttfamily}, node distance=0.5in]
+	
+	\matrix [entity=Paper,fill=green!10,label={above right:3}] at (-2,-3) (s1) {
+		\entitynamenode
+		\properties{
+			title : On Joining Graphs
+		}
+	};
+	\matrix [entity=Paper,fill=green!10,label={above right:4}] at (5,-3) (s3) {
+		\entitynamenode
+		\properties{
+			title : Object Databases
+		}
+	};
+	
+	\node[inner sep=25pt,rounded corners,draw=blue!80,fit=(s3),label=above :{$\phi(\texttt{\color{blue}01},{\color{webgreen}\textrm{``}\texttt{Entity}\textrm{''}})$},label=below :{$\phi(\texttt{\color{blue}10},{\color{webgreen}\textrm{``}\texttt{Entity}\textrm{''}})$}] (12c){
+	};
+	
+	\matrix [entity=Paper,fill=green!10,label={above right:5}] at (12,-3) (s2) {
+		\entitynamenode
+		\properties{
+			title : On Nesting Graphs
+		}
+	};
+	\matrix [entity=Author,fill=orange!20,label={above right:0}]  (a1) {
+		\entitynamenode
+		\properties{
+			name :  Abigail,        
+			surname :  Conner
+		}
+	};
+	
+	\node[inner sep=10pt,rounded corners,draw=orange!80,fit=(s1),
+	label={above left:$\phi(\texttt{\color{orange}0},{\color{webgreen}\textrm{``}\texttt{Entity}\textrm{''}})$}] (s1c){
+	};
+	\draw[color=orange!80] (a1.south) -- (s1c.north west);
+	\draw[color=orange!80] (a1.south) -- (s1c.north east);
+	
+	\node[inner sep=25pt,rounded corners,draw=blue!80,fit=(s1),
+	label=above :{$\phi(\texttt{\color{blue}02},{\color{webgreen}\textrm{``}\texttt{Entity}\textrm{''}})$},label=below :{$\phi(\texttt{\color{blue}20},{\color{webgreen}\textrm{``}\texttt{Entity}\textrm{''}})$}] (02c){
+	};
+	
+	
+	\node[rounded corners,draw=orange!80,fit=(s1) (s3),
+	label={above right:$\phi(\texttt{\color{orange}2},{\color{webgreen}\textrm{``}\texttt{Entity}\textrm{''}})$}] (c22) {
+	};
+	
+	
+	
+	\matrix [entity=Author,fill=orange!20,label={above right:1}] at (12,0) (a2) {
+		\entitynamenode
+		\properties{
+			name :  Baldwin,        
+			surname :  Oliver
+		}
+	};
+	\matrix [entity=Author,fill=orange!20,label={above right:2}] at (6,0) (a3) {
+		\entitynamenode
+		\properties{
+			name :  Cassie,        
+			surname :  Norman
+		}
+	};
+	\draw[color=orange!80] (a3.south) -- (c22.north);
+	\draw[color=orange!80] (a3.south) -- (c22.north east);
+	
+	
+	\draw (a1.south) edge [bend right] node  [elabel,sloped] (c02) {\color{blue}coauthorship} (a3.south west) ;
+	\draw[color=blue!80] (c02.south) -- (02c.north);
+	\draw[color=blue!80] (c02.south) -- (02c.north east);
+	
+	\draw (a3.south east) edge [bend right] node [elabel,sloped] (c21) {\color{blue}coauthorship} (a2.south) ;
+	\draw[color=blue!80] (c21.south) -- (12c.north);
+	\draw[color=blue!80] (c21.south) -- (12c.north east);
+	
+	\node[inner sep=20pt,rounded corners,draw=orange!80,fit=(s2) (s3),
+	label={above right:$\phi(\texttt{\color{orange}1},{\color{webgreen}\textrm{``}\texttt{Entity}\textrm{''}})$}] (c24) {
+	};
+	
+	
+	\draw[color=orange!80] (a2.south) -- ($ (c24.north east) - (1,0) $);
+	\draw[color=orange!80] (a2.south) -- (c24.north east);
+	
+	\end{tikzpicture}   
+	
+\end{document}
