@@ -17,20 +17,20 @@ We continue to both analyse the dependency graph semistructured representation f
 
 \begin{figure*}[!p]
 	\centering
-	\includegraphics[width=\textwidth]{imgs/examples/00DependencyGraph}
+	\includegraphics[width=\textwidth]{fig/05language/00DependencyGraph}
 	\caption{Graph representation of the following sentence from Wikipedia: ``\textit{The discovery and publication in 1987 of an early correspondence between Einstein and Maric revealed that they had had a daughter was staying with her parents.}''. }
 	\label{fig:dependencygraph}
 \end{figure*} 
 \begin{figure*}[!pth]
 	\begin{minipage}[b]{\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{images/introduction/comparisons/unstructured/diagramtable}
+		\includegraphics[width=\textwidth]{fig/05language/diagramtable}
 		\subcaption{Query for nested graph allowing to rewrite the full-text graph representation.}
 		\label{fig:diagramtable}
 	\end{minipage}
 	\begin{minipage}[b]{\textwidth}
 		\centering
-		\includegraphics[width=1.2\textwidth]{images/introduction/comparisons/unstructured/nestedrepr}
+		\includegraphics[width=1.2\textwidth]{fig/05language/nestedrepr}
 		\subcaption{Result of the application of the patterns in Figure \subref{fig:diagramtable}.}
 		\label{fig:nestedrepr}
 	\end{minipage}
@@ -184,7 +184,6 @@ At this point, we must state that we shall keep only the edges that link vertice
 E' = nE \cup \{e_c\in \phi(\ngraph,\RELA)\big |&\phi(e_c,\SRC),\phi(e_c,\DST)\in\\
 	&\partof{\delta V\cup\varphi(nE\cup \phi(\ngraph,\ONTA)\cup \phi(\ngraph,\RELA))}\}\\
 \end{split}
-
 \end{equation}
 
 
@@ -263,7 +262,7 @@ At this point, we can use this same operator to perform more than one changes at
 
 \begin{figure*}[!pth]
 	\centering
-	\includegraphics[width=\textwidth]{imgs/examples/01DependencyGraph_match}
+	\includegraphics[width=\textwidth]{fig/05language/01DependencyGraph_match}
 	\caption{Underlying which part of the dependency graph are matched by the patterns outlined in Figure \vref{fig:diagramtable}. The blue matches represent the first graph matching rule, the purple ones with the loose dashing represent the second one, while the last one with the thick dashes represent the last one.}
 	\label{fig:dependencygraph_matches}
 \end{figure*}

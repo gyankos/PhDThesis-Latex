@@ -57,3 +57,13 @@
 \BOOKMARK [2][-]{subsection.5.4.2}{5.4.2 Graph ETL and \(\205\)\(Di\),H\(\(Di\)\): the Transformation phase}{section.5.4}% 57
 \BOOKMARK [1][-]{section.5.5}{5.5 Conclusions}{chapter.5}% 58
 \BOOKMARK [0][]{chapter.6}{6 GSQL: a Generalized Semistructured Query Language}{part.2}% 59
+\BOOKMARK [1][-]{section.6.1}{6.1 General Semistructured Query Language \(GSQL\)}{chapter.6}% 60
+\BOOKMARK [1][-]{section.6.2}{6.2 Defining other GSQL operators over GSM}{chapter.6}% 61
+\BOOKMARK [2][-]{subsection.6.2.1}{6.2.1 \(Attribute labelled\) Set operations}{section.6.2}% 62
+\BOOKMARK [2][-]{subsection.6.2.2}{6.2.2 Relational and semistructured operations}{section.6.2}% 63
+\BOOKMARK [1][-]{section.6.3}{6.3 GSQL Use cases}{chapter.6}% 64
+\BOOKMARK [2][-]{subsection.6.3.1}{6.3.1 Implementing traversal query languages' semantics \(\)}{section.6.3}% 65
+\BOOKMARK [2][-]{subsection.6.3.2}{6.3.2 paNGRAm: Nested Graph Relational Algebra}{section.6.3}% 66
+\BOOKMARK [2][-]{subsection.6.3.3}{6.3.3 Representing is-a aggregations}{section.6.3}% 67
+\BOOKMARK [2][-]{subsection.6.3.4}{6.3.4 Generalized Graph Grammars G for Nested Graphs. H,TG\(H\)\(\)}{section.6.3}% 68
+\BOOKMARK [1][-]{section.6.4}{6.4 Conclusons}{chapter.6}% 69

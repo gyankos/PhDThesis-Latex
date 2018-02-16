@@ -1,0 +1,280 @@
+\documentclass[tikz,border=5]{standalone}
+\usepackage{eulervm}
+\usepackage[osf,sc]{mathpazo}
+\usepackage{inconsolata}
+\usetikzlibrary{matrix,positioning-plus,paths.ortho,fit}
+\begin{document}
+	\tikzset{
+		entity/.code={
+			\tikzset{
+				rounded corners,             
+				name=#1,
+				inner sep=2pt,
+				every entity/.try,
+			}%
+			\def\entityname{#1}%
+		},
+		elabel/.style = {
+			above,midway,sloped
+		},
+		eprop/.style = {
+			draw=black, text width=2.2cm, below, midway, sloped
+		},
+		entity anchor/.style={matrix anchor=#1},
+		every entity/.style={
+			draw,
+		},
+		every property/.style={
+			inner xsep=0.20cm, inner ysep=0.075cm, anchor=west, text width=1.75in
+		}
+	}
+	\def\property#1{\node[name=\entityname-#1, every property/.try]{\propertysplit#1;};}
+	\def\properties{\begingroup\catcode`\_=11\relax\processproperties}
+	\def\processproperties#1{\endgroup%
+		\gdef\propertycode{}%
+		\foreach \p in {#1}{%
+			\expandafter\expandafter\expandafter\gdef\expandafter\expandafter\expandafter\propertycode%
+			\expandafter\expandafter\expandafter{\expandafter\propertycode\expandafter\property\expandafter{\p}\\}%
+		}%
+		\propertycode%
+	}
+	\def\propertysplit#1:#2;{\textbf{#1}:#2}
+	
+	\def\entitynamenode{%
+		\node[every entity name/.try] (\entityname-name) {\textbf{\entityname}};
+		\draw (\entityname-name.south west) -- (\entityname-name.south east);
+		\\[1ex]
+	}
+	\tikzset{
+		every entity name/.style={every property/.try, align=center}
+	}
+	
+	\begin{tikzpicture}[every node/.style={font=\ttfamily}, node distance=0.5in]
+	
+	\matrix [entity=discovery,fill=orange!20]  (discovery) {
+		\entitynamenode
+		\properties{
+			det: The
+		}
+	};
+	\matrix [entity=publication,fill=orange!20,right,right=of discovery]  (publication) {
+		\entitynamenode
+	};
+	\node[rounded corners,draw=blue,fit=(discovery) (publication),label=above left:{\color{blue}\texttt{conj:and}}]  (a) {
+	};
+	
+	\matrix [entity=1987,fill=orange!20,right,below=of discovery]  (year) {
+		\entitynamenode
+	};
+	\draw[->] (discovery) -- node[sloped,above,midway] {when} (year);
+	
+	%% An early correspondence
+	\matrix [entity=correspondence,fill=orange!20,right,below=of year]  (correspondence) {
+		\entitynamenode
+		\properties{
+			det: an,
+			adj: early
+		}
+	};
+	\draw[->] (year) -- node[sloped,above,midway] {what} (correspondence);
+	%% ////
+	
+	
+	\matrix [entity=Einstein,fill=orange!20,below=of correspondence]  (Einstein) {
+		\entitynamenode
+	};
+	\matrix [entity=Maric,fill=orange!20,right,right=of Einstein]  (Maric) {
+		\entitynamenode
+	};	
+	\node[rounded corners,draw=blue,fit=(Einstein) (Maric),label=above left:{\color{blue}\texttt{conj:and}}]  (parentsEM) {
+	};
+	
+	\draw[->] (correspondence.south) -- node[sloped,above,midway] {between} (parentsEM.north west);
+	
+	%% THEY HAD DAUGHTER
+	\matrix [entity=they,fill=orange!20,right=of publication]  (they) {
+		\entitynamenode
+	};
+	\matrix [entity=daughter,fill=orange!20,right,right=of they]  (daughter) {
+		\entitynamenode
+		\properties{
+			det: a
+		}
+	};
+	\draw[->] (they) -- node [above] {had} (daughter);
+	%% THEY HAD DAUGHTER
+	
+	\node[rounded corners,draw=blue] [fit=(they) (daughter)]  (b) {
+	};
+	\draw[->] (a) edge[bend left] node [above] {revealed} (b);
+	
+	\matrix [entity=parents,fill=orange!20,below=of daughter]  (parents) {
+		\entitynamenode
+		\properties{
+			det: a,
+			poss: her
+		}
+	};
+	\matrix [entity=which,fill=orange!20,left=of parents]  (which) {
+		\entitynamenode
+	};
+	
+	\draw[->] (which) edge [bend left] 
+	                  coordinate [midway] (stawyingwith)
+	                  node [left, near start] {staying with}
+	          (parents);
+	\node[rounded corners,draw=blue,fit=(parents) (which) (stawyingwith)]  (c) {
+	};
+	\draw[->] (daughter.east) edge [bend left] node [midway,above,sloped] {acl:recl} (c.east);
+	
+%	\matrix [entity=Employee,fill=orange!20] at (0,-6) (a2) {
+%		\entitynamenode
+%		\properties{
+%			name :  Baldwin,        
+%			surname :  Oliver,
+%			gender :  M
+%		}
+%	};
+%	\matrix [entity=Employee,fill=orange!20] at (0,-3) (a3) {
+%		\entitynamenode
+%		\properties{
+%			name :  Cassie,        
+%			surname :  Norman,
+%			gender :  F
+%		}
+%	};
+%	\matrix [entity=Employee,fill=orange!20] at (0,-9) (a4) {
+%		\entitynamenode
+%		\properties{
+%			name :  Darcy,        
+%			surname :  Parker,
+%			gender :  M
+%		}
+%	};
+%	\matrix [entity=Employee,fill=orange!20] at (0,-12) (a5) {
+%		\entitynamenode
+%		\properties{
+%			name :  Edmund,        
+%			surname :  Spencer,
+%			gender :  M
+%		}
+%	};
+%	
+%	
+%	\matrix [entity=SalesOrder,fill=green!10] at (7,-1.5) (s1) {
+%		\entitynamenode
+%		\properties{
+%			date :  30-Dec-2016,        
+%			deliveryDate :  2-Oct-2017
+%		}
+%	};
+%	\matrix [entity=SalesOrder,fill=green!10] at (7,-4.5) (s3) {
+%		\entitynamenode
+%		\properties{
+%			date :  13-May-2017,        
+%			deliveryDate :  14-May-2017
+%		}
+%	};
+%	\matrix [entity=SalesOrder,fill=green!10] at (7,-7.5) (s2) {
+%		\entitynamenode
+%		\properties{
+%			date :  5-Jan-2017,        
+%			deliveryDate :  12-Feb-2017
+%		}
+%	};
+%	\matrix [entity=SalesOrder,fill=green!10] at (7,-10.5) (s4) {
+%		\entitynamenode
+%		\properties{
+%			date :  13-June-2017,        
+%			deliveryDate :  1-Aug-2017
+%		}
+%	};
+%	
+%	\draw[->,very thick] (a2) -- (s1) node [elabel] {Processes};
+%	\draw[->,very thick] (a2) -- (s3) node [elabel] {Processes};
+%	\draw[->,very thick] (a4) -- (s2) node [elabel] {Processes};
+%	\draw[->,very thick] (a5) -- (s4) node [elabel] {Processes};
+%
+%% \matrix[
+%% entity
+%% ] at (1.8,-4) (m3) {
+%% 	id & name & category & price \\
+%% 	101    & Milk & beverage & 0,80 \$  \\
+%% 	102    & Nuggets  & Chicken Meat & 4,10 \$  \\
+%% 	103    & SPAM & Canned Meat & 1,00 \$  \\
+%% };
+%
+%	\matrix [entity=Product,fill=blue!30] at (15,-1.5) (p1) {
+%		\entitynamenode
+%		\properties{
+%			name : Coffee,
+%			category : Beverage,
+%			price: 2.57 
+%		}
+%	};
+%	\matrix [entity=Product,fill=blue!30] at (15,-4.5) (p2) {
+%		\entitynamenode
+%		\properties{
+%			name : Milk,
+%			category : Beverage,
+%			price : 0.80 
+%		}
+%	};
+%	\matrix [entity=Product,fill=blue!30] at (15,-7.5) (p3) {
+%		\entitynamenode
+%		\properties{
+%			name : Nuggets,
+%			category : Chicken Meat,
+%			price : 4.10
+%		}
+%	};
+%	\matrix [entity=Product,fill=blue!30] at (15,-10.5) (p4) {
+%		\entitynamenode
+%		\properties{
+%			name : SPAM,
+%			category : Canned Meat,
+%			price : 0.99
+%		}
+%	};
+%	
+%	% 
+%	% \matrix[
+%	% relation
+%	% ] at (11,-4) (m4) {
+%	% 	order & product \\
+%	% 	100 & 100 \\
+%	% 	100 & 101 \\
+%	% 	101 & 103 \\
+%	% 	102 & 103 \\
+%	% 	102 & 102 \\
+%	% };
+%	\draw[->,very thick] (s1) -- (p1) node [elabel] {ComposedOf} 
+%	                                  node [eprop]  {\texttt{\textbf{quantity}} : 1} ;
+%	\draw[->,very thick] (s1) -- (p2) node [elabel] {ComposedOf} 
+%	                                  node [eprop]  {\texttt{\textbf{quantity}} : 2} ;
+%	\draw[->,very thick] (s2) -- (p4) node [elabel] {ComposedOf} 
+%	                                  node [eprop]  {\texttt{\textbf{quantity}} : 1} ;
+%	\draw[->,very thick] (s3) -- (p4) node [elabel] {ComposedOf} 
+%	                                  node [eprop,text width=2.6cm]  {\texttt{\textbf{quantity}} : 10} ;
+%	\draw[->,very thick] (s3) -- (p3) node [elabel] {ComposedOf} 
+%	                                  node [eprop]  {\texttt{\textbf{quantity}} : 1} ;
+%	
+%	
+%	\path[node distance=.05em, font=\bfseries] 
+%	node[east above=of a1] {001}
+%	node[east above=of a2] {002}
+%	node[east above=of a3] {003}
+%	node[east above=of a4] {004}
+%	node[east above=of a5] {005}
+%	node[east above=of s1] {100}
+%	node[east above=of s2] {101}
+%	node[east above=of s3] {102}
+%	node[east above=of s4] {103}
+%	node[east above=of p1] {500}
+%	node[east above=of p2] {501}
+%	node[east above=of p3] {502}
+%	node[east above=of p4] {503};
+	
+	\end{tikzpicture}   
+	
+\end{document}

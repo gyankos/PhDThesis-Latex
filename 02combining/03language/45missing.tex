@@ -19,8 +19,6 @@ Moreover, if we have simple GSMs not represented as nested graphs, we can simply
 This chapter provided the definition of the GSQL query language expressed through an algebra, which was able to express set, relational, semistructured and (nested) graph operators. In particular, it was showed that such operators were able to implement all the missing operators required for the GAV data integration scenario, which are the schema extraction (via aggregation) and the matching with rewriting ($\Qoppa$) by generalizing the properties of graph rewriting and pattern matching. On the other hand, we do not still provide a full definition of all the possible graph data operators but  we showed that it is possible to combine the semistructured operations with the edge creation ones to create new nested graphs. 
 
 Last, we also showed how such algebra allows to represent the previously defined graph joins. In the next chapter, we're going to introduce another graph operator, which is the graph nesting, thus allowing to nest vertex and edge informations in both vertices and edges. As we will se in the incoming chapter, the features of this GSQL algebra will be useful to provide optimization when a high level algebraic operator needs to be combined with a pattern matching graph visit, when both can be expressed within the same language. As we will see, this possibility is going to lead to better optimizations and, therefore, we're going to create an algorithm, where both graph visit and new graph creations are combined together.
-\pagebreak
-
 
 We also remark some futher works that should be carried out on GSQL:
 \begin{itemize}
