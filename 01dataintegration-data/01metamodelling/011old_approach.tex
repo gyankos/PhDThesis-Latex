@@ -256,6 +256,7 @@ Even in this case, each graphs' node has neither an associated schema -- that ch
 		\label{fig:answer2}
 	\end{minipage}
 	\caption{Nested graph representation of both a question (\subref{fig:question1}) and two possible candidate answers (\subref{fig:answer1} and \subref{fig:answer2}), where the last one is correct.}
+	\label{fig:firstnested}
 \end{figure}
 	After finding all the correspondences between the vertices and nested vertices, we have to map the \arialify{Action} entities either to edges (since edges in this graph could also represent verbs) or other entities: in this case we have that the type information is not enough because it is too general, and hence we require some term similarity, that can be even in this case achieved using term ontologies such as \textbf{Babelnet}. At this stage, we can make correspondences between the terms \texttt{landed}, \texttt{arrival} and \texttt{arrived}, and hence the \texttt{arrival} matching with \texttt{arrived} could be transformed into a verb, and hence into an edge. 
 	%For further reference, see Section \vref{sec:fullasgraph}, where the graph rewriting language is going to be firstly addressed. 

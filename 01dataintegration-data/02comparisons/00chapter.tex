@@ -6,7 +6,16 @@
 
 %\epigraph{\textit{The man who has no past, has no future: always remember that!}}{--- My grandfather about everything}
 
-Before introducing graph based data models (Section \ref{sec:datamodelglit}), we  analyse the more widely adopted data models first. The reason for doing so is to check which are their weakest links, which are overcomed by our proposed data model (Chapter \vref{cha:graphsdef}). In particular, this chapter tackles structured (Section \vref{sec:relationalcmp}), nested relational and semistructured models (Section \vref{sec:semistructured}), and we'll analyse some ways to provide structured representations for unstructured data (fulltext, Section \vref{sec:unstructured}). For each data model we'll also briefly discuss their query languages.
+The previous chapter aimed to evaluate present data structures and query languages within the context of data integration. Bearing such considerations in mind, we analyse currently-proposed data models and query languages: as a result, we have that current data models do not support structural aggregation and that current query languages cannot handle both data and schema at the same time. Both these features are required within data integration scenarios. Moreover, in this chapter we also compare the previous data model with the property graph data model and its extensions. We draw the following conclusions:
+\begin{itemize}
+\item The relational data model (Section \ref{sec:relationalcmp}) does not distinguish entities from relationships (\textit{semantic overloading}), and does not represent data and data properties ($M$, $MM$) within the same representation (Section \ref{subsec:dmalgebra}).
+\item Semistructured data provide a multimap association between properties and values (e.g., multiple \textit{tags} with the same name); even if both semistructured and nested relational model allow a content-container relation, only the stream data model meets the requirements for  structural aggregation (Section \ref{sec:semistructured}).
+\item Current graph data model distinguish entities from relationships, but do not provide a structural aggregation over both vertices and edges (Section \ref{sec:datamodelglit}).
+\end{itemize}
+
+
+%Before introducing graph based data models (Section \ref{sec:datamodelglit}), we  analyse the more widely adopted data models first. The reason for doing so is to check which are their weakest links, which are overcomed by our proposed data model (Chapter \vref{cha:graphsdef}). In particular, this chapter tackles structured (Section \vref{sec:relationalcmp}), nested relational and semistructured models (Section \vref{sec:semistructured}), and we'll analyse some ways to provide structured representations for unstructured data (fulltext, Section \vref{sec:unstructured}). 
+For each data model we'll also briefly discuss their query languages \texttt{\color{red}[TODO]}.
 \begin{figure}[!pth]
 	%\begin{adjustbox}{max width=\textwidth}
 	\begin{minipage}[b]{\textwidth}
@@ -31,3 +40,4 @@ Before introducing graph based data models (Section \ref{sec:datamodelglit}), we
 	\caption{While the process of modelling a relational database (\subref{fig:erschema}) requires to distinguish between entities and relationships, its instantiation in a logical database model discards them (\subref{fig:instance}). This information could be preserved within the property graph model (\subref{fig:graphofdb1}). }
 	\label{fig:relationalinstance}
 \end{figure}
+

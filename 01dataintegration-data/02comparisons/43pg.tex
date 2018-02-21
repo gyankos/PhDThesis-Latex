@@ -1,20 +1,21 @@
 \phparagraph{Property Graph}
-Property graphs represent multigraphs (that are graphs where multiple edges among two distinct nodes are allowed) where both vertices and edges are multi-labelled tuples. As a consequence, such data structure generalizes Kripke Structures.  This data model is implemented in almost all recent  Graph DBMSs, such as \textbf{Neo4J} \cite{Robinson} or \textbf{Titan}. 
+Property graphs represent multigraphs (that are graphs where multiple edges among two distinct nodes are allowed) where both vertices and edges are multi-labelled tuples. This model does not allow the storage of aggregated values, both because $D_i$ cannot contain either vertices or edges, nor $D_i$ is made to contain collection of values. As a consequence, such data structure generalizes Kripke Structures.  This data model is implemented in almost all recent  Graph DBMSs, such as \textbf{Neo4J} \cite{Robinson} or \textbf{Titan}. We discussed this data model in the previous sections, where it was compared to other non-graph data models. Given that we have already observed that this data model is complementary to the previous "nested" ones, we now want to check whether other graph data model extensions support nested graph contents.
 
-\begin{definition}[Property Graph]
-	A \textbf{property graph}\index{graph!property graph}\footnote{Please note that we've already provided in Definition \vref{def:propg10} a first definition of property graphs as a specific instantiation of the EPGM model, that is going to be further on described. This testifies that, at this stage, there is no widely accepted definition in literature on which a property graph should be.} \cite{Neo4jAlg}\index{graph!property graph|textbf} is defined as a tuple $(V,E,\Sigma_v,\Sigma_e,A_V,A_E,\lambda,l_v,l_e)$, where:
-	\begin{itemize}
-		\item $V$ is a set of nodes,
-		\item $E$ is a set of edges such that, given an edge $e\in E$, $\lambda(e)$ is a pair of vertices ($\lambda(e)\in V\times V$)
-		\item $\Sigma_V$ is a set of nodes' labels,
-		\item $\Sigma_E$ is a set of edges' labels,
-		\item $A_V$ is a set of nodes' properties,
-		\item $A_E$ is a set of edges' properties,
-		\item $l_V\colon V\to \Sigma_V$ is the vertex labelling function,
-		\item $l_E\colon E\to \Sigma_E$ is the edge labelling function,
-	\end{itemize}
-	where each property set $A_X$ is a set of functions $a_X^i\colon V\to D_i\cup\set{\texttt{NULL}}$ mapping each
-	vertex either into a specific value in the domain $D_{A}$ \qedsymbol
-\end{definition}
 
-The next chapter on graph joins used a more specific definition for property graphs (Definition \vref{def:pg}), where vertices and edges are actually represented as tuples and not as resource identifiers, thus allowing to define data operations as operations over tuples. On the other hand, this model does not allow the storage of aggregated values, both because $D_i$ cannot contain either vertices or edges, nor $D_i$ is made to contain collection of values.
+%\begin{definition}[Property Graph]
+%	A \textbf{property graph}\index{graph!property graph}\footnote{Please note that we've already provided in Definition \vref{def:propg10} a first definition of property graphs as a specific instantiation of the EPGM model, that is going to be further on described. This testifies that, at this stage, there is no widely accepted definition in literature on which a property graph should be.} \cite{Neo4jAlg}\index{graph!property graph|textbf} is defined as a tuple $(V,E,\Sigma_v,\Sigma_e,A_V,A_E,\lambda,l_v,l_e)$, where:
+%	\begin{itemize}
+%		\item $V$ is a set of nodes,
+%		\item $E$ is a set of edges such that, given an edge $e\in E$, $\lambda(e)$ is a pair of vertices ($\lambda(e)\in V\times V$)
+%		\item $\Sigma_V$ is a set of nodes' labels,
+%		\item $\Sigma_E$ is a set of edges' labels,
+%		\item $A_V$ is a set of nodes' properties,
+%		\item $A_E$ is a set of edges' properties,
+%		\item $l_V\colon V\to \Sigma_V$ is the vertex labelling function,
+%		\item $l_E\colon E\to \Sigma_E$ is the edge labelling function,
+%	\end{itemize}
+%	where each property set $A_X$ is a set of functions $a_X^i\colon V\to D_i\cup\set{\texttt{NULL}}$ mapping each
+%	vertex either into a specific value in the domain $D_{A}$ \qedsymbol
+%\end{definition}
+
+%The next chapter on graph joins used a more specific definition for property graphs (Definition \vref{def:pg}), where vertices and edges are actually represented as tuples and not as resource identifiers, thus allowing to define data operations as operations over tuples. On the other hand, 

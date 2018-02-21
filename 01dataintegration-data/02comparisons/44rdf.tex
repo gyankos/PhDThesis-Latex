@@ -22,12 +22,11 @@ resource to its property.
  property graphs can be entirely mapped into RDF triplestore systems
  as follows:
  \begin{definition}[Property Graph over Triplestore]\label{def:map}
- 	Given a property graph $G=(V,E,A_v,A_e)$, each vertex
- 	$v_i\in V$ induces a set of triples $(v_i,\alpha,\beta)$ for each $\alpha\in A_v$ such that $v_i(\alpha)=\beta$
+ 	Given a property graph $G=(V,E,A,U,\ell,\kappa,\lambda)$, each vertex
+ 	$v_i\in V$ induces a set of triples $(v_i,\alpha,\beta)$ for each $\alpha\in A$ such that $\kappa(v_i,\alpha)=\beta$
  	having $\beta\neq\texttt{NULL}$. Each edge $e_j\in E$ induces a set of triples $(s,e_j,d)$ such that
- 	$\lambda(e_j)=(s,d)$ and another set of triples $(e_j,\alpha',\beta')$ for each $\alpha'\in A_e$ such that
- 	$e_j(\alpha')=\beta'$ having $\beta'\neq\texttt{NULL}$. Each property graph $G$ is stored as a distinct
- 	named graph.
+ 	$\lambda(e_j)=(s,d)$ and another set of triples $(e_j,\alpha',\beta')$ for each $\alpha'\in A$ such that
+ 	$\kappa(e_j,\alpha')=\beta'$ having $\beta'\neq\texttt{NULL}$.
  \end{definition}
 
-The inverse morphism is not always possible because RDF properties can be even used as either source or targets for other properties, while edges within the property graph model can be only used to link other vertices. 
+The inverse morphism is not always possible because RDF properties can be even used as either source or targets for other properties, while edges within the property graph model can be only used to link other vertices. Last, this RDF also support \textit{named graphs}, through which graphs are associated to a resource identifier; in particular, each property graph may be stored as a distinct named graph. Even though this model allows to use such named graphs as subjects, they cannot be used as neither objects or properties. Therefore, such model does not overcome property graphs' limits.

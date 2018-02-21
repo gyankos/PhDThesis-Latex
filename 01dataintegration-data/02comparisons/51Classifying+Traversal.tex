@@ -17,6 +17,7 @@
 	Description Logic \cite{BotoevaCCRX16, Baader2010} & Description Logic & Vertices from which the graph can be matched\\\hline
 	NLR$^+$ \cite{Barcelo2013} & REGEX + registers & Register-based morphisms over satisfiability \\\hline
 	Gremlin \cite{Rodriguez15} & Gremlin & Bag of values $V\cup E$ and side effects\\\hline
+	HyperLog \cite{poulovassilis2001} & Clauses & Hypernode\\\hline
 	XPath \cite{xpath31} & REGEX & Subtrees reached after traversing the expression\\
 	\bottomrule
 \end{tabularx}
@@ -24,20 +25,20 @@
 \label{tab:messedtables}
 \end{table}
 
-In present literature there are two distinct types of languages allowing the subgraphs ``extraction'' from a single graph operand:  the first approach is to write an expression in a given language $\mathcal{T}$ such that its interpretation involves a visit of the graph, while the second approach is to express such query with another graph (eventually enriched with other path expressions), thus directly providing the data structure to be searched within the graph. In both cases, there are solutions allowing to perform the graph visit via ``tractable'' algorithms, such that the graph visit happens at most in a polynomial time with respect to the graph data size \cite{n3,NautiLOD,Barcelo2013}. Consequently, such solutions do not necessarily involve to run a subgraph isomorphism  problem, except when expressly requested by specific semantics \cite{JunghannsKAPR17}.
+In present literature there are two distinct types of languages allowing the subgraphs ``extraction'' from a single graph operand:  the first approach is to write an expression in a given language $\mathcal{L}$ such that its interpretation involves a visit of the graph, while the second approach is to express such query with another graph (eventually enriched with other path expressions), thus directly providing the data structure to be searched within the graph. In both cases, there are solutions allowing to perform the graph visit via ``tractable'' algorithms, such that the graph visit happens at most in a polynomial time with respect to the graph data size \cite{n3,NautiLOD,Barcelo2013}. Consequently, such solutions do not necessarily involve to run a subgraph isomorphism  problem, except when expressly requested by specific semantics \cite{AnglesABHRV17,JunghannsKAPR17}.
 
 Table \vref{tab:messedtables} shows that there is no strict classification under which we can label such graph languages, even though we can observe that they all rely on a same mechanism: each query has to be interpreted by a specific semantics transforming such query into an intermediate language expression (e.g. a generic program) over which the graph data input can be provided as an input and returned as an output. Consequently, we can just distinguish these query languages by the result they provide, either a single graph or a collection of graphs. For both languages we introduce a new denomination, and call the former ``graph selection languages'' and ``graphs extraction languages'' the latter. 
 
 \subsubsection{Graphs Extraction Languages}\label{subsec:gpm}
 %Similarly to the graph traversal languages outlined in the previous subsection, graph queries can be expressed using a graph data structure $m$. Unlike the previous query languages where one single matching graph was returned, these languages provide a collection of graph elements matching $m$.
 
-Since the graph data structure does not allow an uniform representation for both graphs and graph collections, we'll represent for the moment such operator with an operator from graph to graph collections (which are here expressed  via a collection of ``morphisms''), as the one outlined in \cite{JunghannsKAPR17}.
+Since the graph data structure does not allow an uniform representation for both graphs and graph collections, we  represent graph extraction languages as an operator from graph to graph collections (which are here expressed  via a collection of ``morphisms''). Such morphisms can be expressed as single tuples within one relational table \cite{AnglesABHRV17}.
 
 \begin{definition}[Graphs Extraction Languages]\label{sec:graphamatch}
-	Given a \textbf{graphs extraction language} $\mathcal{L}$ and a query $P$ for such language expressed as a graph or a regex (or both),
-	the interpretation $m_P(G)$ of $P$ over an input graph $G$ returns a set of functions
-	$f_i$ called \textbf{morphisms} \index{morphism|textbf} mapping each object in $\varphi^*(\ngraph_P)$ into a list of objects in $\partof{O_\nested}$. In particular:
-	\[m_P(\nested)=\{f_i\colon\varphi^*(\ngraph_P)\to  \partof{O_\nested}\}_{i\leq n}\]
+	Given a \textbf{graphs extraction language} $\mathcal{L}$ and a query $Q\in\mathcal{L}$  expressed as a graph or a regex (or both),
+	the interpretation $m_Q(G)$ of $Q$ over an input graph $G$ returns a set of functions
+	$f_i$ called \textbf{morphisms} \index{morphism|textbf} mapping each component of $P$  into a list of either vertices or edges in $G$ in $\partof{V_G\cup E_G}$. In particular:
+	\[m_Q(G)=\{f_i\colon Q\to  \partof{V_G\cup E_G}\}_{i\leq n}\]
 	%Moreover, we can represent the set of matchings $m_P(\nested)$ as one single binary function $\smatch(m_P(\nested),t)$, where $s$ is the set of the matched functions and$t$ is a transcoding associating to each function $f_i$ an expression $t(i)\in \lang$.
 	%\[\smatch(s,t)=x\mapsto y\mapsto \min_{\substack{f_i\in s\\ y=t(i)}} f_i(x)\]
 	%Such morphisms can be then represented as nested graph edges, 
@@ -46,10 +47,19 @@ Since the graph data structure does not allow an uniform representation for both
 	%%%%\[\tilde{\varsigma}_m(G)=\Set{\gamma\subseteq G|\exists \varepsilon\in \jsem{m}^{\mathcal{L}}.\varepsilon \colon \gamma\leftrightarrow m}\]
 \end{definition}
 
-
+\phparagraph{Gremlin}
+The \textbf{Gremlin} is a Turing Complete graph traversal query language \cite{Rodriguez15}:
+this is not a desired feature for query languages since they must usually  guarantee that
+each query evaluation must always converge and that it must always return an answer in a ``reasonable'' amount of time. 
+Another problem with this query language is based on its path navigation semantics \cite{ThakkarPAV17}:
+while all the other graph traversal languages return the desired subgraph, Gremlin returns
+a bag of values (e.g. vertices, values, edges). This peculiarity does not allow the user to take advantage
+of partial query evaluations and to combine them in a final result. This feature is
+also shared by other other path navigation algebras, such as the one for Cypher\footnote{Please note that the algebra \cite{ThakkarPAV17} for Gremlin and the other one \cite{Neo4jAlg,MartonSV17} for Cypher are substantially the same, with some minor changes.} \cite{Neo4jAlg,MartonSV17}, which algebra only considers  the graph traversal aspects of the language.
+%\phparagraph{Other graph traversal languages}
 
 \subsubsection{Graph Selection Languages}
-
+Instead of returning multiple graphs matching one single query $Q$, other languages prefer to return the maximal subgraph containing all the graphs that match $Q$. 
 %A graph traversing language plays the same role as XPath for semistructured data, that is they allow to traverse the graphs and, they return the graph that was visited at the same time. This thesis is not going to provide the whole details for each language, regarding both their expressive power and computational complexity of their query evaluation, except when this play a key role within the same structure: the aim of this section is to analyse what this languages are able to compute. Since most of the graph traversal query languages are expressed as graphs, we can freely assume that any query $t$ is expressed in a graph form. Nevertheless, all the languages belonging to this language can meet the following definition:
 
 \begin{definition}[Graph Selection Language]\label{def:travselect}
@@ -68,35 +78,44 @@ As a consequence, this selection operator appears to be more general than the gr
 
 %With an abuse of notation we will always refer to $\varepsilon_V(V)$ as $\varepsilon_V(V\cap \dom(\varepsilon_V))$, in order to use a more compact (even if less precise) shorthand. 
 
-\phparagraph{GraphLOG}
-The \textbf{GraphLOG} \cite{consens1990a} query language was one of the first graph query languages to be designed: it subsumes a graph
-data structure (\textit{direct labelled multigraph})  where no properties are associated, neither to vertices
-nor to edges. Such query language is conceived to be visually representable, and hence path queries are
-represented as graphs, where simple regular expressions can be associated to the edges. The concept of
-visually representing graph traversal queries involving path regex-es was later on adopted in \cite{n3},
-where some algorithms are showed for implementing such query language in polynomial time in the dimension of the data. Such language
-does not support some path summarization queries that were introduced in GraphLOG \cite{GraphLogAggr}.
+%\phparagraph{GraphLOG}
+%The \textbf{GraphLOG} \cite{consens1990a} query language was one of the first graph query languages to be designed: it subsumes a graph
+%data structure (\textit{direct labelled multigraph})  where no properties are associated, neither to vertices
+%nor to edges. Such query language is conceived to be visually representable, and hence path queries are
+%represented as graphs, where simple regular expressions can be associated to the edges. The concept of
+%visually representing graph traversal queries involving path regex-es was later on adopted in \cite{n3},
+%where some algorithms are showed for implementing such query language in polynomial time in the dimension of the data. Such language
+%does not support some path summarization queries that were introduced in GraphLOG \cite{GraphLogAggr}.
 
-
-
-\phparagraph{Gremlin}
-Yet another graph traversal language, \textbf{Gremlin}, has proven to be Turing Complete \cite{Rodriguez15}:
-this is not a desired feature for query languages since usually query languages must guarantee that
-each query evaluation must always converge and that it must always return an answer in a ``reasonable'' amount of time.
-Another problem with this query language is based on its path navigation semantics \cite{ThakkarPAV17}:
-while all the other graph traversal languages return the desired subgraph, Gremlin returns
-a bag of values (e.g. vertices, values, edges). This peculiarity does not allow the user to take advantage
-of partial query evaluations and to combine them in a final result. This feature is
-also shared by other other path navigation algebras, such as the one for Cypher\footnote{Please note that the algebra \cite{ThakkarPAV17} for Gremlin and the other one \cite{Neo4jAlg,MartonSV17} for Cypher are substantially the same, with some minor changes.} \cite{Neo4jAlg,MartonSV17}, which algebra only considers  the graph traversal aspects of the language.
-%\phparagraph{Other graph traversal languages}
+\begin{table}
+	\centering
+	\begin{tabular}{l|ll}
+		\toprule
+		 Description & Syntax ($\cdot$) & Semantics ($\jsem{\cdot}(u)$)\\
+		\midrule
+		\textbf{Entry point} & $\cdot p$ & $\bigcup\{\Gamma\in \jsem{{p}}(u)|T_\Gamma\neq \emptyset\}$\\
+		\midrule
+		Edge traverse & $\ell$ & $\bigoplus_{u\overset{\ell}{\longrightarrow}v}(\{u,v\},\{u\overset{\ell}{\longrightarrow}v\},u,\{v\})$\\
+		Inverse edge traverse & $\ell\;\hat{}$ & $\bigoplus_{v\overset{\ell}{\longrightarrow}u}(\{u,v\},\{v\overset{\ell}{\longrightarrow}u\},u,\{v\})$\\
+		Any edge & $\Braket{\_}$ & $\bigoplus_{\ell\in \mathcal{U}}\bigoplus_{v\overset{\ell}{\longrightarrow}u} \jsem{p}(u)$\\
+		Vertex predicate $\theta$ & $p[\theta]$ & $\oplus\big\{(V,E,s,\{v\in T|\theta(v)\})\;\big|\;(V,E,s,T)\in \jsem{path}(u)\big\}$\\
+		Traversing & $p/q$ &  $\jsem{p}(u)\;\circ\;\left(\bigoplus_{v\in T_\Gamma,\Gamma\in \jsem{p}(u)} \jsem{q}(v)\right)$\\
+		Disjunctive Path & $(p|q)$ & $\jsem{p}(u)\oplus\jsem{q}(u)$\\
+		Kleene Star & $(p)^*$ & $(\{u\},\emptyset,u,\{u\})\oplus(\bigoplus_{i=1}^\infty \jsem{\underbrace{p/\dots/p}_i}(u))$\\
+		\bottomrule
+	\end{tabular}
+	\caption{\textsc{Successful} semantics $S$ associated to each query $\cdot p$ expressed in the NautiLOD syntax. Side effect \textit{action} evaluations were removed. $u$ denotes the initial source vertex from which the graph traversal query is started.
+	}
+	\label{tab:nautilodSem}
+\end{table}
 
 
 \phparagraph{NautiLOD}
 The \textbf{NautiLOD} \cite{NautiLOD} query language was conceived for performing path queries (defined through
 path expressions with REGEX-es) over
-RDF graphs. Nonwithstanding the usage of recursion operators via Kleene Star, the same paper shows  that queries can be evaluated in polynomial time.
+``RDF graphs''. Nonwithstanding the usage of recursion operators via Kleene Star, the same paper shows  that queries can be evaluated in polynomial time.
 %Since such graph query language distinguishes within the semantics the vertices from the edges, the outcome of their evaluaton can be clearly used to recreate a final graph.
-While other graph pattern matching query languages provide as an outcome of their evaluation a blob of both graph vertices and edges (e.g. Gremlin), its interpretation can be mapped into a combination of algebraic graph operators, through which a graph collection is provided in return. We're going to discuss this query language's interpretation at page \pageref{ph:NTLImpl}, where we're going to adopt it for traversing nested graphs.
+While other graph pattern matching query languages provide as an outcome of their evaluation a blob of both graph vertices and edges (e.g. Gremlin), its interpretation can be mapped into a combination of algebraic graph operators, through which a graph collection is provided in return.  %
 
 %\begin{definition}[Pattern Matching]
 %	\label{def:pmfunct}
@@ -106,3 +125,5 @@ While other graph pattern matching query languages provide as an outcome of thei
 %	Moreover, we can represent the set of matchings $m_P(\nested)$ as one single binary function $\smatch(m_P(\nested),t)$, where $s$ is the set of the matched functions and$t$ is a transcoding associating to each function $f_i$ an expression $t(i)\in \lang$.
 %	\[\smatch(s,t)=x\mapsto y\mapsto \min_{\substack{f_i\in s\\ y=t(i)}} f_i(x)\]
 %\end{definition}
+
+NautiLOD uses \textsc{MultiPointed Graphs} to express the result of the query evaluation: each MPG$=(V,E,s,T)$ is a RDF graph extended with a source vertex $s$ and a target set $T$ : $s$ represents the vertex from which the graph traversal is started, and $T$ represents one of the possible ending nodes. The interpretation of such graph traversal semantics is expressed using three basic MPG operators, that can be extended to MPG collections. In particular,  $mpg_1 \circ mpg_2$ expresses a path concatenation, where the two graphs are united only if $s_2$ appears in $T_1$; the union\footnote{Originally denoted as $\cup$.} $mpg_1 \sqcup mpg_2$ either performs the union of two non-empty MPGs sharing the same source vertex, or returns one of the two empty graphs; $\oplus$ denodes the union of two MPG sets. Table \ref{tab:nautilodSem} provides an example of how such operators provide the query interpretation using the graph and graph collection operators.  We're going to discuss this query language's interpretation over our proposed data model at page \pageref{ph:NTLImpl}, where we're going to use it for traversing nested graphs.

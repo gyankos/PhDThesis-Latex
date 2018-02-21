@@ -35,14 +35,11 @@ In the following subsections we're going to show how to define such $s$ expressi
 \phparagraph{XPath Traversals}
 In the footsteps of \cite{Magnani06}, we're going to analyse a minimal subset of XPath, merely concerning the path traversal, thus discarding all the axis notation and the selection predicates. The reason of doing so is that we want to use such language only for traversing the data structure in depth, and not to filter the obtained data, which can be easily achieved in our algebra via \texttt{map}. Moreover, on the footsteps of \cite{NautiLOD}, which did a similar approach for graph traversals, we're going to show that is possible to express a nested data structure traversal using algebraic operators. In particular, we're going to show that we can define the semantics $XPathInit$ interpreting the minimal XPath expressions.
 
+The reason of doing so is that we want to use such language only for traversing the data structure in depth, and not to filter the obtained data, which can be easily achieved in our algebra via \texttt{map}. Moreover, on the footsteps of \cite{NautiLOD}, which did a similar approach for graph traversals, we're going to show that is possible to express a nested data structure traversal using algebraic operators. In particular, we're going to show that we can define the semantics $XPathInit$ interpreting the minimal XPath expressions.
+
 
 \begin{definition}[Minimal XPath]
-A minimal XPath expression $\texttt{<}\mu\texttt{XPath}\texttt{>}$ is formed by a concatenation of traversal operator \texttt{<c>}, that can be either \texttt{/} (direct descendant) or \texttt{//} (any node contained at any depth) to which a collection selector (\texttt{<s>}) may be applied (e.g. \texttt{/$^{\mstr{Tag}}$}, which means to select the nodes directly descendant from root contained in the \texttt{Tags} collection). 
-\[\texttt{<s>}:=\varepsilon\; |\; \star\;|\;\texttt{[name]}\]
-\[\texttt{<c>}:=\texttt{/}^\texttt{<s>}\;|\;\texttt{//}^\star\]
-\[\texttt{<}\mu\texttt{XPath}\texttt{>} :=\texttt{<c>}\texttt{<s>}\;|\;\texttt{<c>}\texttt{<s>}\texttt{<}\mu\texttt{XPath}\texttt{>}\]
-
-This language is associated to an interpretation function $XPathInit$; before evaluating the $\texttt{<}\mu\texttt{XPath}\texttt{>}$  expression $P$ via $XPath$, it preventively creates a new object with a fresh id $\omega$ where the result is going to be stored in $\phi(\omega,\mstr{result})$. Therefore:
+The  Minimal XPath language presented in Definition \vref{minxpath} is associated to an interpretation function $XPathInit$; before evaluating the $\texttt{<}\mu\texttt{XPath}\texttt{>}$  expression $P$ via $XPath$, it preventively creates a new object with a fresh id $\omega$ where the result is going to be stored in $\phi(\omega,\mstr{result})$. Therefore:
 \[XPathInit(P) = n\mapsto XPath(P) (\texttt{elect}_\omega(\texttt{create}^\omega_{[],[],\jsem{\texttt{\{\mstr{result},[g]\}}}_\Gamma}(n)))\]
 At this point, we can define the semantics associated to the expression as follows:
 \[XPath(P) = n\mapsto \begin{cases}
