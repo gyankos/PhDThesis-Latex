@@ -269,10 +269,9 @@ In the present section we're going to first describe the graph equi-join for $\t
 		\end{minipage}}
 	\end{algorithm}
 	We now outline our algorithm, GCEA\index{algorithm!GCEA}, for $\theta$ equijoin predicates, involving an
-equivalence between attributes or a conjunction of such equivalences. Moreover, we also suppose that both graph operands are always stored within the same graph database, and that the query itself will be provided to be read inside the same database environment.
+equivalence between attributes or a conjunction of such equivalences. We also suppose that both graph operands are always stored within the same graph database, and that the query itself will be provided to be read inside the same database environment.
 The query result
-is read only as in other graph query languages (SPARQL, SQL for databases) and does not have to
-produce ``materialized views''. Therefore, the result of the graph query itself can postpone the creation of a complete property graph output (that is, the complete attribute-value and label information for our graphs).
+is read only as in other graph query languages (SPARQL, SQL for databases) and does not correspond to a ``materialized view''. Therefore, the result of the graph query itself can postpone the creation of a complete property graph output (that is, the complete attribute-value and label information for our graphs).
 
 		The starting point of each data integration procedure is the identification of
 		similar pieces of data occurring into the to-be-merged operands. In our case, the
