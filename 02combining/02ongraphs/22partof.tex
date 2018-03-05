@@ -77,7 +77,7 @@ In the following example, we will focus on a social network use cases: we will s
 %	&\Set{\texttt{Name},\texttt{Surname},\texttt{SocialNetowrk}},\Set{\texttt{User},\texttt{Follows},\texttt{Graph}},\ell,\lambda,\iota)
 %	\end{split}\]
 %	Please note that the information content is preserved because id references to the original vertices are used. 
-By using community detection algorithms, we extract a set of graph collections in polynomial time \cite{vanDongen2012}, where some overlaps between communities may be present. Figure  \ref{fig:ex0102} presents such extracted communities as shaded areas on top of the original data sources: please note that the property graph model does not allow to represent such communities inside the same given graph. This problem can be overcame by our proposed data structure as showed in Figure \vref{fig:ex0104}: each community, marked with a different color, is nested inside one given object. In particular we have that:
+By using community detection algorithms, we extract a set of graph collections in polynomial time with respect to the data size \cite{vanDongen2012}, where some overlaps between communities may be present. Figure  \ref{fig:ex0102} presents such extracted communities as shaded areas on top of the original data sources: please note that the property graph model does not allow to represent such communities inside the same given graph. This problem can be overcame by our proposed data structure as showed in Figure \vref{fig:ex0104}: each community, marked with a different color, is nested inside one given object. In particular we have that:
 	
 	\[\phi(8,\ONTA)=[1,2,3,4,6]\quad \phi(8,\RELA)=[22,23,25,26,27,29]\]
 	\[\phi(9,\ONTA)=[1,5,6]\quad \phi(9,\RELA)=[20,21,22]\]

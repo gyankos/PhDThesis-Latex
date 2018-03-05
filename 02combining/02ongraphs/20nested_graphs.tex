@@ -2,10 +2,17 @@
 \section{General Semistructured (Data) Model}\label{def:mofgeneral}
 After observing all the definitions provided in the previous sections and chapters, we shall now define a general framework allowing to include all the aforementioned nested representation, including the aggregation requirements provided in the previous sections. We must also consider that any object can nest several objects, and that any object can contain several others simultaneously. 
 
+Contrariwise to other approaches which distinguished atoms (e.g., numbers, strings) from objects (e.g., tuplets, documents, object-oriented objects) and collections \cite{Magnani06}, the proposed \textsc{Generalized Semistructured data Model} provides a uniform representation of the three data representations. This characterisation implies the absence of a binding between a fixed schema and the data representation.
+
+The uniform representation of objects and atoms permits collection supporting both representations uniformly. XML documents are an example of where such situation already happens: in fact, both tags and text nodes may appear as the content of one single tag. This solution is achieved within our data model by representing both objects and values by their reference identifier $o$, and by using their identifier to insert them within such collections. The reference number hides both the associated expressions (list of atoms, $\xi(o)$) and labels (list of strings, $\ell(o)$). Moreover, we decide to represent atoms within the meta-model, so that they can be later on used within transformation functions $\stigma$. Therefore, data can possibly embed both model and meta-model information.
+
+However, all current data models (except from programming languages) do not allow a uniform representation of collections as objects and vice-versa. Given that objects may be represented as a property-value association, where values can be either atoms (as in the relational model and property graphs) or objects, we can assume that each property may be associated to a collection of object identifiers. In particular, our data model chooses to implement object $o$ as multimap associations, which are expressed through a $\phi$ function, allowing to represent an object as a collection of collections. In particular, each collection $l$ represented within an object $o$ can be referenced by using its identifying (and associated) property $p$, such that $\phi(o,p)=l$.
+
+
 \begin{definition}[General Semistructured (Data) Model]
 Given a \textsc{MetaModel}  language $\metamodel$ expressing both constraints and values that can be checked by such constraints and a model $\model$ representable in $\metamodel$ ($\abstr(\model)\subseteq\metamodel$), any \textbf{object}\index{object!for the GSM} $o$ is directly represented by its object identifier $o\in \mathbb{N}$. Such object $o$ shall belong to multiple model types\index{type} $\ell(o)\in\partof{\model}$, and has an associated list of expressions $\xi(o)\in\partof{\metamodel}$ expressing either values or constraints associated to $o$. The attribute-value association embedded in each object $o$ is expressed by the function $\phi$: in particular $\phi(o,p)\in\partof{\nat}$ associates $o$ and an attribute $p$ (represented as an expression $p\in\langg$) to a list of objects. $\varphi(o)$ provides all the objects contained by $o$ for any $p$ and is defined as follows:
 \[\varphi(o)\eqdef \bigcup_{p\in\lang}\phi(o,p)\]
-Therefore, any object $o$ is identified by its id and is completely described by the functions $\ell$, $\xi$ and $\phi$. Consequently, the \index{General Semistructured Model|textbf} can be described as follows:
+Therefore, any object $o$ is identified by its id and is completely described by the functions $\ell$, $\xi$ and $\phi$. Consequently, any instance of the GSM is described by the following quintuple:
 \[GSM=(o,O,\ell,\xi,\phi)\]
 where $O\subseteq \nat$ is a list of object identifiers containing all the elements nested in the \textbf{reference object}\index{object!for the GSM!reference} $o$ at any nesting level ($\varphi^*(o)=O$), thus defining $o$ as multiple collections of objects ($\varphi(o)\subseteq O$). Moreover, the labelling function $\ell$, the expression and data function $\xi$ and the containment function $\phi$ are both defined over $o$ and over each element in $O$. Formally, we have $\ell\colon O\to \partof{\model}$, $\xi\colon O\to \partof{\metamodel}$ and $\phi\colon O\to \metamodel\to\partof{O}$.
 
@@ -14,8 +21,32 @@ where $O\subseteq \nat$ is a list of object identifiers containing all the eleme
 
 In particular, we are going to provide the $\metamodel$ language associated to GSMs in Section \vref{sec:scriptEll}. For the moment, we  focus on the data representation aspects of GSM, and later on on the simple queries that can be performed on such model from the integration point of view (Section \vref{subsec:nested-partof}). 
 
+\begin{figure}[!t]
+	\centering
+	\begin{minipage}{.45\textwidth}
+		\centering
+		\includegraphics{fig/04model/01SimpleNesting}
+		\subcaption{This picture provides a representation of a data structure containing two different nesting levels. Each object is represented by a circle, while
+			the containment $\varphi$ function of each object is represented by the cone departing from each object. Within this graphical representation, the leftmost nested object is the first object appearing in the containment function $\varphi$.}
+		\label{fig:01simplenesting}
+	\end{minipage}\quad \begin{minipage}{.45\textwidth}
+		\centering
+		\includegraphics{fig/04model/02RecursiveNesting}
+		\subcaption{The data model that is now provided is as general as possible, and hence can support any possible representation. This also implies that recursive nestings are allowed. In particular, this Figure shows that node $2$ may contain elements $4$ and $5$, which contains $6$ and $1$ which contains $1$ back. Therefore, $\varphi(2)=[4,5]$, $\varphi^2(2)=[1,6]=\varphi(5)$, and $\varphi^3(2)=[2,3]$. This recursive nesting solutions should be avoided for representing aggregations.}
+		\label{fig:02recursivenesting}
+	\end{minipage}%
+	\bigskip 
+	
+	\begin{minipage}{.45\textwidth}
+		\centering
+		\includegraphics{fig/04model/03Overlapping}
+		\subcaption{This picture shows how the $GSM$ model allows to nest one element (e.g. $3$) in more than one single element. In particular, $\phi(0)\cap\phi(1)=[3]$.}
+		\label{fig:03overlapping}
+	\end{minipage}
+	\caption{Different possible instances of the $GSM$ model, allowing arbitrary nestings within its objects. These pictures show some situations that cannot be natively expressed by the current nested relational model and other semistructured representations. In particular, each cone represents one single association between the containing object and its content through an expression $p$.}
+\end{figure}
 \begin{example}[label=ex:nineteedGSMfrst]
-	Figure \ref{fig:01simplenesting} provides an example of a $GSM$. In particular, this model can be modelled as follows:
+	Figure \vref{fig:01simplenesting} provides an example of a $GSM$. In particular, this model can be modelled as follows:
 	\[(1,\Set{1,2,3,4,5},\ell,\xi,\phi)\]
 	\[\phi(1,p)=[2,3]\qquad \phi(2,p)=[4,5]\]
 	In particular, the containment function maps the object to the contained objects by returning the last ones in a list. This data structure may become
@@ -25,7 +56,7 @@ In particular, we are going to provide the $\metamodel$ language associated to G
 	Moreover, this data model allows to represent objects as single entities through $\ell$ and $\xi$, and as collections or collection of collections. With respect to the current example, we can consider nodes $3$, $4$ and $5$ with empty nestings as empty collections of objects.
 \end{example}
 
-At this point the following question arises: ``\textit{why identifiers} (also referred as ``indices'') \textit{are crucial within nested data structures?}'' As we discussed earlier, indices provide a solution to the data replication problem: by only storing the object identifier, we allow that one single piece of information is replicated in more that one single point within the database, thus allowing to overcome some limitations within semistructured data representations.
+At this point the following question arises: ``\textit{why identifiers} (also referred as ``indices'') \textit{are crucial within nested data structures?}'' As previously discussed, object identifiers also provide a solution to the data replication problem: by only storing the object identifier, we allow that one single piece of information is replicated in more that one single point within the database, thus allowing to overcome some limitations within semistructured data representations.
 
 \begin{example}[continues=ex:nineteedGSMfrst,label=ex:nineteedGSMsnd]
 	Figure \vref{fig:03overlapping} represents the following $GSM$ model:
@@ -47,19 +78,19 @@ We can use this data model as the most general representation of data structures
 	In particular, we are going to refer to any power $n$ as \textbf{(nesting) depth}\GSMindex{depth}. 
 	As we can see, this means that $2$ may contain itself at the nesting depth of $3$. Since that this model always allows arbitrary nesting levels, we will use the Kleene plus\index{$\varphi^+$|see{Kleene plus}}\index{Kleene plus} notation, which is defined as follows:
 	\[\varphi^+(o)=\bigcup_{n\in\nat_{>0}}\varphi^n(o)\]
-	Therefore, we can now express that $2$ contains itself at any level of nesting with the more compact notation $2\in\varphi^+(2)$. Moreover, we can define $\varphi^*(o)$ as the union of $\varphi^+(o)$ with the singleton $\{o\}$ representing the missed application of $\phi$ over $o$.
+	Therefore, we can now express that $2$ contains itself at any level of nesting with the more compact notation $2\in\varphi^+(2)$. Moreover, we can define $\varphi^*(o)$ as the union of $\varphi^+(o)$ with the singleton $\{o\}$ representing the missed application of $\phi$ over $o$ ($\forall x.\varphi^0(x)=\{x\}$).
 \end{example}
 
 
-We can observe that such model features violate the aggregation assumptions presented in Section \vref{sec:informationsintegration}. The reader should remember that aggregations (and hence, $\phi$ containments) represent data abstractions:  consequently, an elements' abstraction can be represented by neither the containing object  nor shall the containing object  contain itself at any nesting depth. Since we want that our data model definition can be as slim and as general as possible, we want to express such restrictions as a side properties, similarly to the XML's DTD or RelaxNG. In particular, this thesis is going to focus on a subset of all the possible GSM-based data models (nested graphs included), which are the ones that avoid the recursive nestings presented in the previous example.
+We can observe that such model features violate the aggregation assumptions presented in Section \vref{sec:informationsintegration}. The reader should remember that aggregations (that can be represented through $\phi$ containments) represent data abstractions:  consequently, neither an object's abstraction can be represented by  the containing object  nor shall the containing object  contain itself at any nesting depth. Since we want that our data model definition can be as slim and as general as possible, we want to express such restrictions as a side properties, similarly to the XML's DTD or RelaxNG. In particular, this thesis is going to focus on a subset of all the possible GSM-based data models (nested graphs included), which are the ones that avoid the recursive nestings presented in the previous example.
 
 \begin{axiom}[Nesting Loop Free]
-A general semistructured data model $GSM=(o,O,\ell,\xi,\phi)$ is said to be nesting loop free\GSMindex{nesting loop free} if each object $o\in O$ does not contain itself at any nesting level. More formally:
+A general semistructured data model $GSM$ $g\in(o,O,\ell,\xi,\phi)$ is said to be nesting loop free\GSMindex{nesting loop free} if each object $o\in O$ does not contain itself at any nesting level. More formally:
 \[\forall o'\in O\cup\Set{o}.\; o'\notin \varphi^+(o')\]
 Objects $o\in O$ having empty $\phi$ containments are referred as \textbf{leaves}\GSMindex{leaf}.
 \end{axiom}
 
-Moreover, we shall guarantee that the data operations on nesting loop free $GSM$s shall always return nesting loop free $GSM$ results. This property also allows to define the hight at which one object is contained by the other without divergences or the possibility of having many possible nesting levels for the same object. Consequently, we can define a ``relative height'' definition, where the containment-container relationship is expressed through the sign. This function will be later used to select which is the highest child, from which start the GSM visiting task, thus allowing to choose which element allows the visit of most of the contained objects with just one step\footnote{For a more practical definition, see line \ref{v3:contentSort} of the code presented in Appendix \vref{appendix:realignments} in OCaml.}. 
+Moreover, we shall guarantee that the data operations on nesting loop free $GSM$s shall always return nesting loop free $GSM$ results. This axiom also allows to define the hight at which one object is contained by the other without divergences or the possibility of having many possible nesting levels for the same object. Consequently, we can define a ``relative height'' definition, where the containment-container relationship is expressed through the sign. This function will be later used to select which is the highest child, from which start the GSM visiting task, thus allowing to choose which element allows the visit of most of the contained objects with just one step\footnote{For a more practical definition, see line \ref{v3:contentSort} of the code presented in Appendix \vref{appendix:realignments} in OCaml.}. 
 
 \begin{definition}[Heights]\label{def:heights}
 Given a nesting loop fee GSM $g=(o,O,\ell,\xi,\phi)$, the \textbf{relative height}\index{height!relative}\index{$rh$|see {height, relative}}\footnote{See line \ref{v3:rh}.} of two objects $o',o''\in O$ is expressed as the function returning $n$ if $o'$ contains $o''$ after maximum\footnote{Please note that, given that the GSM is nesting loop free, it there exists an $n>0$ such that $\varphi^m(o)=\emptyset$ for any $o\in O$ and $m\geq n$.} $n$ applications of $\varphi$ over $o'$ (\ref{rh:containment}), $-n$ if $o'$ is contained by $o''$ after $n$ applications of $\varphi$ over $o''$ (\ref{rh:content}), or zero if the objects are the same or if they are siblings (\ref{rh:same}). For all the other cases (e.g., if they have a common ancestor), the function is undefined.
@@ -68,7 +99,7 @@ Given a nesting loop fee GSM $g=(o,O,\ell,\xi,\phi)$, the \textbf{relative heigh
 -(\max S)-1 & $S=\Set{n>0|o'\in\varphi^n(o'')},S\neq \emptyset$ \label{rh:content}\\
 0 & $o' = o''\vee \exists o'''\in O.\;o',o''\in\varphi(o''')\wedge o'\neq o'''\wedge o''\neq o'''$\label{rh:same}
 \end{numcases}
-The former definition can be also used to sort the children $\varphi(o)$ of one single containing object $o$ via their relative height as follows\footnote{See line \ref{v3:ho}.}\index{$h_o$}:
+The former definition can be also used to sort\footnote{See line \ref{v3:contentSort}.} the children $\varphi(o)$ of one single containing object $o$ via their relative height by using the following function\footnote{See line \ref{v3:ho}.}\index{$h_o$}:
 \[h_o(o')=\max\Set{rh(o',o'')\neq 0|o''\in\varphi^*(o)\wedge o''\neq o'}\]
 Therefore, we can generalize such function to the height of the whole GSM as follows\footnote{See line \ref{v3:h}.}\index{$h$}:
 \[h(g)=\max\Set{rh(o,o')\geq 0|o'\in\varphi^*(o)}\]
@@ -88,23 +119,31 @@ As a consequence, we have that the desired definition matches with $\varphi^*$.
 
 Given that the concept of ``subset'' is present both in relational data (via set theory) and on property graphs (via the ``subgraph'' definition from graph theory), we may also provide a similar concept for our GSM model. We're going to use later on this concept for ``filtering'' operators, allowing a partial extraction of the given data structures. We can also use the notion of ``subgraph'' or ``subset-of'' for GSMs and define it as follows:
 \begin{definition}[Substructure]
-Given two GSMs $n=(o,O,\ell,\xi,\phi)$ and $n'=(o',O',\ell',\xi',\phi')$, it is said that $n'$ is a \textbf{substructure}\GSMindex{substructure} of $n$ ($n'\subseteq n$) if and only if it
+Given two GSMs $g=(o,O,\ell,\xi,\phi)$ and $g'=(o',O',\ell',\xi',\phi')$, it is said that $g'$ is a \textbf{substructure}\GSMindex{substructure} of $g$ ($g'\subseteq g$) if and only if it
  exists a transcoding function $\stigma(o_{c+1})=o_c$, usually called \textbf{morphism} in graph literature, mapping each object in $O'$ to one single object in $O$, where each pair of correspondent objects $o_{c+1}$ and $o_c$ maintain the same labels and expressions, but their containment functions are one the subset of the other:
 \[\begin{split}
 \forall o\in O'. &\ell'(o) = \ell(\stigma(o))\wedge\\
-&\xi'(o) = \xi(\sigma(o))\wedge\\
+&\xi'(o) = \xi(\stigma(o))\wedge\\
 &\forall p\in\lang. \stigma(\phi'(o,p))\subseteq \phi(\stigma(o),p)\\
 \end{split}\]
+When the transcoding function is made explicit, we denote the substructure relation as $g'\subseteq_\stigma g$.
+\end{definition}
+
+From this basic definition, we can infer the definition of GSM equivalence, where objects' labels, expressions and containments are compared independently from the id appearing in $O$.
+
+\begin{definition}[GSM Equivalence]
+	Given two GSMs $g=(o,O,\ell,\xi,\phi)$ and $g'=(o',O',\ell',\xi',\phi')$, it is said that $g'$ abd $g$ are equivalent ($g'\equiv g$) if and only if it
+	exists a bijective transcoding function $\stigma$ through which $g'\subseteq_\stigma g$ and $g\subseteq_{\stigma'}g'$.
 \end{definition}
 
 \subsection{\texttt{script}, a \textsc{MetaModel} for GSM}\label{sec:scriptEll}
 %\section{\texttt{script}}
-We now describe the language that we want to express the $\metamodel$\index{\texttt{script}} for our GSM model; \texttt{script}\footnote{See \url{https://bitbucket.org/unibogb/gsql-script/src/f903ff35f16ce2ec6b64bf3a87d68e84e14897e8/src/main/java/it/giacomobergami/nestedmodel2/model/languages/script/?at=master} for the source code implementing such language. Within this project, you can see the actual implementation of some functions that will follow, such as $toNumeric$, $toFunction$ $toList$ that are going to be used within the following denotational semantics.} is an untyped imperative language with dynamic scope and shallow binding, where each program is represented by a list of expressions which are lazy evaluated. Each program returns the value  resulting from the evaluation of the last statement. The \texttt{script} syntax is depicted in Listing \vref{def:script}: \texttt{script} provides some native operations over numbers (either bignum integers or doubles, $\mathbb{Z}\cup\mathbb{Q}$), strings, booleans and lists. All those types are considered compatible between each others, that is they always allow a conversion into a specific representation.
+We now describe the language that we want to express the $\metamodel$\index{\texttt{script}} for our GSM model; \texttt{script}\footnote{See \url{https://bitbucket.org/unibogb/gsql-script/src/f903ff35f16ce2ec6b64bf3a87d68e84e14897e8/src/main/java/it/giacomobergami/nestedmodel2/model/languages/script/?at=master} for the source code implementing such language. Within this project, you can see the actual implementation of some functions that will follow, such as $toNumeric$, $toFunction$ $toList$ that are going to be used within the following denotational semantics.} is an untyped imperative language with dynamic scope and shallow binding, where each program is represented by a list of expressions which are lazy evaluated. Each program returns the value  resulting from the evaluation of the last statement. The \texttt{script} syntax is depicted in Listing \vref{def:script}: \texttt{script} provides some native operations over numbers (either bignum integers or doubles, $\mathbb{Z}\cup\mathbb{Q}$), strings, booleans and lists. All those types are considered compatible between each others, that is they always allow a conversion into a specific representation. Therefore, this language aims to define transcoding functions that can be used for object transformations.
 
 
 
 \begin{lstfloat}[!p]
-\begin{lstlisting}[language=antlr,caption=Subset of the \texttt{script} language in Antlr4.,label=def:script]
+\begin{lstlisting}[language=antlr,caption=Subset of the \texttt{script} language in Antlr4.,label=def:script,basicstyle=\ttfamily\footnotesize]
 script  : (expr ';')* expr ;
 
 expr : '(' expr ')'                    #paren
@@ -126,9 +165,11 @@ expr : '(' expr ')'                    #paren
 | expr ':='    expr                    #assignment
 | expr '.'     expr                    #method invocation
 | '(' expr  expr ')'                   #apply right element to left function
-| expr '=>' expr                        #if left is true when bool evaluated, return it, otherwise return right
+| expr '=>' expr                       #if left is true when bool evaluated, 
+                                       # return it, otherwise return right
 | 'if' expr 'then' expr 'else' expr    #if ... then ... else
-| 'substring(' expr ',' expr ',' expr ')' #substring (or sublist of first, between the second and third index)
+| 'substring(' expr ',' expr ',' expr ')' #substring (or sublist of first, 
+                                       #between the second and third index)
 | expr '[' expr ']'                    #get the element indexed with right in left
 | expr '[' expr ']:=' expr             #put the rightmost expression
 | expr 'in' expr                       #contains
@@ -138,9 +179,9 @@ expr : '(' expr ')'                    #paren
 | NUMBER                               #native number
 | '{' (expr ',')* expr '}'             #native expressions' array
 | VARIABLE '->' '{' (expr ';')* expr '}'#lambda function
-| VARIABLE                              #variable
+| VARIABLE                             #variable
 | 'map(' expr ':' expr ')'             #map left list over right function
-| 'select(' expr ':' expr ')'          #select left elements using right predicate
+| 'select(' expr ':' expr ')'          #select left elements using right pred.
 ;
 
 BOOL : 'tt' | 'ff' ;
@@ -212,13 +253,12 @@ foldl := x -> {
 }
 \end{lstlisting}
 
-Before defining any possible operations over the lists, we must make explicit the meaning of performing set operations over lists.
-At this point we must explain what we intend by ``set operation'' among lists.
+Before defining any possible operation over the lists, we must make explicit the meaning of  set operations over lists.
 
 \begin{definition}[Set operations over lists]
 	Given a binary set operator $\bowtie$, its definition over lists is defined as follows:
 	\[L_1\bowtie L_2 = \texttt{distinct}(L_1\bowtie L_2,=)\]
-	where \texttt{distinct} returns the element where the repeated elements are preserved, and only the leftmost instance is kept\footnote{This operator can be also defined in \texttt{script}, which will be defined in the first subsection, as follows: \scriptline{distinct = x -> \{fold [x, y -> \{if (y[0] in y[1]) then y[1] else [y[0]] ++ y[1]\}]\}}}:
+	where \texttt{distinct} returns the element where the repeated elements are preserved, and only the leftmost instance is kept\footnote{This operator can be also defined in \texttt{script} as:\\ \scriptline{distinct = x -> \{fold [x, y -> \{if (y[0] in y[1]) then y[1] else [y[0]] ++ y[1]\}]\}}}:
 \begin{lstlisting}[language=Caml]
 let rec distinct l eq =
 	let rec removehead x ls =
@@ -233,7 +273,7 @@ in match l with
 \end{definition}
 
 \subsubsection{Using environment $\Gamma$ with external GSM values}\label{label:ucwegsmv}
-An interesting feature of such language is its possibility of initializing $\Gamma$\index{$\Gamma$!\texttt{script}'s environment} with external objects prior to the evaluation of the expression: this feature is crucial to manipulate and define predicates over the labels, expressions and containments associated to single objects. For this reason \texttt{script} will reserve variable names ``\texttt{o}'' and ``\texttt{g}'' respectively to the current GSM object of interest represented as an object-oriented \texttt{Object}\footnote{See Section \vref{app:JavaObject} for some details concerning the \texttt{Object} object-oriented representation of GSM objects.}, and the reference object of the current GSM.
+An interesting feature of such language is its possibility of initializing $\Gamma$\index{$\Gamma$!\texttt{script}'s environment} with external objects prior to the evaluation of the expression: this feature is crucial to manipulate and define predicates over the labels, expressions and containments associated to single objects. For this reason \texttt{script} will reserve variable names ``\texttt{o}'' and ``\texttt{g}'' respectively to the current GSM object of interest represented as an object-oriented \texttt{Object}, and the reference object of the current GSM.
 \label{app:JavaObject}
 Given a GSM $(o,O,\ell,\xi,\phi)$, we can represent each object $o'\in O$ as an object in a object oriented language. In particular, this\footnote{The following url provides a more complete representation of the code that follows: \url{https://bitbucket.org/unibogb/gsql-script/src/f903ff35f16ce2ec6b64bf3a87d68e84e14897e8/src/main/java/it/giacomobergami/nestedmodel2/model/logical/object/model/object/ObjectModel.java?at=master&fileviewer=file-view-default}.} is the object representation that is used in \texttt{script} for the representation of object as external objects.
 
@@ -308,11 +348,12 @@ varphiplus := x -> {
 }
 \end{lstlisting}
 
-Appendix \vref{appendix:realignments} also provides a functional definition of such GSM model through the usage of a functional programming language, OCaml.
+Appendix \vref{appendix:realignments} also provides a functional definition of such GSM model through the usage of a functional programming language, OCaml. Moreover, the use case in Section \vref{subsec:nested-partof}. and \vref{subsec:representingisa}. will provide some examples of how such $\Gamma$ environment for GSM values achieves structural aggregations.
 
 \subsection{Characterizing object identifiers}
-Before introducing either the operations that are possible on top of this model or the nested graph data model itself, we must consider if we have to provide some further constraints on  object identifiers. In particular, we must assume that each identifier maps to one single and possible data representation.
-This constraint is already provided by the data model itself, where the data is already represented through associations between resource identifiers and values. The same concept was introduced with the Object Identity problem at Section \vref{skolem}, where the Skolem functor $f_\Re$ \index{Skolem functor} always provided an unique mapping between object and its id. In this case, similarly to other presented graph model, we adopted the symmetrical solution, that is the index is mapped to the data and not vice versa.
+Before introducing either the operations that are possible on top of this model or the nested graph data model itself, we must consider if we have to provide some further constraints on  object identifiers. In particular, we must assume that each identifier maps to one single and possible data representation.  The same concept was introduced with the Object Identity problem at Section \vref{skolem}, where the Skolem functor $f_\Re$ \index{Skolem functor} always provided an unique mapping between object and its id. Similarly to other presented graph model, we adopted the symmetrical solution, that is the index is mapped to the data and not vice versa. GSM already provides this constraining where containment is defined by the list of object identifiers associated with each object's property.
+
+%This constraint is already provided by the data model itself, where the data is already represented through associations between resource identifiers and values.
 
 An object transformation should always generate a different object with a different id, and shall not update the original object, uniquely referenced with its id, with newly associated values. The reason is twofold: we want that shared nothing distributed algorithms make local changes consistent with the global status of the computation, and that the implementations of GSM over object oriented languages maintain the same object reference over the same already-existing object.  This constraint must be also satisfied by the data operations that manipulate the objects.
 
@@ -413,10 +454,10 @@ We can also prove a lemma similar to \ref{dtone} that is going to be used for ob
 	\label{subfig:representableGraphs}
 \end{figure}
 \section{Nested Graph}\label{def:ngraph}
-Despite the definition of efficient graph distributed models using a nested relational representation \cite{Labouseur2015}, a proper graph data model embodying a nested representation of graphs is missing. As we already saw, GSM allows to perform arbitrary nestings up to user-defined model constraints.  Now, we must make this data model more specialized in order to be able to distinguish between the objects that are to be considered as vertices and the ones that will be considered as edges. The reason for doing this is that different kind of operations can be performed simultaneously over the two different kind of data, as presented by the join operator in the last chapter. Therefore, instead of representing vertices and edges as belonging to the same set, and then extract them in order to perform on them a distinct set of operations, we will directly distinguish the vertices and edges as belonging to two distinct containments of the same (reference) object.
+Despite the definition of efficient graph distributed models using a nested relational representation \cite{Labouseur2015}, a proper graph data model embodying a nested representation of graphs is missing. As we already saw, GSM allows to perform arbitrary nestings up to user-defined model constraints. Now, we must specialise this data model to distinguish the objects representing vertices from the ones representing edges; moreover, we want also that objects representing atoms should be distinguishable from the other two. The reason for doing this is that different kind of operations can be performed simultaneously over vertices and edges, as presented by the join operator in the last chapter. Therefore, instead of representing vertices and edges as belonging to the same set and then extract them in order to perform a distinct set of operations, we will directly distinguish the vertices and edges as belonging to two distinct properties of the same (reference) object.
 
 \begin{definition}[Nested Graph]
-	A \textbf{nested graph}\index{graph!nested graph} is a nesting loop free GSM $\fullnested$  where $\ngraph$ is an object containing both the vertex ($\phi(\ngraph,\ONTA)$) and edge ($\phi(\ngraph,\RELA)$) set Each object $g\in \varphi^*(\ngraph)$ such that $\RELA\in\dom(\phi(g))\wedge \ONTA\in\dom(\phi(g))$ is said to be a \textbf{graph}.
+	A \textbf{nested graph}\index{graph!nested graph} is a nesting loop free GSM $\fullnested$  where $\ngraph$ is an object containing both the vertex ($\phi(\ngraph,\ONTA)$) and edge ($\phi(\ngraph,\RELA)$) set. Each object $g\in \varphi^*(\ngraph)$ such that $\RELA\in\dom(\phi(g))\wedge \ONTA\in\dom(\phi(g))$ is said to be a \textbf{graph}. Each graph must satisfy the following properties:
 	\begin{itemize}
 		\item Each vertex $v'$ in $\ngraph$ is associated to a \ONTA collection ($\exists g\in\varphi^*(\ngraph). v'\in\phi(\ngraph,\ONTA)$).
 		\item Each edge $e'$ in $\ngraph$ is associated to a \RELA collection ($\exists g\in\varphi^*(\ngraph).e'\in\phi(g,\RELA)$).
@@ -460,7 +501,7 @@ Given that are not specific on what a `graph' should be, both vertices and edges
 	\caption{Analysing each component in Figure \vref{fig:0405full}. }
 	\label{fig:nestingexample}
 \end{figure}
-The proposed nested graph data model provides a ``(nested) relational representation'' of a graph: vertices and edges are both represented as objects, and edges' source and target vertices are represented as edges' fields. Our model allows to nest (sub)graphs for each vertex and edge: this is due to the fact that an object can contain other objects. Consequently, this data structure allows to represent traditional graphs and multigraphs, as outlined in Figure \vref{subfig:representableGraphs}. The actual trasformation function allowing to transform a graph into a nested graph representation will be provided in Section \vref{sec:tautonesting}, alongside with other data transformation representations.
+The proposed nested graph data model provides a ``(nested) relational representation'' of a graph: vertices and edges are both represented as objects, and edges' source and target vertices are represented as edges' fields. Our model allows to nest (sub)graphs for each vertex and edge: this is due to the fact that an object can contain \mstr{Entity} and \mstr{Relationship} properties. Consequently, this data structure allows to represent traditional graphs and multigraphs, as outlined in Figure \vref{subfig:representableGraphs}. The actual trasformation function allowing to transform a graph into a nested graph representation will be provided in Section \vref{sec:tautonesting}, alongside with other data transformation representations.
 The example that follows provide some insights on how such data structures can be used to represent nested components.
 
 \begin{example}
@@ -470,7 +511,7 @@ As we can see, the vertex set is $\phi(20,\ONTA)$ while the edge set is $\phi(30
 \[\phi(20,\ONTA)=[0,1]\qquad \phi(20,\RELA)=[5]\]
 Given that both vertices and edges are represented as objects, vertices and edges can contain other vertices and edges, too. Moreover, those objects can contain other objects, too, such as attributes, or the information of the edges' source and target vertices. In particular, such nested graph contains two authors, $0$ and $1$, which are coauthors. 
 In particular, the coauthorship relation is represented by the edge $5$, which contains source and target elements as nested nodes:
-\[\ell(0)=[Author]=\ell(1)\qquad \ell(5)=[\texttt{CoAuthorship}]\]
+\[\ell(0)=[\texttt{Author}]=\ell(1)\qquad \ell(5)=[\texttt{CoAuthorship}]\]
 \[\phi(5,\SRC)=[0]\qquad \phi(5,\DST)=[1]\]
 %\[\phi(30)=[5]\qquad \phi(5)=[0,1]\qquad  \ell(5)=[\texttt{CoAuthorship}]\qquad \xi(5)=[\texttt{``Relationship''}]\]
 Moreover, each vertex nests the information of the papers that have been published by the containing author. Among this information, their names and surnames are also contained:
@@ -484,7 +525,7 @@ For each paper, the title information is also provided through object containmen
 \[\xi(14)=[\mstr{On Joining Graphs}]\quad \xi(15)=[\mstr{Object Databases}]\quad \xi(16)=[\mstr{Data Mining Algebra}]\]
 \end{example}
 
-Please note that this graphical representation is verbose, and does not clarify which element is a vertex and which element is an edge. Therefore, when edges contain no nested vertices and edges, we're going to make only the vertex nestings explicit and represent the edge objects in the traditional representation. A more interesting example of Nested Graphs is going to be provided by Example \vref{ex:partof}.
+Please note that this graphical representation is verbose, and does  clarify which object is a vertex and which element is an edge only by its containment into a graph object. We call \textbf{simple vertex} (\textbf{simple edge}) a vertex (edge) which is not a graph. A more interesting example of Nested Graphs is going to be provided by Example \vref{ex:partof}.
 
 
 
