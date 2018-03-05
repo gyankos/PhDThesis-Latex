@@ -1,0 +1,18 @@
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {6.1}General Semistructured Query Language (GSQL)}{\reset@font\mtcSfont 157}{section.6.1}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {6.2}Defining other GSQL operators over GSM}{\reset@font\mtcSfont 162}{section.6.2}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.2.1}(Attribute labelled) Set operations}{\reset@font\mtcSSfont 162}{subsection.6.2.1}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.2.2}Relational and semistructured operations}{\reset@font\mtcSSfont 164}{subsection.6.2.2}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Data-Preserving Aggregation ($\alpha _2$)}{\reset@font\mtcPfont 167}{section*.86}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Grouping ($\gamma $)}{\reset@font\mtcPfont 169}{section*.88}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Abstraction ($\alpha _1$)}{\reset@font\mtcPfont 169}{section*.89}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode $\otimes \theta $-Product}{\reset@font\mtcPfont 170}{section*.91}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {6.3}GSQL Use cases}{\reset@font\mtcSfont 172}{section.6.3}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.3.1}Implementing traversal query languages' semantics ($\sigma $)}{\reset@font\mtcSSfont 172}{subsection.6.3.1}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode XPath Traversals}{\reset@font\mtcPfont 173}{section*.92}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode NautiLOD Traversals}{\reset@font\mtcPfont 174}{section*.93}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.3.2}paNGRAm: Nested Graph Relational Algebra}{\reset@font\mtcSSfont 177}{subsection.6.3.2}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Unary operators}{\reset@font\mtcPfont 177}{section*.94}}
+{\reset@font\mtcPfont\mtc@string\contentsline{paragraph}{\noexpand \leavevmode Graph Data Mining operators}{\reset@font\mtcPfont 180}{section*.96}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.3.3}Representing \textit {is-a} aggregations}{\reset@font\mtcSSfont 180}{subsection.6.3.3}}
+{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {6.3.4}Generalized Graph Grammars $\mathcal {G}$ for Nested Graphs. $\Qoppa _{\mathcal {H},\mathcal {T}}^{\mathcal {G}}(\mathcal {H})(\textup {\textrtailn })$}{\reset@font\mtcSSfont 182}{subsection.6.3.4}}
+{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {6.4}Conclusons}{\reset@font\mtcSfont 191}{section.6.4}}

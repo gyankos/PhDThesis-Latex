@@ -1,0 +1,113 @@
+This is BibTeX, Version 0.99d (TeX Live 2017)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: main.aux
+The style file: alpha.bst
+Case mismatch error between cite keys Ceri1985 and ceri1985
+---line 1000 of file main.aux
+ : \citation{Ceri1985
+ :                   }
+I'm skipping whatever remains of this command
+Illegal, another \bibstyle command---line 2757 of file main.aux
+ : \bibstyle
+ :          {alpha}
+I'm skipping whatever remains of this command
+Reallocated field_info (elt_size=4) to 10106 items from 5000.
+Database file #1: mbib.bib
+A bad cross reference---entry "PalomaresAKR16"
+refers to entry "DBLP:conf/icwsm/2016wiki", which doesn't exist
+A bad cross reference---entry "Lenzerini02"
+refers to entry "DBLP:conf/pods/2002", which doesn't exist
+A bad cross reference---entry "MarneffeDSHGNM14"
+refers to entry "DBLP:conf/lrec/2014", which doesn't exist
+A bad cross reference---entry "SintSSF09"
+refers to entry "DBLP:conf/semwiki/2009", which doesn't exist
+A bad cross reference---entry "JunghannsKAPR17"
+refers to entry "DBLP:conf/grades/2017", which doesn't exist
+A bad cross reference---entry "WeltyM06"
+refers to entry "DBLP:conf/semweb/2006", which doesn't exist
+A bad cross reference---entry "JunghannsPR17"
+refers to entry "DBLP:conf/btw/2017", which doesn't exist
+A bad cross reference---entry "GenestS98"
+refers to entry "DBLP:conf/iccs/1998", which doesn't exist
+A bad cross reference---entry "ThakkarPAV17"
+refers to entry "DBLP:conf/dexa/2017-1", which doesn't exist
+A bad cross reference---entry "ErlingM09"
+refers to entry "books/sp/Virgilio2009", which doesn't exist
+Warning--I didn't find a database entry for "books/sp/Virgilio2009"
+Warning--I didn't find a database entry for "DBLP:conf/iccs/1998"
+Warning--I didn't find a database entry for "DBLP:conf/grades/2017"
+Warning--I didn't find a database entry for "DBLP:conf/btw/2017"
+Warning--I didn't find a database entry for "DBLP:conf/pods/2002"
+Warning--I didn't find a database entry for "DBLP:conf/lrec/2014"
+Warning--I didn't find a database entry for "DBLP:conf/icwsm/2016wiki"
+Warning--I didn't find a database entry for "DBLP:conf/semwiki/2009"
+Warning--I didn't find a database entry for "DBLP:conf/dexa/2017-1"
+Warning--I didn't find a database entry for "DBLP:conf/semweb/2006"
+Warning--to sort, need author or key in omg96
+Warning--empty booktitle in SparQLExpr
+Warning--empty publisher in SparQLExpr
+Warning--empty school in bergami2014
+Warning--can't use both author and editor fields in Barcelo2013
+Warning--empty publisher in BrodkaK14
+Warning--empty journal in BergamiMM16
+Warning--empty publisher in BulutS07
+Warning--can't use both author and editor fields in nlacat
+Warning--empty booktitle in Demetrescu2010
+Warning--can't use both author and editor fields in DeGiacomo2018
+Warning--can't use both author and editor fields in Elmasri
+Warning--can't use both author and editor fields in Ghrab2015
+Warning--empty school in He2007
+Warning--can't use both author and editor fields in Hartig2015
+Warning--can't use both author and editor fields in Kostylev2015
+Warning--there's a number but no series in NestedGlaucoma
+Warning--can't use both author and editor fields in Lossio-Ventura2014
+Warning--can't use both author and editor fields in IBMWatson
+Warning--empty journal in Perez2009
+Warning--empty school in APoggi06
+Warning--can't use both author and editor fields in Qu2011
+Warning--empty institution in Rolleke94equivalencesof
+Warning--there's a number but no volume in success
+Warning--empty booktitle in Tian20085
+Warning--can't use both author and editor fields in vanDongen2012
+You've used 222 entries,
+            2543 wiz_defined-function locations,
+            1951 strings with 45207 characters,
+and the built_in function-call counts, 98829 in all, are:
+= -- 9874
+> -- 5092
+< -- 138
++ -- 1819
+- -- 1777
+* -- 7267
+:= -- 16003
+add.period$ -- 716
+call.type$ -- 222
+change.case$ -- 1492
+chr.to.int$ -- 217
+cite$ -- 249
+duplicate$ -- 3982
+empty$ -- 6970
+format.name$ -- 2006
+if$ -- 20450
+int.to.chr$ -- 6
+int.to.str$ -- 0
+missing$ -- 255
+newline$ -- 1113
+num.names$ -- 677
+pop$ -- 1517
+preamble$ -- 1
+purify$ -- 1746
+quote$ -- 0
+skip$ -- 3343
+stack$ -- 0
+substring$ -- 5100
+swap$ -- 880
+text.length$ -- 138
+text.prefix$ -- 47
+top$ -- 0
+type$ -- 1576
+warning$ -- 26
+while$ -- 929
+width$ -- 230
+write$ -- 2971
+(There were 12 error messages)

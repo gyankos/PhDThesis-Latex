@@ -1,0 +1,1339 @@
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{DSUBGVn{\etalchar{+}}10}
+
+\bibitem[AAB{\etalchar{+}}17]{AnglesABHRV17}
+Renzo Angles, Marcelo Arenas, Pablo Barcel{\'{o}}, Aidan Hogan, Juan~L.
+  Reutter, and Domagoj Vrgoc.
+\newblock Foundations of modern query languages for graph databases.
+\newblock {\em {ACM} Comput. Surv.}, 50(5):68:1--68:40, 2017.
+
+\bibitem[ACB06]{atzeni}
+Paolo Atzeni, Paolo Cappellari, and Philip~A. Bernstein.
+\newblock Model-independent schema and data translation.
+\newblock In {\em Proceedings of the 10th International Conference on Advances
+  in Database Technology}, EDBT'06, pages 368--385, Berlin, Heidelberg, 2006.
+  Springer-Verlag.
+
+\bibitem[ACPT99]{atzeniEN}
+Paolo Atzeni, Stefano Ceri, Stefano Paraboschi, and Riccardo Torlone.
+\newblock {\em Database Systems - Concepts, Languages and Architectures}.
+\newblock McGraw-Hill, 1st edition, 1999.
+
+\bibitem[ACPT09]{atzeniIT}
+Paolo Atzeni, Stefano Ceri, Stefano Paraboschi, and Riccardo Torlone.
+\newblock {\em Basi di dati. Modelli e linguaggi di interrogazione}.
+\newblock McGraw-Hill, Milan, 3rd edition, 2009.
+
+\bibitem[ACZH10]{Atre}
+Medha Atre, Vineet Chaoji, Mohammed~J. Zaki, and James~A. Hendler.
+\newblock Matrix "bit" loaded: A scalable lightweight join query processor for
+  rdf data.
+\newblock In {\em Proceedings of the 19th International Conference on World
+  Wide Web}, WWW '10, pages 41--50, New York, NY, USA, 2010. ACM.
+
+\bibitem[AG08]{SparQLExpr}
+Renzo Angles and Claudio Gutierrez.
+\newblock The expressive power of sparql.
+\newblock pages 114--129. 2008.
+
+\bibitem[AGG{\etalchar{+}}15]{Aligon201520}
+Julien Aligon, Enrico Gallinucci, Matteo Golfarelli, Patrick Marcel, and
+  Stefano Rizzi.
+\newblock A collaborative filtering approach for recommending olap sessions.
+\newblock {\em Decision Support Systems}, 69:20 -- 30, 2015.
+
+\bibitem[AGK{\etalchar{+}}17]{AmelootGKNS17}
+Tom~J. Ameloot, Gaetano Geck, Bas Ketsman, Frank Neven, and Thomas Schwentick.
+\newblock Reasoning on data partitioning for single-round multi-join evaluation
+  in massively parallel systems.
+\newblock {\em Commun. {ACM}}, 60(3):93--100, 2017.
+
+\bibitem[Agr88]{Alpha}
+Rakesh Agrawal.
+\newblock Alpha: An extension of relational algebra to express a class of
+  recursive queries.
+\newblock {\em IEEE Trans. Softw. Eng.}, 14(7):879--885, July 1988.
+
+\bibitem[AH11]{Allemang2011}
+Dean Allemang and James Hendler.
+\newblock {\em Semantic Web for the Working Ontologist: Effective Modeling in
+  RDFS and OWL}.
+\newblock Morgan Kaufmann Publishers Inc., San Francisco, CA, USA, 2 edition,
+  2011.
+
+\bibitem[ATOR16]{Aberger}
+Christopher~R. Aberger, Susan Tu, Kunle Olukotun, and Christopher R{\'e}.
+\newblock Emptyheaded: A relational engine for graph processing.
+\newblock In {\em Proceedings of the 2016 International Conference on
+  Management of Data}, SIGMOD '16, pages 431--446, New York, NY, USA, 2016.
+  ACM.
+
+\bibitem[Atr15]{SIGMOD2015Atre}
+Medha Atre.
+\newblock {Left Bit Right: For SPARQL Join Queries with OPTIONAL Patterns
+  (Left-outer-joins)}.
+\newblock In {\em {SIGMOD Conference}}, pages 1793--1808. {ACM}, 2015.
+
+\bibitem[AU79]{AhoAlpha}
+Alfred~V. Aho and Jeffrey~D. Ullman.
+\newblock Universality of data retrieval languages.
+\newblock In {\em Proceedings of the 6th ACM SIGACT-SIGPLAN Symposium on
+  Principles of Programming Languages}, POPL '79, pages 110--119, New York, NY,
+  USA, 1979. ACM.
+
+\bibitem[AW04]{ArasuW04}
+Arvind Arasu and Jennifer Widom.
+\newblock Resource sharing in continuous sliding-window aggregates.
+\newblock In {\em (e)Proceedings of the Thirtieth International Conference on
+  Very Large Data Bases, Toronto, Canada, August 31 - September 3 2004}, pages
+  336--347, 2004.
+
+\bibitem[BAdCG16]{BrasileiroACG16}
+Freddy Brasileiro, Jo{\~{a}}o Paulo~A. Almeida, Victorio~Albani de~Carvalho,
+  and Giancarlo Guizzardi.
+\newblock Expressive multi-level modeling for the semantic web.
+\newblock In {\em International Semantic Web Conference {(1)}}, volume 9981 of
+  {\em Lecture Notes in Computer Science}, pages 53--69, 2016.
+
+\bibitem[BBC{\etalchar{+}}15]{xpath31}
+Anders Berglund, Scott Boag, Donald~D. Chamberlin, Mary~F. Fern\'andez, Michael
+  Kay, Jonathan Robie, and J\'er\^ome Sim\'eon.
+\newblock Xml path language (xpath) 3.1, January 2015.
+
+\bibitem[BBC{\etalchar{+}}17]{BBCFLA17}
+G.~Bagan, A.~Bonifati, R.~Ciucanu, G.~H.~L. Fletcher, A.~Lemay, and
+  N.~Advokaat.
+\newblock {gMark}: Schema-driven generation of graphs and queries.
+\newblock {\em IEEE Transactions on Knowledge and Data Engineering},
+  29(4):856--869, 2017.
+
+\bibitem[BBMP15]{OPLON15}
+Flavio Bertini, Giacomo Bergami, Danilo Montesi, and Paolo Pandolfi.
+\newblock Predicting frailty in elderly people using socio-clinical databases.
+\newblock {\em 5th Workshop on Data Mining for Medicine and Healthcare}, 2015.
+
+\bibitem[BBPV11]{BelazzouguiBPV11}
+Djamal Belazzougui, Paolo Boldi, Rasmus Pagh, and Sebastiano Vigna.
+\newblock Theory and practice of monotone minimal perfect hashing.
+\newblock {\em {ACM} Journal of Experimental Algorithmics}, 16, 2011.
+
+\bibitem[BCC{\etalchar{+}}16]{BotoevaCCRX16}
+Elena Botoeva, Diego Calvanese, Benjamin Cogrel, Martin Rezk, and Guohui Xiao.
+\newblock {OBDA} beyond relational dbs: {A} study for mongodb.
+\newblock In {\em Description Logics}, volume 1577 of {\em {CEUR} Workshop
+  Proceedings}. CEUR-WS.org, 2016.
+
+\bibitem[BCG11]{berlingerio11}
+Michele Berlingerio, Michele Coscia, and Fosca Giannotti.
+\newblock Finding redundant and complementary communities in multidimensional
+  networks.
+\newblock In {\em Proceedings of the 20th ACM International Conference on
+  Information and Knowledge Management}, CIKM '11, pages 2181--2184, New York,
+  NY, USA, 2011. ACM.
+
+\bibitem[BCM{\etalchar{+}}10]{Baader2010}
+Franz Baader, Diego Calvanese, Deborah~L. McGuinness, Daniele Nardi, and
+  Peter~F. Patel-Schneider.
+\newblock {\em The Description Logic Handbook: Theory, Implementation and
+  Applications}.
+\newblock Cambridge University Press, New York, NY, USA, 2nd edition, 2010.
+
+\bibitem[BDIP{\etalchar{+}}13]{BarabucciEARMARK}
+Gioele Barabucci, Angelo Di~Iorio, Silvio Peroni, Francesco Poggi, and Fabio
+  Vitali.
+\newblock Annotations with earmark in practice: A fairy tale.
+\newblock In {\em Proceedings of the 1st International Workshop on
+  Collaborative Annotations in Shared Environment: Metadata, Vocabularies and
+  Techniques in the Digital Humanities}, DH-CASE '13, pages 11:1--11:8, New
+  York, NY, USA, 2013. ACM.
+
+\bibitem[BDK{\etalchar{+}}13]{preSQLGraph}
+Mihaela~A. Bornea, Julian Dolby, Anastasios Kementsietsidis, Kavitha Srinivas,
+  Patrick Dantressangle, Octavian Udrea, and Bishwaranjan Bhattacharjee.
+\newblock Building an efficient rdf store over a relational database.
+\newblock In {\em Proceedings of the 2013 ACM SIGMOD International Conference
+  on Management of Data}, SIGMOD '13, pages 121--132, New York, NY, USA, 2013.
+  ACM.
+
+\bibitem[BELP07]{graphml}
+Ulrik Brandes, Markus Eiglsperger, J\"{u}rgen Lerner, and Christian Pich.
+\newblock Graph markup language ({GraphML}).
+\newblock In Roberto Tamassia, editor, {\em Handbook of Graph Drawing and
+  Visualization}. CRC Press, 2007.
+
+\bibitem[Ber14]{bergami2014}
+Giacomo Bergami.
+\newblock {Hypergraph Mining for Social Networks }.
+\newblock Master's thesis, Italy, 2014.
+
+\bibitem[BFL13]{Barcelo2013}
+Pablo Barcel{\'o}, Gaelle Fontaine, and Anthony~Widjaja Lin.
+\newblock {\em Expressive Path Queries on Graphs with Data}, pages 71--85.
+\newblock Springer Berlin Heidelberg, Berlin, Heidelberg, 2013.
+
+\bibitem[BG05]{Bretto2005}
+Alain Bretto and Luc Gillibert.
+\newblock Hypergraph-based image representation.
+\newblock In Luc Brun and Mario Vento, editors, {\em GbRPR}, volume 3434 of
+  {\em Lecture Notes in Computer Science}, pages 1--11. Springer, 2005.
+
+\bibitem[BHLS17]{baader2017}
+Franz Baader, Ian Horrocks, Carsten Lutz, and Uli Sattler.
+\newblock {\em An Introduction to Description Logic}.
+\newblock Cambridge University Press, 1st edition, 2017.
+
+\bibitem[BK14]{BrodkaK14}
+Piotr Br{\'{o}}dka and Przemyslaw Kazienko.
+\newblock Multilayered social networks.
+\newblock In {\em Encyclopedia of Social Network Analysis and Mining}, pages
+  998--1013. 2014.
+
+\bibitem[BL11]{Badia}
+Antonio Badia and Daniel Lemire.
+\newblock A call to arms: Revisiting database design.
+\newblock {\em SIGMOD Rec.}, 40(3):61--69, November 2011.
+
+\bibitem[BLC{\etalchar{+}}17]{BaaziziLCGS17}
+Mohamed~Amine Baazizi, Houssem~Ben Lahmar, Dario Colazzo, Giorgio Ghelli, and
+  Carlo Sartiani.
+\newblock Schema inference for massive {JSON} datasets.
+\newblock In {\em Proceedings of the 20th International Conference on Extending
+  Database Technology, {EDBT} 2017, Venice, Italy, March 21-24, 2017.}, pages
+  222--233, 2017.
+
+\bibitem[BLP04]{gxlgraphml}
+Ulrik Brandes, J\"{u}rgen Lerner, and Christian Pich.
+\newblock Gxl to graphml and vice versa with xslt.
+\newblock In {\em International Workshop on Graph-Based Tools (GraBaTs0)},
+  2004.
+
+\bibitem[BM08]{BurattiM07}
+Giacomo Buratti and Danilo Montesi.
+\newblock Ranking for approximated xquery full-text queries.
+\newblock In {\em Sharing Data, Information and Knowledge, 25th British
+  National Conference on Databases, {BNCOD} 25, Cardiff, UK, July 7-10, 2008.
+  Proceedings}, pages 165--176, 2008.
+
+\bibitem[BMM16]{BergamiMM16}
+Giacomo Bergami, Matteo Magnani, and Danilo Montesi.
+\newblock On joining graphs.
+\newblock abs/1608.05594, 2016.
+
+\bibitem[BMM17]{BergamiMM17}
+Giacomo Bergami, Matteo Magnani, and Danilo Montesi.
+\newblock A join operator for property graphs.
+\newblock In {\em Proceedings of the Workshops of the {EDBT/ICDT} 2017 Joint
+  Conference {(EDBT/ICDT} 2017), Venice, Italy, March 21-24, 2017.}, 2017.
+
+\bibitem[BN09]{Bleiholder09}
+Jens Bleiholder and Felix Naumann.
+\newblock Data fusion.
+\newblock {\em ACM Comput. Surv.}, 41(1):1:1--1:41, January 2009.
+
+\bibitem[Bra03]{Brants03}
+Thorsten Brants.
+\newblock Natural language processing in information retrieval.
+\newblock In {\em Computational Linguistics in the Netherlands 2003, December
+  19, Centre for Dutch Language and Speech, University of Antwerp}, 2003.
+
+\bibitem[BS07]{BulutS07}
+Ahmet Bulut and Ambuj~K. Singh.
+\newblock Indexing and querying data streams.
+\newblock In {\em Data Streams - Models and Algorithms}, pages 237--259. 2007.
+
+\bibitem[Cab98]{Cabibbo}
+Luca Cabibbo.
+\newblock The expressive power of stratified logic programs with value
+  invention.
+\newblock {\em Information and Computation}, 13(IC982734):22--56, 1998.
+
+\bibitem[CDD{\etalchar{+}}04]{Jena}
+Jeremy~J. Carroll, Ian Dickinson, Chris Dollin, Dave Reynolds, Andy Seaborne,
+  and Kevin Wilkinson.
+\newblock Jena: Implementing the semantic web recommendations.
+\newblock In {\em Proceedings of the 13th International World Wide Web
+  Conference on Alternate Track Papers \&Amp; Posters}, WWW Alt. '04, pages
+  74--83, New York, NY, USA, 2004. ACM.
+
+\bibitem[CG85]{ceri1985}
+Stefano Ceri and Georg Gottlob.
+\newblock Translating sql into relational algebra: Optimization, semantics, and
+  equivalence of sql queries.
+\newblock {\em IEEE Trans. Softw. Eng.}, 11(4):324--345, April 1985.
+
+\bibitem[CGP00]{Corcho00}
+\'{O}scar Corcho and Asunci\'{o}n G\'{o}mez-P{\'e}rez.
+\newblock A roadmap to ontology specification languages.
+\newblock In {\em Proceedings of the 12th European Workshop on Knowledge
+  Acquisition, Modeling and Management}, EKAW '00, pages 80--96, London, UK,
+  UK, 2000. Springer-Verlag.
+
+\bibitem[Che76]{Chen1976}
+Peter Pin-Shan Chen.
+\newblock The entity-relationship model -- toward a unified view of data.
+\newblock {\em ACM Trans. Database Syst.}, 1(1):9--36, March 1976.
+
+\bibitem[CHoSU93]{nlacat}
+Text~REtrieval Conference, D.~K. Harman, National~Institute of~Standards, and
+  Technology (U.S.).
+\newblock {\em The first Text REtrieval Conference (TREC-1) [microform]}.
+\newblock U.S. Dept. of Commerce, National Institute of Standards and
+  Technology Gaithersburg, MD, 1993.
+
+\bibitem[CJ10]{Chen10}
+Zheng Chen and Heng Ji.
+\newblock Graph-based clustering for computational linguistics: A survey.
+\newblock In {\em Proceedings of the 2010 Workshop on Graph-based Methods for
+  Natural Language Processing}, TextGraphs-5, pages 1--9, Stroudsburg, PA, USA,
+  2010. Association for Computational Linguistics.
+
+\bibitem[CJQ16]{ChengJQ16}
+Gong Cheng, Cheng Jin, and Yuzhong Qu.
+\newblock {HIEDS:} {A} generic and efficient approach to hierarchical dataset
+  summarization.
+\newblock In {\em Procs. of {IJCAI} 2016}, pages 3705--3711, 2016.
+
+\bibitem[CLNP06]{Calders2006}
+T.~Calders, L.~V.S. Lakshmanan, R.~T. Ng, and J.~Paredaens.
+\newblock Expressive power of an algebra for data mining.
+\newblock {\em ACM Trans. on Database Systems}, 31(4):1169--1214, 2006.
+
+\bibitem[CM90a]{consens1990a}
+Mariano~P. Consens and Alberto~O. Mendelzon.
+\newblock Graphlog: A visual formalism for real life recursion.
+\newblock In {\em Proceedings of the Ninth ACM SIGACT-SIGMOD-SIGART Symposium
+  on Principles of Database Systems}, PODS '90, pages 404--416, New York, NY,
+  USA, 1990. ACM.
+
+\bibitem[CM90b]{GraphLogAggr}
+Mariano~P. Consens and Alberto~O. Mendelzon.
+\newblock Low complexity aggregation in graphlog and datalog.
+\newblock In Serge Abiteboul and ParisC. Kanellakis, editors, {\em ICDT '90},
+  volume 470 of {\em Lecture Notes in Computer Science}, pages 379--394.
+  Springer Berlin Heidelberg, 1990.
+
+\bibitem[Cod71]{Codd71a}
+E.~F. Codd.
+\newblock Further normalization of the data base relational model.
+\newblock {\em {IBM} Research Report, San Jose, California}, {RJ909}, 1971.
+
+\bibitem[Cod90]{Codd}
+E.~F. Codd.
+\newblock {\em The Relational Model for Database Management: Version 2}.
+\newblock Addison-Wesley Longman Publishing Co., Inc., Boston, MA, USA, 1990.
+
+\bibitem[CYZ{\etalchar{+}}08]{ChenYZHY08}
+Chen Chen, Xifeng Yan, Feida Zhu, Jiawei Han, and Philip~S. Yu.
+\newblock Graph olap: Towards online analytical processing on graphs.
+\newblock In {\em ICDM}, pages 103--112. IEEE Computer Society, 2008.
+
+\bibitem[DEGI10]{Demetrescu2010}
+Camil Demetrescu, David Eppstein, Zvi Galil, and Giuseppe~F. Italiano.
+\newblock Algorithms and theory of computation handbook.
+\newblock chapter Dynamic Graph Algorithms, pages 9--9. Chapman \& Hall/CRC,
+  2010.
+
+\bibitem[DGLL{\etalchar{+}}17]{DeGiacomo2018}
+Giuseppe De~Giacomo, Domenico Lembo, Maurizio Lenzerini, Antonella Poggi, and
+  Riccardo Rosati.
+\newblock {\em Using Ontologies for Semantic Data Integration}, pages 187--202.
+\newblock Springer International Publishing, Cham, 2017.
+
+\bibitem[Dit16]{dittrich}
+Jens Dittrich.
+\newblock {\em Patterns in Data Management: A Flipped textbook}.
+\newblock Jens Dittrich, Saarland University, Germany, 1 edition, 2016.
+
+\bibitem[dMDS{\etalchar{+}}14]{MarneffeDSHGNM14}
+Marie{-}Catherine de~Marneffe, Timothy Dozat, Natalia Silveira, Katri
+  Haverinen, Filip Ginter, Joakim Nivre, and Christopher~D. Manning.
+\newblock Universal stanford dependencies: {A} cross-linguistic typology.
+\newblock In {\em Proceedings of the Ninth International Conference on Language
+  Resources and Evaluation, {LREC} 2014, Reykjavik, Iceland, May 26-31, 2014.},
+  pages 4585--4592, 2014.
+
+\bibitem[DMR16]{DMR}
+Mark~E. Dickinson, Matteo Magnani, and Luca Rossi.
+\newblock {\em Multilayer Social Networks}.
+\newblock Cambridge University Press, 2016.
+
+\bibitem[DSP{\etalchar{+}}14]{DasSPCB14}
+Souripriya Das, Jagannathan Srinivasan, Matthew Perry, Eugene~Inseok Chong, and
+  Jayanta Banerjee.
+\newblock A tale of two graphs: Property graphs as {RDF} in oracle.
+\newblock In {\em Proceedings of the 17th International Conference on Extending
+  Database Technology, {EDBT} 2014, Athens, Greece, March 24-28, 2014.}, pages
+  762--773, 2014.
+
+\bibitem[DSUBGVn{\etalchar{+}}10]{Dominguez}
+D.~Dominguez-Sal, P.~Urb\'{o}n-Bayes, A.~Gim{\'e}nez-Va\~{n}\'{o},
+  S.~G\'{o}mez-Villamor, N.~Mart\'{\i}nez-Baz\'{a}n, and J.~L. Larriba-Pey.
+\newblock Survey of graph database performance on the hpc scalable graph
+  analysis benchmark.
+\newblock In {\em Proceedings of the 2010 International Conference on Web-age
+  Information Management}, WAIM'10, pages 37--48, Berlin, Heidelberg, 2010.
+  Springer-Verlag.
+
+\bibitem[DVMT15]{DeVirgilio2015}
+Roberto De~Virgilio, Antonio Maccioni, and Riccardo Torlone.
+\newblock Approximate querying of rdf graphs via path alignment.
+\newblock {\em Distributed and Parallel Databases}, 33(4):555--581, 2015.
+
+\bibitem[EALP{\etalchar{+}}15]{Erling}
+Orri Erling, Alex Averbuch, Josep Larriba-Pey, Hassan Chafi, Andrey Gubichev,
+  Arnau Prat, Minh-Duc Pham, and Peter Boncz.
+\newblock The ldbc social network benchmark: Interactive workload.
+\newblock In {\em Proceedings of the 2015 ACM SIGMOD International Conference
+  on Management of Data}, SIGMOD '15, pages 619--630, New York, NY, USA, 2015.
+  ACM.
+
+\bibitem[EM09]{ErlingM09}
+Orri Erling and Ivan Mikhailov.
+\newblock Virtuoso: Rdf support in a native rdbms.
+\newblock In Roberto~De Virgilio, Fausto Giunchiglia, and Letizia Tanca,
+  editors, {\em Semantic Web Information Management}, pages 501--519. Springer,
+  2009.
+
+\bibitem[EN16]{Elmasri}
+Ramez~A. Elmasri and Shankrant~B. Navathe.
+\newblock {\em Fundamentals of Database Systems}.
+\newblock Pearson, 7th edition, 2016.
+
+\bibitem[ES13]{euzenat2013d}
+J\'er\^ome Euzenat and Pavel Shvaiko.
+\newblock {\em Ontology matching}.
+\newblock Springer-Verlag, Heidelberg (DE), 2nd edition, 2013.
+
+\bibitem[EV12a]{Etcheverry2012a}
+Lorena Etcheverry and Alejandro~A. Vaisman.
+\newblock Enhancing olap analysis with web cubes.
+\newblock In Elena Simperl, Philipp Cimiano, Axel Polleres, Óscar Corcho, and
+  Valentina Presutti, editors, {\em ESWC}, volume 7295 of {\em Lecture Notes in
+  Computer Science}, pages 469--483. Springer, 2012.
+
+\bibitem[EV12b]{Etcheverry2012}
+Lorena Etcheverry and Alejandro~A. Vaisman.
+\newblock Qb4olap: A vocabulary for olap cubes on the semantic web.
+\newblock In Juan Sequeda, Andreas Harth, and Olaf Hartig, editors, {\em COLD},
+  volume 905 of {\em CEUR Workshop Proceedings}. CEUR-WS.org, 2012.
+
+\bibitem[EV12c]{EtcheverryV12b}
+Lorena Etcheverry and Alejandro~A. Vaisman.
+\newblock Qb4olap: A vocabulary for olap cubes on the semantic web.
+\newblock In {\em COLD}, volume 905 of {\em CEUR Workshop Proceedings}.
+  CEUR-WS.org, 2012.
+
+\bibitem[Fag83]{Fagin83}
+Ronald Fagin.
+\newblock Degrees of acyclicity for hypergraphs and relational database
+  schemes.
+\newblock {\em J. ACM}, 30(3):514--550, July 1983.
+
+\bibitem[FB09]{Fletcher09}
+George~H.L. Fletcher and Peter~W. Beck.
+\newblock Scalable indexing of rdf graphs for efficient join processing.
+\newblock In {\em Proceedings of the 18th ACM Conference on Information and
+  Knowledge Management}, CIKM '09, pages 1513--1516, New York, NY, USA, 2009.
+  ACM.
+
+\bibitem[Fel98]{WordNet}
+Christiane Fellbaum.
+\newblock {\em WordNet: An Electronic Lexical Database}.
+\newblock MIT Press, 1998.
+
+\bibitem[FLM{\etalchar{+}}12]{n3}
+Wenfei Fan, Jianzhong Li, Shuai Ma, Nan Tang, and Yinghui Wu.
+\newblock Adding regular expressions to graph reachability and pattern queries.
+\newblock {\em Frontiers of Computer Science}, 6(3):313--338, 2012.
+
+\bibitem[FPG15]{NautiLOD}
+Valeria Fionda, Giuseppe Pirrò, and Claudio Gutierrez.
+\newblock Nautilod: A formal language for the web of data graph.
+\newblock {\em TWEB}, 9(1):5:1--5:43, 2015.
+
+\bibitem[Fre09]{StatisticalModels}
+David~A. Freedman.
+\newblock {\em Statistical Models. Theory and practice}.
+\newblock Cambridge University Press, 2009.
+
+\bibitem[GB10]{Galleguillos10}
+Carolina Galleguillos and Serge Belongie.
+\newblock Context based object categorization: A critical survey.
+\newblock {\em Comput. Vis. Image Underst.}, 114(6):712--722, June 2010.
+
+\bibitem[GCR{\etalchar{+}}17]{SJoin}
+Mikhail Galkin, Diego Collarana, Ignacio~Traverso Rib{\'{o}}n, Maria{-}Esther
+  Vidal, and S{\"{o}}ren Auer.
+\newblock Sjoin: {A} semantic join operator to integrate heterogeneous {RDF}
+  graphs.
+\newblock In {\em Database and Expert Systems Applications - 28th International
+  Conference, {DEXA} 2017, Lyon, France, August 28-31, 2017, Proceedings, Part
+  {I}}, pages 206--221, 2017.
+
+\bibitem[GGK09]{NIPS2009_3766}
+Stephen Gould, Tianshi Gao, and Daphne Koller.
+\newblock Region-based segmentation and object detection.
+\newblock In Y.~Bengio, D.~Schuurmans, J.~D. Lafferty, C.~K.~I. Williams, and
+  A.~Culotta, editors, {\em Advances in Neural Information Processing Systems
+  22}, pages 655--663. Curran Associates, Inc., 2009.
+
+\bibitem[GHKR11]{GrossHKR11}
+Anika Gro{\ss}, Michael Hartung, Toralf Kirsten, and Erhard Rahm.
+\newblock Mapping composition for matching large life science ontologies.
+\newblock In {\em {ICBO}}, volume 833 of {\em {CEUR} Workshop Proceedings}.
+  CEUR-WS.org, 2011.
+
+\bibitem[GHMP11]{GutierrezInclusion}
+Claudio Gutierrez, Carlos~A. Hurtado, Alberto~O. Mendelzon, and Jorge Pérez.
+\newblock Foundations of semantic web databases.
+\newblock {\em Journal of Computer and System Sciences}, 77(3):520 -- 541,
+  2011.
+\newblock Database Theory.
+
+\bibitem[GL02]{Gilbert02}
+Seth Gilbert and Nancy Lynch.
+\newblock Brewer's conjecture and the feasibility of consistent, available,
+  partition-tolerant web services.
+\newblock {\em SIGACT News}, 33(2):51--59, June 2002.
+
+\bibitem[GMP{\etalchar{+}}12]{GolfarelliMPRT12}
+Matteo Golfarelli, Federica Mandreoli, Wilma Penzo, Stefano Rizzi, and Elisa
+  Turricchia.
+\newblock {OLAP} query reformulation in peer-to-peer data warehousing.
+\newblock {\em Inf. Syst.}, 37(5):393--411, 2012.
+
+\bibitem[GMUW08]{Garcia-Molina}
+Hector Garcia-Molina, Jeffrey~D. Ullman, and Jennifer Widom.
+\newblock {\em Database Systems: The Complete Book}.
+\newblock Prentice Hall Press, Upper Saddle River, NJ, USA, 2 edition, 2008.
+
+\bibitem[GP13]{GangemiP13}
+Aldo Gangemi and Valentina Presutti.
+\newblock A multi-dimensional comparison of ontology design patterns for
+  representing \emph{n}-ary relations.
+\newblock In {\em {SOFSEM}}, volume 7741 of {\em Lecture Notes in Computer
+  Science}, pages 86--105. Springer, 2013.
+
+\bibitem[GPG14]{Goertzel2014}
+Ben Goertzel, Cassio Pennachin, and Nil Geisweiller.
+\newblock {\em Engineering General Intelligence, Part 1 - {A} Path to Advanced
+  {AGI} via Embodied Learning and Cognitive Synergy}, volume~5 of {\em Atlantis
+  Thinking Machines}.
+\newblock Atlantis Press, 2014.
+
+\bibitem[GRS{\etalchar{+}}15]{Ghrab2015}
+Amine Ghrab, Oscar Romero, Sabri Skhiri, Alejandro Vaisman, and Esteban
+  Zim{\'a}nyi.
+\newblock {\em Advances in Databases and Information Systems: 19th East
+  European Conference, ADBIS 2015, Poitiers, France, September 8-11, 2015,
+  Proceedings}, chapter A Framework for Building OLAP Cubes on Graphs, pages
+  92--105.
+\newblock Springer International Publishing, Cham, 2015.
+
+\bibitem[GRS{\etalchar{+}}16]{GRAD}
+Amine Ghrab, Oscar Romero, Sabri Skhiri, Alejandro~A. Vaisman, and Esteban
+  Zimányi.
+\newblock Grad: On graph database modeling.
+\newblock {\em CoRR}, abs/1602.00503, 2016.
+
+\bibitem[GS98]{GenestS98}
+David Genest and Eric Salvat.
+\newblock A platform allowing typed nested graphs: How cogito became cogitant
+  (research note).
+\newblock In {\em Conceptual Structures: Theory, Tools and Applications, 6th
+  International Conference on Conceptual Structures, {ICCS} '98, Montpellier,
+  France, August 10-12, 1998, Proceedings}, pages 154--164, 1998.
+
+\bibitem[GT07]{Getoor07}
+Lise Getoor and Ben Taskar.
+\newblock {\em Introduction to Statistical Relational Learning (Adaptive
+  Computation and Machine Learning)}.
+\newblock The MIT Press, 2007.
+
+\bibitem[GYQ{\etalchar{+}}12]{Gao}
+Jun Gao, Jeffrey Yu, Huida Qiu, Xiao Jiang, Tengjiao Wang, and Dongqing Yang.
+\newblock Holistic top-k simple shortest path join in graphs.
+\newblock {\em IEEE Trans. on Knowl. and Data Eng.}, 24(4):665--677, April
+  2012.
+
+\bibitem[Har87]{statecharts}
+David Harel.
+\newblock Statecharts: A visual formalism for complex systems.
+\newblock {\em Sci. Comput. Program.}, 8(3):231--274, June 1987.
+
+\bibitem[HAR11]{sparqlScalable}
+Jiewen Huang, Daniel~J. Abadi, and Kun Ren.
+\newblock Scalable sparql querying of large rdf graphs.
+\newblock {\em PVLDB}, 4(11):1123--1134, 2011.
+
+\bibitem[He07]{He2007}
+Huahai He.
+\newblock {\em Querying and Mining Graph Databases}.
+\newblock PhD thesis, University of California at Santa Barbara, CA, USA, 2007.
+\newblock AAI3283657.
+
+\bibitem[HG16]{Neo4jAlg}
+Jürgen Hölsch and Michael Grossniklaus.
+\newblock An algebra and equivalences to transform graph patterns in neo4j.
+\newblock {\em Fifth International Workshop on Querying Graph Structured Data},
+  2016.
+
+\bibitem[HGR13]{HartungGR13}
+Michael Hartung, Anika Gro{\ss}, and Erhard Rahm.
+\newblock Composition methods for link discovery.
+\newblock In {\em {BTW}}, volume 214 of {\em {LNI}}, pages 261--277. {GI},
+  2013.
+
+\bibitem[HIK11]{Hammack}
+Richard Hammack, Wilfried Imrich, and Sandi Klavzar.
+\newblock {\em Handbook of Product Graphs, Second Edition}.
+\newblock CRC Press, Inc., Boca Raton, FL, USA, 2nd edition, 2011.
+
+\bibitem[HL97]{Hall97}
+D.L. Hall and J.~Llinas.
+\newblock An introduction to multisensor data fusion.
+\newblock {\em Proceedings of the IEEE}, 85(1), Jan 1997.
+
+\bibitem[HP15]{Hartig2015}
+Olaf Hartig and Jorge P{\'e}rez.
+\newblock {\em The Semantic Web - ISWC 2015: 14th International Semantic Web
+  Conference, Bethlehem, PA, USA, October 11-15, 2015, Proceedings, Part I},
+  chapter LDQL: A Query Language for the Web of Linked Data, pages 73--91.
+\newblock Springer International Publishing, Cham, 2015.
+
+\bibitem[HP17]{FGraphQL}
+Olaf Hartig and Jorge Pérez.
+\newblock An initial analysis of facebook's graphql language.
+\newblock {\em 11th Alberto Mendelzon International Workshop on Foundation of
+  Databases and the Web (AMW)}, 06 2017.
+
+\bibitem[HRJM15]{SemSim}
+Sébastien Harispe, Sylvie Ranwez, Stefan Janaqi, and Jacky Montmain.
+\newblock Semantic similarity from natural language and ontology analysis.
+\newblock {\em Synthesis Lectures on Human Language Technologies}, 8, 2015.
+
+\bibitem[HS12]{mathmeta}
+Brian Henderson-Sellers.
+\newblock {\em On the Mathematics of Modelling, Metamodelling, Ontologies and
+  Modelling Languages.}
+\newblock Springer Briefs in Computer Science. Springer, 2012.
+
+\bibitem[HSSW06]{GXL}
+Richard~C. Holt, Andy Sch{\"u}rr, Susan~E. Sim, and Andreas Winter.
+\newblock Gxl: A graph-based standard exchange format for reengineering.
+\newblock {\em Sci. Comput. Program.}, 60(2):149--170, 2006.
+
+\bibitem[IK00]{ProductGraphs}
+Wilfred Imrich and Sandi Klavzar.
+\newblock {\em Product Graphs. Structure and Recognition}.
+\newblock John Wiley \& Sons, Inc., New York, NY, USA, 2nd edition, 2000.
+
+\bibitem[Inc14]{CypherCheat}
+Neo~Technology Inc.
+\newblock {\em Cypher Cheat Scheet}, 2014.
+
+\bibitem[IP07]{ImrichP07}
+Wilfried Imrich and Iztok Peterin.
+\newblock Recognizing cartesian products in linear time.
+\newblock {\em Discrete Mathematics}, 307(3-5):472--483, 2007.
+
+\bibitem[IPPV14]{IorioHierarchy}
+Angelo~Di Iorio, Silvio Peroni, Francesco Poggi, and Fabio Vitali.
+\newblock Dealing with structural patterns of {XML} documents.
+\newblock {\em {JASIST}}, 65(9):1884--1900, 2014.
+
+\bibitem[JFL15]{jakawat}
+Wararat Jakawat, C{\'e}cile Favre, and Sabine Loudcher.
+\newblock {OLAP Cube-based Graph Approach for Bibliographic Data}.
+\newblock In {\em {SOFSEM 2016}}, Harrachov, Czech Republic, November 2015.
+
+\bibitem[JKA{\etalchar{+}}17]{JunghannsKAPR17}
+Martin Junghanns, Max Kie{\ss}ling, Alex Averbuch, Andr{\'{e}} Petermann, and
+  Erhard Rahm.
+\newblock Cypher-based graph pattern matching in gradoop.
+\newblock In {\em Proceedings of the Fifth International Workshop on Graph
+  Data-management Experiences {\&} Systems, GRADES@SIGMOD/PODS 2017, Chicago,
+  IL, USA, May 14 - 19, 2017}, pages 3:1--3:8, 2017.
+
+\bibitem[Joh11]{Johnson2011}
+Jeffrey Johnson.
+\newblock {\em Hypernetwors in the Science of Complex Systems}.
+\newblock Imperial College Press, London, UK, UK, 2011.
+
+\bibitem[JPR17]{JunghannsPR17}
+Martin Junghanns, Andr{\'{e}} Petermann, and Erhard Rahm.
+\newblock Distributed grouping of property graphs with gradoop.
+\newblock In {\em Datenbanksysteme f{\"{u}}r Business, Technologie und Web
+  {(BTW} 2017), 17. Fachtagung des GI-Fachbereichs Datenbanken und
+  Informationssysteme" (DBIS), 6.-10. M{\"{a}}rz 2017, Stuttgart, Germany,
+  Proceedings}, pages 103--122, 2017.
+
+\bibitem[JPT{\etalchar{+}}16]{apacheflink}
+M.~Junghanns, A.~Petermann, N.~Teichmann, K.~Gomez, and E.~Rahm.
+\newblock Analyzing extended property graphs with apache flink.
+\newblock {\em SIGMOD workshop on Network Data Analytics (NDA)}, 07 2016.
+
+\bibitem[K\"06]{kuhne06a}
+Thomas K\"{u}hne.
+\newblock Matters of (meta-) modeling.
+\newblock {\em Software and Systems Modeling (SoSyM)}, 5(4):369--385, December
+  2006.
+
+\bibitem[KB17]{KohailBiemann}
+Sarah Kohail and Chris Biemann.
+\newblock Matching, re-ranking and scoring: Learning textual similarity by
+  incorporating dependency graph alignment and coverage features.
+\newblock {\em 18th International Conference on Computational Linguistics and
+  Intelligent Text Processing.}, 2017.
+
+\bibitem[Khu12]{AnIntroductionGraph}
+Udayan Khurana.
+\newblock An introduction totemporal graph data management.
+\newblock Technical report, Computer Science Department, University of
+  Maryland, 2012.
+
+\bibitem[KKKR13]{KHALEGHI201328}
+Bahador Khaleghi, Alaa Khamis, Fakhreddine~O. Karray, and Saiedeh~N. Razavi.
+\newblock Multisensor data fusion: A review of the state-of-the-art.
+\newblock {\em Information Fusion}, 14(1):28 -- 44, 2013.
+
+\bibitem[Kos08]{Kostakos2008}
+Vassilis Kostakos.
+\newblock Temporal graphs.
+\newblock {\em Physica A: Statistical Mechanics and its Applications}, 388,
+  2008.
+
+\bibitem[KRRV15]{Kostylev2015}
+Egor~V. Kostylev, Juan~L. Reutter, Miguel Romero, and Domagoj Vrgo{\v{c}}.
+\newblock {\em The Semantic Web - ISWC 2015: 14th International Semantic Web
+  Conference, Bethlehem, PA, USA, October 11-15, 2015, Proceedings, Part I},
+  chapter SPARQL with Property Paths, pages 3--18.
+\newblock Springer International Publishing, Cham, 2015.
+
+\bibitem[KW82]{NestedGlaucoma}
+Casimir~A. Kulikowski and Sholom~M. Weiss.
+\newblock Representation of expert knolwedge for consultation: The {CASNET} and
+  {EXPERT} proejcts.
+\newblock In {\em Artificial Intelligence in Medicine}, number~2. Westview
+  Press, Boulder, Colorado, 1982.
+
+\bibitem[Lar04]{Larman04}
+Craig Larman.
+\newblock {\em Applying UML and Patterns: An Introduction to Object-Oriented
+  Analysis and Design and Iterative Development (3rd Edition)}.
+\newblock Prentice Hall PTR, Upper Saddle River, NJ, USA, 2004.
+
+\bibitem[LBO{\etalchar{+}}15]{Labouseur2015}
+Alan~G. Labouseur, Jeremy Birnbaum, Paul~W. Olsen, Sean~R. Spillane, Jayadevan
+  Vijayan, Jeong-Hyon Hwang, and Wook-Shin Han.
+\newblock The g* graph database: efficiently managing large distributed dynamic
+  graphs.
+\newblock {\em Distributed and Parallel Databases}, 33(4):479--514, Dec 2015.
+
+\bibitem[Len02]{Lenzerini02}
+Maurizio Lenzerini.
+\newblock Data integration: {A} theoretical perspective.
+\newblock In {\em Proceedings of the Twenty-first {ACM} {SIGACT-SIGMOD-SIGART}
+  Symposium on Principles of Database Systems, June 3-5, Madison, Wisconsin,
+  {USA}}, pages 233--246, 2002.
+
+\bibitem[LJ14]{Jagadish}
+Fei Li and H.~V. Jagadish.
+\newblock Constructing an interactive natural language interface for relational
+  databases.
+\newblock {\em {PVLDB}}, 8(1):73--84, 2014.
+
+\bibitem[LLDM09]{dataSIOC}
+J.~Leskovec, K.~Lang, A.~Dasgupta, and M.~Mahoney.
+\newblock Community structure in large networks: Natural cluster sizes and the
+  absence of large well-defined clusters.
+\newblock {\em Internet Mathematics}, 6(1):29--123, 2009.
+
+\bibitem[LN07]{deII}
+Ulf Leser and Felix Naumann.
+\newblock {\em Informationsintegration}.
+\newblock dpunkt.verlag, 2007.
+
+\bibitem[L{\"{o}}w93]{Lowe93}
+Michael L{\"{o}}we.
+\newblock Algebraic approach to single-pushout graph transformation.
+\newblock {\em Theor. Comput. Sci.}, 109(1{\&}2):181--224, 1993.
+
+\bibitem[LS99]{Lassila1999}
+Ora Lassila and Ralph~R. Swick.
+\newblock Resource {D}escription {F}ramework ({RDF}) {M}odel and {S}yntax
+  {S}pecification.
+\newblock W3c recommendation, W3C, February 1999.
+
+\bibitem[LS16]{leskovec2016snap}
+Jure Leskovec and Rok Sosi{\v{c}}.
+\newblock Snap: A general-purpose network analysis and graph-mining library.
+\newblock {\em ACM Transactions on Intelligent Systems and Technology (TIST)},
+  8(1):1, 2016.
+
+\bibitem[Lu06]{Lu2006}
+James~J. Lu.
+\newblock A data model for data integration.
+\newblock {\em Electron. Notes Theor. Comput. Sci.}, 150(2):3--19, March 2006.
+
+\bibitem[Luh58]{Luhn58}
+H.~P. Luhn.
+\newblock A business intelligence system.
+\newblock {\em IBM J. Res. Dev.}, 2(4):314--319, October 1958.
+
+\bibitem[LVJRT14]{Lossio-Ventura2014}
+Juan~Antonio Lossio-Ventura, Clement Jonquet, Mathieu Roche, and Maguelonne
+  Teisseire.
+\newblock {\em Advances in Natural Language Processing: 9th International
+  Conference on NLP, PolTAL 2014, Warsaw, Poland, September 17-19, 2014.
+  Proceedings}, chapter Yet Another Ranking Function for Automatic Multiword
+  Term Extraction, pages 52--64.
+\newblock Springer International Publishing, Cham, 2014.
+
+\bibitem[LWZ04]{LawWZ04}
+Yan{-}Nei Law, Haixun Wang, and Carlo Zaniolo.
+\newblock Query languages and data models for database sequences and data
+  streams.
+\newblock In {\em (e)Proceedings of the Thirtieth International Conference on
+  Very Large Data Bases, Toronto, Canada, August 31 - September 3 2004}, pages
+  492--503, 2004.
+
+\bibitem[LY05]{liu05}
+Hong-Cheu Liu and Jeffery~X. Yu.
+\newblock Algebraic equivalences of nested relational operators.
+\newblock {\em Inf. Syst.}, 30(3):167--204, May 2005.
+
+\bibitem[LZ09]{encyclopedia}
+Ling Liu and M.~Tamer Zsu.
+\newblock {\em Encyclopedia of Database Systems}.
+\newblock Springer Publishing Company, Incorporated, 1st edition, 2009.
+
+\bibitem[LZ16]{Liu16}
+Jian Liu and X.X. Zhang.
+\newblock Dynamic labeling scheme for xml updates.
+\newblock {\em Know.-Based Syst.}, 106(C):135--149, August 2016.
+
+\bibitem[MFK01]{ManolescuFK01}
+Ioana Manolescu, Daniela Florescu, and Donald Kossmann.
+\newblock Answering {XML} queries on heterogeneous data sources.
+\newblock In {\em {VLDB}}, pages 241--250. Morgan Kaufmann, 2001.
+
+\bibitem[MM04]{magnani04}
+Matteo Magnani and Danilo Montesi.
+\newblock A unified approach to structured, semistructured and unstructured
+  data.
+\newblock Technical report, in education. Information Processing and
+  Management, Vol 29, I, 2004.
+
+\bibitem[MM06]{Magnani06}
+Matteo Magnani and Danilo Montesi.
+\newblock A unified approach to structured and {XML} data modeling and
+  manipulation.
+\newblock {\em Data Knowl. Eng.}, 59(1):25--62, 2006.
+
+\bibitem[MM09]{Magnani09}
+Matteo Magnani and Danilo Montesi.
+\newblock Towards relational schema uncertainty.
+\newblock In {\em Proceedings of the 3rd International Conference on Scalable
+  Uncertainty Management}, SUM '09, pages 150--164, Berlin, Heidelberg, 2009.
+  Springer-Verlag.
+
+\bibitem[MM10]{Magnani2010}
+Matteo Magnani and Danilo Montesi.
+\newblock Us-sql: Managing uncertain schemata.
+\newblock In {\em Proceedings of the 2010 ACM SIGMOD International Conference
+  on Management of Data}, SIGMOD '10, pages 1195--1198, New York, NY, USA,
+  2010. ACM.
+
+\bibitem[MRS08]{Manning}
+Christopher~D. Manning, Prabhakar Raghavan, and Hinrich Sch\"{u}tze.
+\newblock {\em Introduction to Information Retrieval}.
+\newblock Cambridge University Press, New York, NY, USA, 2008.
+
+\bibitem[MSV17]{MartonSV17}
+J{\'{o}}zsef Marton, G{\'{a}}bor Sz{\'{a}}rnyas, and D{\'{a}}niel Varr{\'{o}}.
+\newblock Formalising opencypher graph queries in relational algebra.
+\newblock {\em CoRR}, abs/1705.02844, 2017.
+
+\bibitem[MZRA16]{MalloryZRA16}
+Emily~K. Mallory, Ce~Zhang, Christopher R{\'{e}}, and Russ~B. Altman.
+\newblock Large-scale extraction of gene interactions from full-text literature
+  using deepdive.
+\newblock {\em Bioinformatics}, 32(1):106--113, 2016.
+
+\bibitem[Neo13]{Neo4jMan}
+The Neo4j~Team NeoThechnology.
+\newblock The neo4j manual v2.0.0, 2013.
+
+\bibitem[New10]{Newman}
+Mark Newman.
+\newblock {\em Networks: An Introduction}.
+\newblock Oxford University Press, Inc., New York, NY, USA, 2010.
+
+\bibitem[NHNR17]{markus}
+Markus Nentwig, Michael Hartung, Axel{-}Cyrille~Ngonga Ngomo, and Erhard Rahm.
+\newblock A survey of current link discovery frameworks.
+\newblock {\em Semantic Web}, 8(3):419--436, 2017.
+
+\bibitem[NN92]{Nielson92}
+Hanne~Riis Nielson and Flemming Nielson.
+\newblock {\em Semantics with Applications: A Formal Introduction}.
+\newblock John Wiley \& Sons, Inc., New York, NY, USA, 1992.
+
+\bibitem[NNH05]{Nielson05}
+Flemming Nielson, Hanne~R. Nielson, and Chris Hankin.
+\newblock {\em Principles of Program Analysis}.
+\newblock Springer-Verlag New York, Inc., Secaucus, NJ, USA, 2005.
+
+\bibitem[NP12a]{Navigli12}
+Roberto Navigli and Simone~Paolo Ponzetto.
+\newblock Babelnet: The automatic construction, evaluation and application of a
+  wide-coverage multilingual semantic network.
+\newblock {\em Artif. Intell.}, 193:217--250, December 2012.
+
+\bibitem[NP12b]{MultiWordSense}
+Roberto Navigli and Simone~Paolo Ponzetto.
+\newblock {M}ultilingual {WSD} with just a few lines of code: the {B}abel{N}et
+  {API}.
+\newblock In {\em Proceedings of the 50th Annual Meeting of the Association for
+  Computational Linguistics (ACL 2012)}, Jeju, Korea, 2012.
+
+\bibitem[NRA{\etalchar{+}}17]{Nadal0AVV17}
+Sergi Nadal, Oscar Romero, Alberto Abell{\'{o}}, Panos Vassiliadis, and Stijn
+  Vansummeren.
+\newblock An integration-oriented ontology to govern evolution in big data
+  ecosystems.
+\newblock In {\em {EDBT/ICDT} Workshops}, volume 1810 of {\em {CEUR} Workshop
+  Proceedings}. CEUR-WS.org, 2017.
+
+\bibitem[{Obj}11]{OMG2011}
+{Object Management Group (OMG)}.
+\newblock Uml 2.4.1 superstructure specification, 2011.
+
+\bibitem[Odi92]{odifreddi1992}
+P.~Odifreddi.
+\newblock {\em {Classical Recursion Theory: The Theory of Functions and Sets of
+  Natural Numbers (Studies in Logic and the Foundations of Mathematics)}}.
+\newblock North Holland, new ed edition, February 1992.
+
+\bibitem[omg96]{omg96}
+{Common Facilities RFP-5: Meta-Object Facility, cf/96-05-02}, June 1996.
+
+\bibitem[OMG11a]{XMI}
+OMG.
+\newblock {\em {OMG MOF 2 XMI Mapping Specification, Version 2.4.1}}.
+\newblock Object Management Group, August 2011.
+
+\bibitem[OMG11b]{OMG2011a}
+OMG.
+\newblock {\em {OMG Unified Modeling Language (OMG UML), Infrastructure,
+  Version 2.4.1}}.
+\newblock Object Management Group, August 2011.
+
+\bibitem[oRD12]{IBMWatson}
+IBM~Journal of~Research and Development.
+\newblock {\em This is Watson}, volume 56(3/4).
+\newblock IBM Co., May/July 2012.
+
+\bibitem[PAG09]{Perez2009}
+Jorge P{\'e}rez, Marcelo Arenas, and Claudio Gutierrez.
+\newblock Semantics and complexity of sparql.
+\newblock 34(3):16:1--16:45, September 2009.
+
+\bibitem[PAK16]{Park2016355}
+Minjae Park, Hyun Ahn, and Kwanghoon~Pio Kim.
+\newblock Workflow-supported social networks: Discovery, analyses, and system.
+\newblock {\em Journal of Network and Computer Applications}, 75:355 -- 373,
+  2016.
+
+\bibitem[PAKR16]{PalomaresAKR16}
+Thomas Palomares, Youssef Ahres, Juhana Kangaspunta, and Christopher R{\'{e}}.
+\newblock Wikipedia knowledge graph with deepdive.
+\newblock In {\em Wiki, Papers from the 2016 {ICWSM} Workshop, Cologne,
+  Germany, May 17, 2016}, 2016.
+
+\bibitem[PG92]{ParedaensG92}
+Jan Paredaens and Dirk~Van Gucht.
+\newblock Converting nested algebra expressions into flat algebra expressions.
+\newblock {\em {ACM} Trans. Database Syst.}, 17(1):65--93, 1992.
+
+\bibitem[PH01]{poulovassilis2001}
+Alexandra Poulovassilis and Stefan~G. Hild.
+\newblock Hyperlog: A graph-based system for database browsing, querying, and
+  update.
+\newblock {\em IEEE Trans. Knowl. Data Eng.}, 13(2):316--333, 2001.
+
+\bibitem[Pie02]{TPLPierce}
+Benjamin~C. Pierce.
+\newblock {\em Types and programming languages}.
+\newblock {MIT} Press, 2002.
+
+\bibitem[PJMR14]{Petermann2014}
+Andr{\'e} Petermann, Martin Junghanns, Robert M\"{u}ller, and Erhard Rahm.
+\newblock Graph-based data integration and business intelligence with biiig.
+\newblock {\em Proc. VLDB Endow.}, 7(13):1577--1580, August 2014.
+
+\bibitem[PL94]{Poulovassilis1994}
+A.~Poulovassilis and M.~Levene.
+\newblock A nested-graph model for the representation and manipulation of
+  complex objects.
+\newblock {\em ACM Trans. Information Systems}, 12(1):35--68, 1994.
+
+\bibitem[PLB15]{Paradies}
+Marcus Paradies, Wolfgang Lehner, and Christof Bornh\"{o}vd.
+\newblock Graphite: An extensible graph traversal framework for relational
+  database management systems.
+\newblock In {\em Proceedings of the 27th International Conference on
+  Scientific and Statistical Database Management}, SSDBM '15, pages
+  29:1--29:12, New York, NY, USA, 2015. ACM.
+
+\bibitem[Plu99]{Plump1998Term}
+Detlef Plump.
+\newblock Term graph rewriting.
+\newblock In {\em Handbook of Graph Grammars and Computing by Graph
+  Transformation}, volume~2, pages 3--61, 1999.
+
+\bibitem[PMB{\etalchar{+}}17]{PterMicBergami}
+Andr{\'e} Petermann, Giovanni Micale, Giacomo Bergami, Martin Junghanns,
+  Alfredo Pulvirenti, and Erhard Rahm.
+\newblock Scalable frequency mining and ranking of generalized
+  multi-dimensional graph patterns.
+\newblock {\em ICDIM}, 2017.
+\newblock Forthcoming.
+
+\bibitem[Pog06]{APoggi06}
+Antonella Poggi.
+\newblock {\em Structured and Semistructured Data Integration}.
+\newblock PhD thesis, Università degli Studi di Roma ``La Sapienza'', Italy,
+  2006.
+
+\bibitem[Pre10]{Pressman09}
+Roger Pressman.
+\newblock {\em Software Engineering: A Practitioner's Approach}.
+\newblock McGraw-Hill, Inc., New York, NY, USA, 7 edition, 2010.
+
+\bibitem[PSAH16]{Parra}
+Victor~M. Parra, Ali Syed, Mohammad Azeem, and Malka~N. Halgamuge.
+\newblock Pentaho and jaspersoft: A comparative study of business intelligence
+  open source tools processing big data to evaluate performances.
+\newblock In {\em International Journal of Advanced Computer Science and
+  Applications}, volume 7(10), pages 3--61, 2016.
+
+\bibitem[PSF12]{PatelSch12}
+Peter~F. Patel-Schneider and Enrico Franconi.
+\newblock Ontology constraints in incomplete and complete data.
+\newblock In {\em Proceedings of the 11th International Conference on The
+  Semantic Web - Volume Part I}, ISWC'12, pages 444--459, Berlin, Heidelberg,
+  2012. Springer-Verlag.
+
+\bibitem[PVG92]{paredaens1992}
+Jan Paredaens and Dirk Van~Gucht.
+\newblock Converting nested algebra expressions into flat algebra expressions.
+\newblock {\em ACM Trans. Database Syst.}, 17(1):65--93, March 1992.
+
+\bibitem[QZY{\etalchar{+}}11]{Qu2011}
+Qiang Qu, Feida Zhu, Xifeng Yan, Jiawei Han, Philip~S. Yu, and Hongyan Li.
+\newblock {\em Efficient Topological OLAP on Information Networks}, pages
+  389--403.
+\newblock Springer Berlin Heidelberg, Berlin, Heidelberg, 2011.
+
+\bibitem[R\"94]{Rolleke94equivalencesof}
+Thomas R\"{o}lleke.
+\newblock Equivalences of the probabilistic relational algebra.
+\newblock Technical report, 1994.
+
+\bibitem[Rah16]{rahm2016case}
+Erhard Rahm.
+\newblock The case for holistic data integration.
+\newblock In {\em East European Conference on Advances in Databases and
+  Information Systems}, pages 11--27. Springer, 2016.
+
+\bibitem[Ren03]{ModCheckWithGG}
+Arend Rensink.
+\newblock Model checking graph grammars.
+\newblock Technical report, Department of Computer Science, University of
+  Twente, Netherlands, 2003.
+
+\bibitem[RH08]{OrgKno}
+Jennifer Rowley and Richard Hartley.
+\newblock {\em Organizing Knowledge: An Introduction to Managing Access to
+  Information}.
+\newblock Ashgate Publishing, Ltd., 2008.
+
+\bibitem[RHKB13]{success}
+Alexander Richter, Julia Heidemann, Mathias Klier, and Sebastian Behrendt.
+\newblock Success measurement of enterprise social networks.
+\newblock {\em Wirtschaftsinformatik}, (20), 2013.
+
+\bibitem[RJ16]{Rouhi16}
+Rahimeh Rouhi and Mehdi Jafari.
+\newblock Classification of benign and malignant breast tumors based on hybrid
+  level set segmentation.
+\newblock {\em Expert Syst. Appl.}, 46(C):45--59, March 2016.
+
+\bibitem[RJKK15]{Rouh15}
+Rahimeh Rouhi, Mehdi Jafari, Shohreh Kasaei, and Peiman Keshavarzian.
+\newblock Benign and malignant breast tumors classification based on region
+  growing and cnn segmentation.
+\newblock {\em Expert Syst. Appl.}, 42(3):990--1002, February 2015.
+
+\bibitem[Rod15]{Rodriguez15}
+Marko~A. Rodriguez.
+\newblock The gremlin graph traversal machine and language.
+\newblock {\em CoRR}, abs/1508.03843, 2015.
+
+\bibitem[Rol13]{Pentaho}
+Mara~Carina Roldn.
+\newblock {\em Pentaho Data Integration Beginner's Guide}.
+\newblock Packt Publishing, 2nd edition, 2013.
+
+\bibitem[RPZ10]{REN2010692}
+Yuan Ren, Jeff~Z. Pan, and Yuting Zhao.
+\newblock Closed world reasoning for owl2 with nbox.
+\newblock {\em Tsinghua Science \& Technology}, 15(6):692 -- 701, 2010.
+
+\bibitem[RRK{\etalchar{+}}08]{IBMReiss}
+Frederick Reiss, Sriram Raghavan, Rajasekar Krishnamurthy, Huaiyu Zhu, and
+  Shivakumar Vaithyanathan.
+\newblock An algebraic approach to rule-based information extraction.
+\newblock In {\em Proceedings of the 2008 IEEE 24th International Conference on
+  Data Engineering}, ICDE '08, pages 933--942, Washington, DC, USA, 2008. IEEE
+  Computer Society.
+
+\bibitem[RW97]{IDFNegative}
+S.~E. Robertson and S.~Walker.
+\newblock On relevance weights with little relevance information.
+\newblock {\em SIGIR Forum}, 31(SI):16--24, July 1997.
+
+\bibitem[RWE13]{Robinson}
+Ian Robinson, Jim Webber, and Emil Eifrem.
+\newblock {\em Graph Databases}.
+\newblock O'Reilly Media, Inc., 2013.
+
+\bibitem[Sar08]{Sarawagi}
+Sunita Sarawagi.
+\newblock Information extraction.
+\newblock {\em Found. Trends databases}, 1(3):261--377, March 2008.
+
+\bibitem[SAZ11]{SoussiAZ11}
+Rania Soussi, Marie{-}Aude Aufaure, and Hajer~Baazaoui Zghal.
+\newblock Graph database for collaborative communities.
+\newblock In {\em Community-Built Databases}, pages 205--234. Springer, 2011.
+
+\bibitem[SCD16]{SchuhCD16}
+Stefan Schuh, Xiao Chen, and Jens Dittrich.
+\newblock An experimental comparison of thirteen relational equi-joins in main
+  memory.
+\newblock In {\em {SIGMOD} Conference}, pages 1961--1976. {ACM}, 2016.
+
+\bibitem[SFS{\etalchar{+}}15]{SQLGraph}
+Wen Sun, Achille Fokoue, Kavitha Srinivas, Anastasios Kementsietsidis, Gang Hu,
+  and Guotong Xie.
+\newblock Sqlgraph: An efficient relational-based property graph store.
+\newblock In {\em Proceedings of the 2015 ACM SIGMOD International Conference
+  on Management of Data}, SIGMOD '15, pages 1887--1901, New York, NY, USA,
+  2015. ACM.
+
+\bibitem[SGP08]{sparql11update2013}
+Simon Schenk, Paul Gearon, and Alexandre Passant.
+\newblock Sparql 1.1 update.
+\newblock Technical report, {W3C}, 2008.
+\newblock Published online on October 14th, 2010 at
+  \url{http://www.w3.org/TR/2010/WD-sparql11-update-20101014/}.
+
+\bibitem[SHJ{\etalchar{+}}13]{Samatova}
+Nagiza~F. Samatova, William Hendrix, John Jenkins, Kanchana Padmanabhan, and
+  Arpan Chakraborty.
+\newblock {\em Practical Graph Mining with R}.
+\newblock Chapman \& Hall/CRC, 2013.
+
+\bibitem[SHK{\etalchar{+}}14]{Song14Discovering}
+Min Song, Nam-Gi Han, Yong-Hwan Kim, Ying Ding, and Tamy Chambers.
+\newblock Correction: Discovering implicit entity relation with the
+  gene-citation-gene network.
+\newblock {\em PLOS ONE}, 9(1), 01 2014.
+
+\bibitem[Shm11]{SparqlIncr}
+Florian Shmedding.
+\newblock Incremental sparql evaluation for query answering on linked data.
+\newblock In {\em Second International Workshop on Consuming Linked Data},
+  COLD2011, 2011.
+
+\bibitem[Sin01]{Singhal01}
+Amit Singhal.
+\newblock Modern information retrieval: {A} brief overview.
+\newblock {\em {IEEE} Data Eng. Bull.}, 24(4):35--43, 2001.
+
+\bibitem[SK06]{saeki}
+M.~Saeki and H.~Kaiya.
+\newblock {On Relationships Among Models, Meta Models, and Ontologies}.
+\newblock In {\em Proceedings of the 6th OOPSLA Workshop on Domain-Specific
+  Modeling}, 2006.
+
+\bibitem[SLL02]{BGL}
+Jeremy Siek, Lie-Quan Lee, and Andrew Lumsdaine.
+\newblock {\em The Boost Graph Library: User Guide and Reference Manual}.
+\newblock Addison-Wesley Longman Publishing Co., Inc., Boston, MA, USA, 2002.
+
+\bibitem[SPG{\etalchar{+}}07]{Pellet}
+Evren Sirin, Bijan Parsia, Bernardo~Cuenca Grau, Aditya Kalyanpur, and Yarden
+  Katz.
+\newblock Pellet: A practical owl-dl reasoner.
+\newblock {\em Web Semantics: Science, Services and Agents on the World Wide
+  Web}, 5(2):51 -- 53, 2007.
+\newblock Software Engineering and the Semantic Web.
+
+\bibitem[SPR17]{ALIEH17}
+Alieh Saeedi, Eric Peukert, and Erhard Rahm.
+\newblock Comparative evaluation of distributed clustering schemes for
+  multi-source entity resolution.
+\newblock {\em ADBIS}, 2017.
+
+\bibitem[SS93]{RelGraph}
+Gunther Schmidt and Thomas Ströhlein.
+\newblock {\em Relations and Graphs - Discrete Mathematics for Computer
+  Scientists}.
+\newblock EATCS Monographs on Theoretical Computer Science. Springer, 1993.
+
+\bibitem[SSSF09]{SintSSF09}
+Rolf Sint, Stephanie Stroka, Sebastian Schaffert, and Roland Ferstl.
+\newblock Combining unstructured, fully structured and semi-structured
+  information in semantic wikis.
+\newblock In {\em 4th Semantic Wiki Workshop (SemWiki 2009) at the 6th European
+  Semantic Web Conference {(ESWC} 2009), Hersonissos, Greece, June 1st, 2009.
+  Proceedings.}, 2009.
+
+\bibitem[THP08]{Tian20085}
+Yuanyuan Tian, Richard~A. Hankins, and Jignesh~M. Patel.
+\newblock Efficient aggregation for graph summarization.
+\newblock SIGMOD, pages 567--580, 2008.
+
+\bibitem[Tid08]{Tidwell}
+Doug Tidwell.
+\newblock {\em Xslt, Second Edition}.
+\newblock O'Reilly Media, Inc., 2 edition, 2008.
+
+\bibitem[TPAV17]{ThakkarPAV17}
+Harsh Thakkar, Dharmen Punjani, S{\"{o}}ren Auer, and Maria{-}Esther Vidal.
+\newblock Towards an integrated graph algebra for graph pattern matching with
+  gremlin.
+\newblock In {\em Database and Expert Systems Applications - 28th International
+  Conference, {DEXA} 2017, Lyon, France, August 28-31, 2017, Proceedings, Part
+  {I}}, pages 81--91, 2017.
+
+\bibitem[TSK05]{Tan05}
+Pang-Ning Tan, Michael Steinbach, and Vipin Kumar.
+\newblock {\em Introduction to Data Mining, (First Edition)}.
+\newblock Addison-Wesley Longman Publishing Co., Inc., Boston, MA, USA, 2005.
+
+\bibitem[TSL{\etalchar{+}}06]{terrasse}
+Marie-No\"{o}lle Terrasse, Marinette Savonnet, Eric Leclercq, Thierry Grison,
+  and George Becker.
+\newblock Do we need metamodels and ontologies for engineering platforms?
+\newblock In {\em Proceedings of the 2006 International Workshop on Global
+  Integrated Model Management}, GaMMa '06, pages 21--28, New York, NY, USA,
+  2006. ACM.
+
+\bibitem[vDAG12]{vanDongen2012}
+Stijn van Dongen and Cei Abreu-Goodger.
+\newblock {\em Using MCL to Extract Clusters from Networks}, pages 281--295.
+\newblock Springer New York, New York, NY, 2012.
+
+\bibitem[Vli02]{VlistXS}
+Eric van~der Vlist.
+\newblock {\em Xml Schema}.
+\newblock O'Reilly Media, Inc., 1 edition, 2002.
+
+\bibitem[VMT15]{VirgilioMT15}
+Roberto~De Virgilio, Antonio Maccioni, and Riccardo Torlone.
+\newblock Approximate querying of {RDF} graphs via path alignment.
+\newblock {\em Distributed and Parallel Databases}, 33(4):555--581, 2015.
+
+\bibitem[VnI11]{Iglesias}
+Adrian Via\~no Iglesias.
+\newblock {Graph representation of documents content and its suitability for
+  text mining tasks}.
+\newblock Master's thesis, Norwegian University of Science and Technology,
+  Norway, 2011.
+
+\bibitem[VTBL13]{Vasilyeva13}
+Elena Vasilyeva, Maik Thiele, Christof Bornh\"{o}vd, and Wolfgang Lehner.
+\newblock Leveraging flexible data management with graph databases.
+\newblock In {\em First International Workshop on Graph Data Management
+  Experiences and Systems}, GRADES '13, pages 12:1--12:6, New York, NY, USA,
+  2013. ACM.
+
+\bibitem[VZ14]{dwbook}
+Alejandro Vaisman and Esteban Zimányi.
+\newblock {\em Data Warehouse Systems. Design and Implementation}.
+\newblock Springer, 2014.
+
+\bibitem[Wad00]{Wadler00}
+Philip Wadler.
+\newblock A formal semantics of patterns in {XSLT} and xpath.
+\newblock {\em Markup Languages}, 2(2):183--202, 2000.
+
+\bibitem[Wal07]{XQuery}
+Priscilla Walmsley.
+\newblock {\em XQuery}.
+\newblock O'Reilly Media, Inc., 2007.
+
+\bibitem[WCH{\etalchar{+}}14]{Wu}
+Huanhuan Wu, James Cheng, Silu Huang, Yiping Ke, Yi~Lu, and Yanyan Xu.
+\newblock Path problems in temporal graphs.
+\newblock {\em Proc. VLDB Endow.}, 7(9):721--732, May 2014.
+
+\bibitem[Wei62]{Weichsel}
+Paul~M Weichsel.
+\newblock The kronecker product of graphs.
+\newblock {\em Proceedings of the American Mathematical Society},
+  13(1):47–52, 1962.
+
+\bibitem[WKS{\etalchar{+}}11]{medical}
+Stephen~T. Wu, Vinod~C. Kaggal, Guergana~K. Savova, Hongfang Liu, Jiaping
+  Zheng, Wendy~W. Chapman, Christopher~G. Chute, and Dmitriy Dligach.
+\newblock Generality and reuse in a common type system for clinical natural
+  language processing.
+\newblock In {\em Proceedings of the First International Workshop on Managing
+  Interoperability and Complexity in Health Systems}, MIXHS '11, pages 27--34,
+  New York, NY, USA, 2011. ACM.
+
+\bibitem[WM06]{WeltyM06}
+Christopher~A. Welty and J.~William Murdock.
+\newblock Towards knowledge acquisition from information extraction.
+\newblock In {\em The Semantic Web - {ISWC} 2006, 5th International Semantic
+  Web Conference, {ISWC} 2006, Athens, GA, USA, November 5-9, 2006,
+  Proceedings}, pages 709--722, 2006.
+
+\bibitem[XKS13]{xie}
+Jierui Xie, Stephen Kelley, and Boleslaw~K. Szymanski.
+\newblock Overlapping community detection in networks: The state-of-the-art and
+  comparative study.
+\newblock {\em ACM Comput. Surv.}, 45(4):43:1--43:35, August 2013.
+
+\bibitem[YLW{\etalchar{+}}13]{Yuan}
+Pingpeng Yuan, Pu~Liu, Buwen Wu, Hai Jin, Wenya Zhang, and Ling Liu.
+\newblock Triplebit: A fast and compact system for large scale rdf data.
+\newblock {\em Proc. VLDB Endow.}, 6(7):517--528, May 2013.
+
+\bibitem[ZLXH11]{Zhao11}
+Peixiang Zhao, Xiaolei Li, Dong Xin, and Jiawei Han.
+\newblock Graph cube: On warehousing and olap multidimensional networks.
+\newblock In {\em Proceedings of the 2011 ACM SIGMOD International Conference
+  on Management of Data}, SIGMOD '11, pages 853--864, New York, NY, USA, 2011.
+  ACM.
+
+\bibitem[ZRC{\etalchar{+}}17]{ZhangRCSWW17}
+Ce~Zhang, Christopher R{\'{e}}, Michael~J. Cafarella, Jaeho Shin, Feiran Wang,
+  and Sen Wu.
+\newblock Deepdive: declarative knowledge base construction.
+\newblock {\em Commun. {ACM}}, 60(5):93--102, 2017.
+
+\bibitem[ZY17]{Zhao17RH}
+Kangfei Zhao and Jeffrey~Xu Yu.
+\newblock All-in-one: Graph processing in rdbmss revisited.
+\newblock In {\em Proceedings of the 2017 ACM International Conference on
+  Management of Data}, SIGMOD '17, pages 1165--1180, New York, NY, USA, 2017.
+  ACM.
+
+\end{thebibliography}
