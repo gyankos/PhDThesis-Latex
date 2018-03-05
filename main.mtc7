@@ -1,9 +1,0 @@
-{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {7.1}Graph Query Languages limitations\IeC {\textquoteright } on Graph Nesting}{\reset@font\mtcSfont 197}{section.7.1}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {7.1.1}Graph Joins' limitations in providing the $\nu _\cong $ operator}{\reset@font\mtcSSfont 197}{subsection.7.1.1}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {7.1.2}Implementing Graph Nesting over (two) graph collections}{\reset@font\mtcSSfont 199}{subsection.7.1.2}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {7.1.3}Query Languages' and data models' limitations}{\reset@font\mtcSSfont 201}{subsection.7.1.3}}
-{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {7.2}Graph Nesting}{\reset@font\mtcSfont 204}{section.7.2}}
-{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {7.3}Class of optimizable graph nesting queries}{\reset@font\mtcSfont 207}{section.7.3}}
-{\reset@font\mtcSSfont\mtc@string\contentsline{subsection}{\noexpand \leavevmode \numberline {7.3.1}Two HOp Separated Patterns Algorithm}{\reset@font\mtcSSfont 209}{subsection.7.3.1}}
-{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {7.4}Experimental Evaluation}{\reset@font\mtcSfont 212}{section.7.4}}
-{\reset@font\mtcSfont\mtc@string\contentsline{section}{\noexpand \leavevmode \numberline {7.5}Conclusions}{\reset@font\mtcSfont 215}{section.7.5}}
