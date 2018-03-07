@@ -14,7 +14,7 @@ Given a \textsc{MetaModel}  language $\metamodel$ expressing both constraints an
 \[\varphi(o)\eqdef \bigcup_{p\in\lang}\phi(o,p)\]
 Therefore, any object $o$ is identified by its id and is completely described by the functions $\ell$, $\xi$ and $\phi$. Consequently, any instance of the GSM is described by the following quintuple:
 \[GSM=(o,O,\ell,\xi,\phi)\]
-where $O\subseteq \nat$ is a list of object identifiers containing all the elements nested in the \textbf{reference object}\index{object!for the GSM!reference} $o$ at any nesting level ($\varphi^*(o)=O$), thus defining $o$ as multiple collections of objects ($\varphi(o)\subseteq O$). Moreover, the labelling function $\ell$, the expression and data function $\xi$ and the containment function $\phi$ are both defined over $o$ and over each element in $O$. Formally, we have $\ell\colon O\to \partof{\model}$, $\xi\colon O\to \partof{\metamodel}$ and $\phi\colon O\to \metamodel\to\partof{O}$.
+where $O\subseteq \nat$ is a finite list of object identifiers containing all the elements nested in the \textbf{reference object}\index{object!for the GSM!reference} $o$ at any nesting level ($\varphi^*(o)=O$), thus defining $o$ as multiple collections of objects ($\varphi(o)\subseteq O$). Moreover, the labelling function $\ell$, the expression and data function $\xi$ and the containment function $\phi$ are both defined over $o$ and over each element in $O$. Formally, we have $\ell\colon O\to \partof{\model}$, $\xi\colon O\to \partof{\metamodel}$ and $\phi\colon O\to \metamodel\to\partof{O}$, which are all finite functions.
 
 %We assume that the object with id $0$ is the empty object ($\varphi(0)=[]$, $\xi(0=[]$, $\ell(0)=[]$).
 \end{definition}

@@ -263,7 +263,7 @@ We can now observe that such ``raw'' correspondences  can be refined by \marginp
 \begin{itemize}
 	\item If the current element $o$ represents a leaf, no transformation occurs.
 	%(i.e., an object with empty contents $\varphi(o)=\emptyset$), no operation on the correspondences is performed.
-	\item Otherwise, after performng the preVisit\footnote{This means that $o$ is evaluated by the visiting algorithm before any other of its contents $\varphi(o)$.} on all the contents in $\varphi(o)$, update the  correspondences having $o$ as  a target, so that they are mapped to the $\alpha_1(g)$ coarset representation describing $o$ and $\varphi(o)$. This post condition is satisfied by the following procedure (see Figure \texttt{[TODO]} for a reference):
+	\item Otherwise, after performng the preVisit\footnote{This means that $o$ is evaluated by the visiting algorithm before any other of its contents $\varphi(o)$.} on all the contents in $\varphi(o)$, update the  correspondences having $o$ as  a target, so that they are mapped to the $\alpha_1(g)$ coarset representation describing $o$ and $\varphi(o)$. This post condition is satisfied by the following procedure:
 	\medskip
 	
 	Given $T$ the set of the $\ell$-matched having their targets $\{o\}\cup\phi(o)$ in the hub schema, let $S$ be the set of their sources in the source schema ($S\eqdef \bigcup_{t\in T}\phi(t,\mstr{src})$), we want to select the set of strongly nested object-set with respect to $\varphi^*(S)$, that is $\varphi^*(S)$ itself by definition. Now, we group all the correspondences in $T$ by their sources' membership to a specific element $a\in\varphi^*(S)$, that is:
