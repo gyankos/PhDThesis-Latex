@@ -37,12 +37,12 @@ We continue to both analyse the dependency graph semistructured representation f
 	\caption{Translating the full-text representation as a graph in Figure \ref{fig:dependencygraph}: this requires a graph transformation language and the definition of nested graphs.}
 	\label{fig:globalconversiontext}
 \end{figure*}
-	On the footsteps of GraphLOG, Figure \ref{fig:diagramtable} represent an example of a visual representation of match and rewrite rules: we want to match the graphs represented in the ``pattern'' column, and rewrite them as the nested graphs presented within the ``result'' column. 
+	On the footsteps of GraphLOG, Figure \ref{fig:diagramtable} represent an example of a visual representation of match ($\mathcal{H}$) and rewrite ($\mathcal{T}$) rules: we want to match the graphs represented in the ``pattern'' column, and rewrite them as the nested graphs presented within the ``result'' column. 
 	The first rule tells that each vertex $\color{orange}X$ that has outgoing edges with one of the labels depicted in $\color{blue}\lambda$ has to be updated with the $\color{orange} value$ stored in its correspondent adjacent vertex $\color{orange} Y$. The second rule tells to collect inside one single nested vertex all the elements that are in conjunction $\color{blue}conj$ with each other through a conjunction $\color{orange} Z$: moreover, any other ingoing and outgoing edge to this nested object of a given label  must be rewritten as a single ingoing or outgoing edge. The last one tells to rewrite the verb of a sentence, represented as a root $\color{orange} V$ linked to the list of subjects $\color{orange} \vec{S}$ and the object $\color{orange}X||V$ (that can be a verb being a root of another sentence), as a whole nested vertex containing an edge to the nested object of all the components of the subject, directed to the final object or sentence. 
 	In particular,  graph grammars are defined through the combination of such rewriting rules   \cite{GraphLogAggr,Plump1998Term}: the former  picture also shows how such match and rewrite query can be expressed by a visual formalism, instead of being coded using a specific programming language as already showed in the early 90s \cite{GraphLogAggr}.
 	
 	
-	A possible outcome of such pattern matching and transformation is provided in Figure \ref{fig:nestedrepr}: this  result is both more human readable and machine readable than the first sentence input, thus allowing a computer to better analyse the content of the sentence. As we have already seen in Section \vref{subsec:ggram}, graph grammars neither allow to nest graphs nor allow to fully transform the matched vertices and edges. Consequently, a generalization of such approach is required, also permitting one single rewriting graph (hub schema) towards which multiple matching graph can be transformed to. The following definition provides us a preliminary and wordy definition, that is going to be formalized after an exaplainatory running example on a much simpler use case involving bibliography graphs. 
+	A possible outcome of such pattern matching and transformation is provided in Figure \ref{fig:nestedrepr}: this  result is both more human readable and machine readable than the first sentence input, thus allowing a computer to better analyse the content of the sentence. As we have already seen in Section \vref{subsec:ggram}, graph grammars neither allow to nest graphs nor allow to fully transform the matched vertices and edges. Consequently, we have to generalize  such approach in this regard. Moreover, we also have to allow the transformation of multiple pattern graphs into one single rewriting graph (hub schema). The following definition provides  a preliminary and wordy definition, that is going to be formalized after an exaplainatory running example on a much simpler use case involving bibliography graphs. 
 	
 	 %In particular, 
 	
@@ -60,7 +60,7 @@ We continue to both analyse the dependency graph semistructured representation f
 \begin{definition}[Generalized Graph Grammars]\label{def:gggintro}
 A \textbf{generalized graph grammar}\footnote{See Sherlock for both a representation of nested graphs and an implementation of such generalized graph grammars: \url{https://bitbucket.org/unibogb/sherlock}}\index{graph grammar!generalized|textbf} is a collection of $n$ graph rewriting rules $[H_i\to T_i]_{i\leq n}^{m^i}$ applied to nested graph $\nested$ via the following operator $\mathcal{G}^{m_1,\dots,m_n}_{[H_i\to T_i]_{i\leq n}}(\nested)$, returning another nested graph. In particular, the set of all the $H_i$s appearing in the rules is denoted by $\mathcal{H}$, while the $T_i$s are referenced by $\mathcal{T}$.
 
-The associated semantics of such graph grammar on a given nested graph in input $\nested$ is the following: each graph head $H_i$ provides a graph query which is going to be interpreted through a semantics $m^i$ returning a collection $m^i_{H_i}(N)$ of morphisms $f_j$ as a result of the matching phase. 
+The associated semantics of such graph grammar on a given nested graph in input $\nested$ is the following: each graph head $H_i$ provides a graph pattern matching query which is going to be interpreted through a semantics $m^i$ returning a collection $m^i_{H_i}(N)$ of morphisms $f_j$ as a result of the matching phase. 
 
 The associated transformation $T_i$ is described through a nested graph, and it is instantiated on each generated morphism $f_j$ generating several graphs replacing the matched ones. Each transformation graph $T_i$ may contain \begin{mylist}
 \item \label{iitem} vertices (and/or edges) $o_h$ also contained\footnote{We preferred to use object identity instead of using further morphisms as in both graph grammars and nested graph alignments' refinement as in the previous chapter. Transformations and embeddings are going to be expressed as target objects' containments.} in $H_i$  providing the semantics ``return all the matched vertices (and/or edges) by a given vertex (and/or predicate) represented by $o_h$'' and possibly apply a transformation,
@@ -69,7 +69,10 @@ The associated transformation $T_i$ is described through a nested graph, and it 
 	\end{mylist} In particular, all the edges generated in \ref{iiitem} must be associated with all the returned or generated vertices by the pattern.
 \end{definition}
 
-For the moment, we provide a wordy definition of such operator. The following example provides an explanation of such graph operator and is going to motivate the operator's subsequent formalization.
+%For the moment, we provide a wordy definition of such operator. 
+The following example 
+%provides an explanation of such graph operator and is going to 
+motivates the operator's subsequent formalization.
 
 
 \begin{example}[label=ex:firstforgrammars]
@@ -82,7 +85,7 @@ For the moment, we provide a wordy definition of such operator. The following ex
 	\[\phi(e_0,\SRC)=[u_0]\quad \phi(e_0,\DST)=[p_0]\quad \phi(e_1,\SRC)=[u_1]\quad \phi(e_1,\DST)=[p_0]\]
 	This query then expresses that the pattern matching query must return the pattern fixing the two user (\mstr{isGroupBy}), and let return all the papers in common, and not just one single paper. We can enforce the fact that $u_0$ and $u_1$ cannot be the same user within the graph, if we allow vertices to insert predicates within their expressions as the second condition provided above.
 	
-	 The $T$ graph then must express that only the authors must be returned, a new edge between the co-authors must be created, and all the papers must be removed from the final result. In particular, the edge can contain all the papers that will be matched by $p_0$ as follows:
+	 The $T$ graph states that only the authors must be returned and that a new edge between the co-authors must be created. Moreover, all the papers must be removed from the final result. In particular, the edge can contain all the papers that will be matched by $p_0$ as follows:
 	\[(t,\Set{t,u_0,u_1,ca_0,p_0},\ell,\xi,\phi)\]
 	\[\xi(ca_0)=[{\color{webgreen}\textup{``}\texttt{o.src!= o.dst}\textup{''}}]\]
 	\[\ell(u_0)=\Set{\texttt{Author}}=\ell(u_1)\qquad \ell(ca_0)=\Set{\texttt{coauthorship}}\]
@@ -99,10 +102,10 @@ Before providing the formal definition of the semantics of such operator, we sha
 %\delta V=V\big\backslash\left(\bigcup_{H_i\in \mathcal{G}.\texttt{HEADS}}\;\bigcup_{m_j\in s^i_{H_i}(N)} \;\bigcup_{h\in\texttt{key}(m_j)\backslash\iota(V_{T_i})} \iota^{-1}(m_j(h))\right)
 \delta V=\phi(\ngraph,\ONTA)\backslash\texttt{fold}_{\mathcal{G},\;([H_i\to T_i]^{m_i},\alpha)\mapsto \texttt{fold}_{m^i_{H_i}(\nested),\;(f_j,\beta)\mapsto f_j\left(\phi(\ngraph_i^H,\ONTA)\backslash\phi(\ngraph_i^T,\ONTA)\right)\cup\beta }(\alpha)}([])
 \end{equation}
-In particular, this expression has to be read as follows: given a nested graph $\nested$, from its vertex set remove, for each graph pattern $H_i$ within the $i$-th rule of the grammar associated with a match semantics $m^i$ over which morphisms $f_j$ are provided, all those vertices that appear in the morphism $f_j$ originated by a matching $o_h$ that is not represented in $T_i$.
+This expression has to be read as follows: given a nested graph $\nested$, from its vertex set remove all those vertices that appear in the morphism $f_j$ originated by a matching $o_h$ that is not represented in $T_i$. This is performed , for each graph pattern $H_i$ belonging to the $i$-th rule of the grammar associated with a match semantics $m^i$ over which morphisms $f_j$ are provided,
 
 \begin{example}[continues=ex:firstforgrammars,label=ex:firstforgrammars1]
-	Each morphism $f_j$ returned from the match of $BN'$ with $H$ will have as many keys as the vertices and edges in $H$. In particular we will have four morphisms,  which are object defined as follows:
+	Each morphism $f_j$ returned from the match of $BN'$ with $H$ will have as many keys as the vertices and edges in $H$. In particular we will have four morphisms:
 \[f_0(u_0)=[0]\quad f_0(u_1)=[2]\quad f_0(p_0)=[3]\quad f_0(e_0)=[6]\quad f_0(e_1)=[7]\]
 %\[m_0(\iota(e_0))=(\cdot,[6])\quad m_0(\iota(e_0))=(\cdot,[7])\]
 	
@@ -154,7 +157,12 @@ While the creation of such newly associated elements can be performed via Equati
 \end{example}
 \bigskip
 
-Differently to what it has been already stated for the vertices, the edges that must kept are all the ones that are either kept after the matching and transformation phase, or are connecting vertices that are either returned, or newly created, or connect vertices to other nested elements. For this reason, we now must consider the newly generated edges first (since they may contain other nested vertices) prior to the definition of the edges that must be removed.
+Differently to what it has been already stated for the vertices, we must preserve all the edges that are 
+\begin{mylist}
+\item either kept after the matching and transformation phase, 
+\item or are connecting vertices that are either returned, or newly created, or connect vertices to other nested elements.
+\end{mylist}
+   For this reason, we  must consider the newly generated edges first (since they may contain other nested vertices) prior to the definition of the edges that must be removed.
 %Similarly to the vertices, the edges remaining unaltered  from the matching phase are the following ones:
 %\[\delta E=E\big\backslash\left(\bigcup_{H_i\in \mathcal{G}.\texttt{HEADS}}\;\bigcup_{m_j\in s^i_{H_i}(N)} \;\bigcup_{h\in\texttt{key}(m_j)\backslash\iota(E_{T_i})} \iota^{-1}(m_j(k))\right)\]
 Now, the newly generated vertices have to take into account that they will be associated  to either existing or aggregated source and target vertices. We can distinguish them in the following expression returning their ids because the first ones are directly provided with no dovetailing definition, while the latter are defined like so:
@@ -240,10 +248,10 @@ Consequently, we can see that four edges are returned, one for each morphism. We
 As this example finally showed, this allows to nest the matched elements inside either vertices the edges (as in this example) only if explicitly stated by the graph transformation. \qed
 \end{example}
 
-We can now continue with the formal definition of the 
+We can now continue with the formal definition of the generalized graph grammar:
 
 \begin{definition}[continues=def:gggintro]
-	\index{graph grammar!generalized|textbf} Given a nested graph $\nested=(\ngraph,O,\ell,\xi,\phi)$, of the set of rules $\mathcal{G}$ on $\nested$ is defined as follows:
+	\index{graph grammar!generalized|textbf} Given a nested graph $\nested=(\ngraph,O,\ell,\xi,\phi)$, the application of the set of rules $\mathcal{G}$ on $\nested$ is defined as follows:
 \[\mathcal{G}(\nested)=\texttt{elect}_{\omega}(\texttt{create}_{[],[],[[\ONTA,V'],[\RELA,E']]}^{\omega\leftarrow\max O+1}(\nested_E(\nested_V(\nested))))\]
 %\[\mathcal{G}(N)=(V',E',A',\Lambda',\ell',\lambda',\iota')\]
 %\[\begin{split}

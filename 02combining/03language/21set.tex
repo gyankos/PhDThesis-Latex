@@ -2,16 +2,27 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Defining other GSQL operators over GSM}
-The previous section described the basic building blocks that can be used to express all the possible operations on top of GSMs. The current section shows that, after representing each data model in GSM as already stated in the previous chapter, we can redefine all the source models' usual operators within GSQL over GSM. We'll start to describe the set operators first (Subsection \vref{ssec:gsmsop}) and then we'll extend them to relational and semistructured operators (Subsection \vref{ssec:gsmrelop}). Afterwards, we will show that the combination of the former with the following GSQL operators allows the expression of queries of practical interest, from traversal queries to nested graph ones.
-
+\section{Derived GSQL operators over GSM}
+The previous section constructively provided the basic building blocks for expressing data operations. The present section will show that those 
+%The previous section described the basic building blocks that 
+can be used to express all the possible operations on top of GSMs.
+In particular, we will
+%The current section shows that, after representing each data model in GSM as already stated in the previous chapter, we can 
+ redefine all the source models' usual operators and provide traversal semantics. We first describe  set operators  (Subsection \vref{ssec:gsmsop}) and then we extend them to relational and semistructured operators (Subsection \vref{ssec:gsmrelop}). %Afterwards, we will show that the combination of the former with the following GSQL operators allows the expression of queries of practical interest, from traversal queries to nested graph ones.
+These operators are going to introduce the nesting operator, which is going to express abstraction, grouping and $\otimes_\theta$-products (as well as joins).
 %definition of both XPath traversal and graph traversal operations (Subsection \vref{ssec:travgraphop}), and last we're going to show how such algebra is also able to express operators over (nested) graphs (Subsection \vref{ssec:ngrahop}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{(Attribute labelled) Set operations}\label{ssec:gsmsop}
-In this section we're going to define set operations using the disjoint union operator combined to a map, given that \texttt{map} can represent most of the unary operators. Consequently, for all the binary (or $n$-ary) set operations, we must use \texttt{disjoint} first and then transform the elements; each binary operation (or $n$-ary) is going to be carried out over the containment associated to both operands referenced by the same attribute. Please note that in the following definitions we're going to omit the \texttt{script} syntax in favour of a more compact mathematical notation. Nevertheless, we're going to provide the script definition of the incoming $\psi$ functions in Appendix \vref{app:scriptnote}.
+In this section we're going to define set operations using the disjoint union operator combined to a \texttt{map}, given that \texttt{map} can represent most of the unary operators. Consequently, for all the binary (or $n$-ary) set operations, we must use \texttt{disjoint} first and then transform the elements. Each binary (or $n$-ary) is going to be carried out over  each operand's reference object. The set operations are going to be carried out over the collections' referenced by the same expression $p$ via $\phi(o_i,p)$ for each $1\leq i\leq n$.
+% the containment associated to both operands referenced by the same attribute. 
+
+Please note that in the following definitions we're going to omit the \texttt{script} syntax in favour of a more compact mathematical notation. Nevertheless, we're going to provide the script definition of the incoming $\psi$ functions in Appendix \vref{app:scriptnote}.
+
+We now introduce the first GSQL set operation, that is the union. 
+We must remark that this operator is anyway different from the traditional union operator defined for sets: while the present operator considers that two element are the same if and only if they are indeed the same object, the set operator considers two elements to be equivalent just if they have the same value. This consideration implies that some relational algebra operators can be defined through the definition of an equivalence predicate between the objects, and thus requiring the definition of the ``group by'' operator, that we are going to provide in the next subsection.
 
 
 \begin{definition}[Union]\label{def:gsmunion}
@@ -22,7 +33,7 @@ In this section we're going to define set operations using the disjoint union op
 	\[\bigcup_{1\leq i\leq n}^\omega n^i=\texttt{map}_{\ell_{n^1\dots n^n},\xi_{n^1\dots n^n},\phi_{n^1\dots n^n}\oplus \psi_\cup}(\texttt{disjoint}^\omega(n^1,\dots,n^n))\]
 \end{definition}
 
-We must remark that this operator is anyway different from the traditional union operator defined for sets: while the present operator considers that two element are the same if and only if they are indeed the same object, the set operator considers two elements to be equivalent just if they have the same value. This consideration implies that some relational algebra operators can be defined through the definition of an equivalence predicate between the objects, and thus requiring the definition of the ``group by'' operator, that we are going to provide in the next subsection. For the moment, we can define the intersection and difference operators similarly to the union as follows:
+We can define the intersection and difference operators similarly to the union as follows:
 \begin{definition}[Intersection]
 	\index{GSQL!$\bigcap$}
 	Given $n$ GSMs  $n^i=(o_c^i,O^i,\ell^i,\xi^i,\phi^i)$ for each $1\leq i\leq n$, their \textbf{intersection} $\bigcap_{1\leq i\leq n}n^i$ maps the intersection of their object into a new reference object $\omega$, where only the reference object is transformed in the $\phi$ function as follows:
@@ -69,10 +80,10 @@ We must remark that this operator is anyway different from the traditional union
 
 
 \begin{example}
-We now want to provide some graphical representations of the former multi-set operations. Let us take a look at Figure \vref{fig:setoperations}: set operations are performed over the containments both at the collection level (the set operation is performed over all the collections identified by the same attribute) and at the object level. While the union operation (\subref{fig:setunion}) merges the collections (containments) coming from both operands, the intersection (\subref{fig:setintersection}) keeps only the ones appearing in both operands and, while doing so, it preserves only the object shared between the collections. Last, the difference (\subref{fig:setdifference}) keeps only those collections (containments) appearing on the left operand ($n^L$) and, among those collections, only the element not appearing in the attribute-correspondent collection in $n^R$ are preserved.
+This example provides some graphical representations of the former multi-set operations. Let us take a look at Figure \vref{fig:setoperations}: set operations are performed over the containments both at the collection level (the set operation is performed over all the collections identified by the same attribute) and at the object level. While the union operation (\subref{fig:setunion}) merges the collections with the same attribute (containments) coming from both operands, the intersection (\subref{fig:setintersection}) keeps only the ones appearing in both operands and, while doing so, it preserves only the object shared between the collections. Last, the difference (\subref{fig:setdifference}) keeps only those collections (containments) appearing on the left operand ($n^L$) and, among those collections, only the element not appearing in the attribute-correspondent collection in $n^R$ are preserved.
 \end{example}
 
-Given that $\phi$ associates to each object $o$ the attributes $p$ alongside their list of values $\phi(o,p)$, we can slightly change the previous operations in order to define the combine operation required for the relational join operation, as already outlined in Definition \vref{def:concatenation}.
+Given that $\phi$ associates to each object $o$ the attributes $p$ alongside their list of values $\phi(o,p)$, we can slightly change the previous operations in order to define the combine operation required for the relational join operation, as already outlined in Definition \vref{def:concatenation}. As a consequence, even the combine operator may be expressed as the following derived operator.
 
 \begin{definition}[Object Concatenation]
 	Given two GSMs  $n$ and $n'$, their \textbf{concatenation}\index{GSQL!$\oplus$} $n\oplus n'$ maps them into a new reference object $\omega$, such that the attribute-values coming from the first operand are rewritten in favour of the ones coming from the second operand when sharing the same attribute. Therefore, the operator is defined as follows:

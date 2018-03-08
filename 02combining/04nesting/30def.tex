@@ -1,34 +1,58 @@
-\section{Graph Nesting}\label{sec:nestingdef}
-As we saw in the previous chapter (Section \vref{ssec:ngrahop}), the (nested) graph operators may be defined as  combinations of the semistructured (and relational) operatorsr. The most general definition generalizes the semistructured nesting approach for arbitrairly aggregating vertices and edges together in similar clusters, that then are going to be recombined:
+\section{Nested Graphs}
+\label{sec:model}
+%The term \textit{property graph}  \cite{angles12} usually refers to a directed, labelled and attributed multigraph. 
+% In other words, if there is a schema, each vertex and edge will be represented by a relational tuple and without, by a document of key-value pairs. 
+%In a property graph a collection of \textit{labels}  is associated to every vertex and edge (e.g., \texttt{[\mstr{Author}]} or \texttt{[\mstr{coAuthorsip}]}). Further on, vertices and edges may have arbitrary named attributes (\textit{properties}) in the form of key-value pairs (e.g., \texttt{\textbf{name}:Baldwin} or \texttt{\textbf{surname}:Oliver}). Property-value associations of vertices and edges can be represented by relational tuples; this is a common approach in literature used even when graphs have no fixed schema \cite{angles12}.
+In this chapter we try to define the nested graph data model independently from the GSM and GSQL query language. This choice will result in a limitation within the definition of the data structure and on the operators' formalization. We now define the\textit{ nested (property) graph database} from scratch as the following extension of the property graph data model for nested information:
 
-\begin{definition}[Graph Nesting]
-	\label{def:graphnesting}
-For every nested graph $\nested$, given a clustering function $CL$ returning set of pairs $k=(a,b)$, where $b$ is the nested element identifier, either vertex ($a=\texttt{e}$) or edge ($a=\texttt{r}$) in which the element is going to be nested to and two (pairs of) transcoding functions $UDF_V=\Braket{f_E^V,f_C^V}$ and $UDF_E=\Braket{f_E^E,f_C^E}$ for transforming the clusters into objects representing vertices and edges, the graph nesting operator $\nu_g$ is defined by the following procedural steps: {(\textbf{i})} we must first group each vertices and edges belonging to the same cluster $(a,b)$ with the same label through $CL$, and within each cluster distinguish the  objects represent ingeither entities or relationships as marked in the following $\alpha_2$'s containment function:
-\[\nu_1^{CL,\textbf{keep}} = {\alpha_2^{\textbf{keep}}}_{CL,(k,s)\mapsto [k],(k,s)\mapsto [k],(k,s)\mapsto \left[\tsub{$\textup{\textbf{if } }s\subseteq \phi(o.\nested,\ONTA)\textup{ \textbf{then} }$\\ $\qquad [\ONTA, s]$\\ $\textup{\textbf{else if } }s\subseteq \phi(o.\nested,\RELA)\textup{ \textbf{then} }$\\ $\qquad [\RELA, s]$\\ $\textup{\textbf{else } } []$}\right]}(\nested)\]
-(\textbf{ii}) then, we merge them together within the same collections, and merge them into objects by matched cluster, thus keeping entities and relationships separated:
-\[\nu_2=\gamma^{\color{NavyBlue}\texttt{tt}}_{\widetilde{GF}}(\texttt{elect}_\omega(\texttt{create}_{[],[],[[\mstr{elements},\phi(\ngraph,\ONTA)\cup\phi(\ngraph,\RELA)]]}^\omega(\nu_1^{CL,\textbf{keep}})))\]
-In particular, we have that $\widetilde{GF}$ performs this further aggregation of the nested objects by the cluster labels returned by $CL$ as follows:
-\[\widetilde{GF}(o)=\begin{cases}
-\ell(x) & \exists b. \ell(o)\subseteq \cod(CL)\\
-\emptyset & \textup{oth.}\\
-\end{cases}\]
-(\textbf{iii}) Then, we transform the object representing clusters either to entities ($V$) or to relationships ($E$) dependingly on the first component of the object's label. Therefore, we shall use the transformation functions:
-\[\nu_3=\texttt{map}_{\ell,o\mapsto\begin{cases}
-	 f_E^V(o) & \exists b. \ell(o)=[(\texttt{e},b)]\\
-	 f_E^E(o) & \exists b. \ell(o)=[(\texttt{r},b)]\\
-	 \xi(o) & \textup{oth.}\\
-	\end{cases},o\mapsto\begin{cases}
-	f_C^V(o) & \exists b. \ell(o)=[(\texttt{e},b)]\\
-	f_C^E(o) & \exists b. \ell(o)=[(\texttt{r},b)]\\
-	\phi(o) & \textup{oth.}\\
-	\end{cases}}(\nu_2)\]
-(\textbf{iv}) Last, we create a new element where the clustered objects are separated by the first component of their label, representing if they are either entities or relationships as follows:
-\[{\nu_g\;}^{\textbf{keep},\omega}_{CL,UDF_V,UDF_E}(\nested)=\texttt{create}_{[],[],\left[\substack{\ONTA\mapsto \Set{x\in\varphi(o.\nu_2)|x\in \phi(o.\nu_1^{CL,\textbf{keep}},\ONTA)\vee\exists b. \ell(x)=(\texttt{e},b)}\\ \RELA\mapsto \Set{x\in\varphi(o.\nu_2)|x\in \phi(o.\nu_1^{CL,\textbf{keep}},\RELA)\vee\exists b. \ell(x)=(\texttt{r},b)}}\right]}^\omega(\nu_3)\]
-
-%In particular, $CL$ associates to each element of $o.\nested$ a set of pairs $(a,b)$; a pair $(\texttt{e},b)$ remarks that the element is going to be part of a nested vertex $b$, while $(\texttt{r},b)$ remarks that the element is going to be associated to a nested edge $b$.
+\begin{definition}[Nested Graph DataBase]
+	Given a set $\Sigma^*$ of strings,
+	a \textbf{nested (property) graph database} $G$ is a tuple $G=\Braket{\VS, \ES, \lambda,\ell,\omega,\nestF,\prov}$, where $\VS$ and $\ES$ are disjoint sets, respectively referring to vertex and edge identifiers $o\equiv i_c\in\mathbb{N}$; $c$ is an incremental unique number associated to each graph as in the GSM model. 
+	
+	A function $\lambda\colon \ES\to \VS^2$ maps each edge to its source and target vertex. Each vertex and edge is assigned to multiple possible labels through the labelling function $\ell:\VS\cup \ES\to \wp(\Sigma^*)$.  $\omega$ is a function mapping each vertex and edge into a relational tuple.
+	
+	In addition to the previous components defining a property graph, we also introduce functions representing \textit{vertex members} $\nestF\colon (\VS\cup \ES)\to\wp(\VS)$ and \textit{edge members} $\prov\colon(\VS\cup \ES)\to \wp(\ES)$. These functions induce the nesting by associating a set of vertices or edges to each vertex and edge. Each vertex or edge $o\in V\cup E$ induces a \textbf{nested (property) graph} as the following pair:
+	\[G_o=\Braket{\nu(o),\Set{e\in\epsilon(o)|\lambda(e)\in (\cup_{n\geq 0}\;{\nu\epsilon}^{(n)}(\{o\}))^2}}\]
+	where ${\nu\epsilon}$ returns the vertices contained in both vertices and edges ($\nu\epsilon(x)=\nu(x)\cup \nu(\epsilon(x))$). We denote $f(X){:=}\bigcup_{x\in X} f(x)$ when $X\subseteq \textup{dom}(f)$
 \end{definition}
 
-If we want to nest a graph by using the matched patterns as described in the introduction, we must express $CL$ as a graph pattern matching classifier, checking whether the given vertex or edge would match the pattern, and returning the cluster identifiers to which it belongs. Hereby, the $CL$ definition must contain the definition for both $g_V$ and $g_E$, and then check whether each node will belong to one single generated cluster. Please also note that we can perform  pattern matching techniques over a single nested graph $\nested$ as a consequence of the implementation of such languages in GSQL, as described in \vref{traversalDef}. Consequently, in this case we can optimize the aforementioned general approach to nesting graphs (that can be also used for graph grouping) into a more efficient operator, which only requires to generate two distinct sets of graph collections that, then, will be used to create the new nested graphs. %Consequently, the following definition can be also given:
+
+As we previously observer, nested graphs can be also implemented in the GSM model. Since the member functions $\nu$ and $\epsilon$ induce the expansion of each single vertex or edge to a graph, we must avoid recursive nesting to support expanding operations.
+% This condition is fundamental in order to define different levels as different abstractions over the data. 
+Therefore, we additionally introduce the following constraints to be set at a nested property graph database level:
+
+\begin{axiom}[Recursion Constraints]
+	For each correctly nested property graph, each vertex $v\in \VS$ must not contain $v$ at any level of containment of $\nu$ and, any of its descendants $m$ must not contain $v$:
+	\[\forall v\in \VS. \forall m\in \nu^+(v).\;\; m\neq v\wedge v\notin \cup_{n\geq 1}\;{\nu\epsilon}^{(n)}(m)\]
+	Similarly to vertices, any edge shall not contain itself at any nesting level:
+	\[\forall e\in \ES. \forall m\in \epsilon^+(e). m\neq e\wedge e\notin \cup_{n\geq 1}\;{\epsilon\nu}^{(n)}(m)\]
+	where ${\epsilon\nu}$ returns the edges contained in both vertices and edges ($\epsilon\nu(x)=\epsilon(x)\cup \epsilon(\nu(x))$)
+\end{axiom}
+
+Please also note that this model has more restrictive constraints than the ones in the GSM model. This is due to the fact that GSM nested graphs differentiates vertices and edges by containing axioms while, in this case, we must restrict the edges to only the ones that are contained within the strongly nested components of the single nested graph. Nonetheless, a vertex $v$ having a non-empty vertex or edge members is called \textbf{nested vertex}, while vertices with no members are simply referred to \textbf{simple vertices}. For edges, we respectively use the terms \textbf{nested edges} and \textbf{simple edges}. 
+
+\begin{example}[label=exImpl]
+	The property graph in Figure \ref{fig:inputbibex2} can be represented by the graph $G_{({{11}_0})}$, which is a nested vertex contained in the following nested graph database:
+	\[G=\Braket{\{0_0,1_0,\dots,5_0,11_0\}, \{6_0,\dots, 10_0\},\lambda,\ell,\omega,\nu,\epsilon}\]
+	
+	The nested vertex $({{11}_0})$  represents a \mstr{Bibliography} graph ($\ell({{11}_0})=[\mstr{Bibliography}]$), to which an empty tuple is associated ($\omega({{11}_0})=\{\}$). Its vertex ($\nu$) and edge ($\epsilon$) members are defined as follows:
+	\[\nu({{11}_0})=\{{{0}_0},\dots,{{5}_0}\}\quad\epsilon({{11}_0})=\{{{6}_0},\dots,{{10}_0}\}\]
+	
+	The simple edge $6$ within the property graph in Figure \ref{fig:inputbibex2} ($\nu({{6}_0})=\epsilon({{6}_0})=\emptyset$) has now id $({{6}_0})$; it has one label, $\ell({{6}_0})=[\mstr{AuthorOf}]$, and it is associated to an empty tuple ($\omega({{6}_0})=\{\}$).
+	The source and target vertices are 
+	$\lambda({{6}_0})=\Braket{{{0}_0},\;3_0}$. Similar considerations can be carried out for each  remaining edge.
+	
+	The simple vertex $0$ in the same Figure has id $({{0}_0})$ in the present example; such vertex refers to the \mstr{Author} \texttt{Abigail Conner}. This information is represented as follows:
+	\[\ell({{0}_0})=[\mstr{Author}]\quad\nu({{0}_0})=\epsilon({{0}_0})=\emptyset\] \[\omega({{0}_0})=\{\texttt{\textbf{name}}\colon\texttt{Abigail},\texttt{\textbf{surname}}\colon\texttt{Conner}\}\]
+	Similar considerations can be carried out for each remaining vertex.
+	
+\end{example}
+
+
+\section{Graph Nesting}\label{sec:nestingdef}
+\texttt{TODO: current paper}
+
+ %Consequently, the following definition can be also given:
 
 %\[\texttt{map}_{\ell,\xi,\phi\oplus [o.\nested_{c+1}\mapsto [\ONTA\mapsto \varphi(o.\nested_{c+1})]]}(\sigma_{s,\gamma_V}(\nested))\cup (\texttt{map}_{\ell,\xi,\phi\oplus [o.\nested_{c+1}\mapsto [\RELA\mapsto \varphi(o.\nested_{c+1})]]}(\sigma_{s',\gamma_E}(\nested)))\]
 

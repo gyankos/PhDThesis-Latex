@@ -95,13 +95,13 @@ As a consequence, this selection operator appears to be more general than the gr
 		\midrule
 		\textbf{Entry point} & $\cdot p$ & $\bigcup\{\Gamma\in \jsem{{p}}(u)|T_\Gamma\neq \emptyset\}$\\
 		\midrule
-		Edge traverse & $\ell$ & $\bigoplus_{u\overset{\ell}{\longrightarrow}v}(\{u,v\},\{u\overset{\ell}{\longrightarrow}v\},u,\{v\})$\\
-		Inverse edge traverse & $\ell\;\hat{}$ & $\bigoplus_{v\overset{\ell}{\longrightarrow}u}(\{u,v\},\{v\overset{\ell}{\longrightarrow}u\},u,\{v\})$\\
-		Any edge & $\Braket{\_}$ & $\bigoplus_{\ell\in \mathcal{U}}\bigoplus_{v\overset{\ell}{\longrightarrow}u} \jsem{p}(u)$\\
-		Vertex predicate $\theta$ & $p[\theta]$ & $\oplus\big\{(V,E,s,\{v\in T|\theta(v)\})\;\big|\;(V,E,s,T)\in \jsem{path}(u)\big\}$\\
-		Traversing & $p/q$ &  $\jsem{p}(u)\;\circ\;\left(\bigoplus_{v\in T_\Gamma,\Gamma\in \jsem{p}(u)} \jsem{q}(v)\right)$\\
-		Disjunctive Path & $(p|q)$ & $\jsem{p}(u)\oplus\jsem{q}(u)$\\
-		Kleene Star & $(p)^*$ & $(\{u\},\emptyset,u,\{u\})\oplus(\bigoplus_{i=1}^\infty \jsem{\underbrace{p/\dots/p}_i}(u))$\\
+		Edge traverse & $\ell$ & $\bigcup_{u\overset{\ell}{\longrightarrow}v}(\{u,v\},\{u\overset{\ell}{\longrightarrow}v\},u,\{v\})$\\
+		Inverse edge traverse & $\ell\;\hat{}$ & $\bigcup_{v\overset{\ell}{\longrightarrow}u}(\{u,v\},\{v\overset{\ell}{\longrightarrow}u\},u,\{v\})$\\
+		Any edge & $\Braket{\_}$ & $\bigcup_{\ell\in \mathcal{U}}\bigcup_{v\overset{\ell}{\longrightarrow}u} \jsem{p}(u)$\\
+		Vertex predicate $\theta$ & $p[\theta]$ & $\bigcup\big\{(V,E,s,\{v\in T|\theta(v)\})\;\big|\;(V,E,s,T)\in \jsem{path}(u)\big\}$\\
+		Traversing & $p/q$ &  $\jsem{p}(u)\;\circ\;\left(\bigcup_{v\in T_\Gamma,\Gamma\in \jsem{p}(u)} \jsem{q}(v)\right)$\\
+		Disjunctive Path & $(p|q)$ & $\jsem{p}(u)\cup\jsem{q}(u)$\\
+		Kleene Star & $(p)^*$ & $(\{u\},\emptyset,u,\{u\})\cup(\bigcup_{i=1}^\infty \jsem{\underbrace{p/\dots/p}_i}(u))$\\
 		\bottomrule
 	\end{tabular}
 	\caption{\textsc{Successful} semantics $S$ associated to each query $\cdot p$ expressed in the NautiLOD syntax. Side effect \textit{action} evaluations were removed. $u$ denotes the initial source vertex from which the graph traversal query is started.
@@ -126,4 +126,4 @@ While other graph pattern matching query languages provide as an outcome of thei
 %	\[\smatch(s,t)=x\mapsto y\mapsto \min_{\substack{f_i\in s\\ y=t(i)}} f_i(x)\]
 %\end{definition}
 
-NautiLOD uses \textsc{MultiPointed Graphs} to express the result of the query evaluation: each MPG$=(V,E,s,T)$ is a RDF graph extended with a source vertex $s$ and a target set $T$ : $s$ represents the vertex from which the graph traversal is started, and $T$ represents one of the possible ending nodes. The interpretation of such graph traversal semantics is expressed using three basic MPG operators, that can be extended to MPG collections. In particular,  $mpg_1 \circ mpg_2$ expresses a path concatenation, where the two graphs are united only if $s_2$ appears in $T_1$; the union\footnote{Originally denoted as $\cup$.} $mpg_1 \sqcup mpg_2$ either performs the union of two non-empty MPGs sharing the same source vertex, or returns one of the two empty graphs; $\oplus$ denodes the union of two MPG sets. Table \ref{tab:nautilodSem} provides an example of how such operators provide the query interpretation using the graph and graph collection operators.  We're going to discuss this query language's interpretation over our proposed data model at page \pageref{ph:NTLImpl}, where we're going to use it for traversing nested graphs.
+NautiLOD uses \textsc{MultiPointed Graphs} to express the result of the query evaluation: each MPG$=(V,E,s,T)$ is a RDF graph extended with a source vertex $s$ and a target set $T$ : $s$ represents the vertex from which the graph traversal is started, and $T$ represents one of the possible ending nodes. The interpretation of such graph traversal semantics is expressed using three basic MPG operators, that can be extended to MPG collections. In particular,  $mpg_1 \circ mpg_2$ expresses a path concatenation, where the two graphs are united only if $s_2$ appears in $T_1$; the union\footnote{Originally denoted as $\cup$.} $mpg_1 \sqcup mpg_2$ either performs the union of two non-empty MPGs sharing the same source vertex, or returns one of the two empty graphs; $\bigcup$ denodes\footnote{Originally denoted as $\oplus$.} the union of two MPG sets. Table \ref{tab:nautilodSem} provides an example of how such operators provide the query interpretation using the graph and graph collection operators.  We're going to discuss this query language's interpretation over our proposed data model at page \pageref{ph:NTLImpl}, where we're going to use it for traversing nested graphs.

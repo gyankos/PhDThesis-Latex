@@ -58,12 +58,12 @@
 \BOOKMARK [1][-]{section.5.5}{5.5 Conclusions}{chapter.5}% 58
 \BOOKMARK [0][]{chapter.6}{6 GSQL: a Generalized Semistructured Query Language}{part.2}% 59
 \BOOKMARK [1][-]{section.6.1}{6.1 General Semistructured Query Language \(GSQL\)}{chapter.6}% 60
-\BOOKMARK [1][-]{section.6.2}{6.2 Defining other GSQL operators over GSM}{chapter.6}% 61
+\BOOKMARK [1][-]{section.6.2}{6.2 Derived GSQL operators over GSM}{chapter.6}% 61
 \BOOKMARK [2][-]{subsection.6.2.1}{6.2.1 \(Attribute labelled\) Set operations}{section.6.2}% 62
 \BOOKMARK [2][-]{subsection.6.2.2}{6.2.2 Relational and semistructured operations}{section.6.2}% 63
 \BOOKMARK [1][-]{section.6.3}{6.3 GSQL Use cases}{chapter.6}% 64
-\BOOKMARK [2][-]{subsection.6.3.1}{6.3.1 Implementing traversal query languages' semantics \(\)}{section.6.3}% 65
-\BOOKMARK [2][-]{subsection.6.3.2}{6.3.2 paNGRAm: Nested Graph Relational Algebra}{section.6.3}% 66
+\BOOKMARK [2][-]{subsection.6.3.1}{6.3.1 paNGRAm: Nested Graph Relational Algebra}{section.6.3}% 65
+\BOOKMARK [2][-]{subsection.6.3.2}{6.3.2 Implementing traversal query languages' semantics \(\)}{section.6.3}% 66
 \BOOKMARK [2][-]{subsection.6.3.3}{6.3.3 Representing is-a aggregations}{section.6.3}% 67
 \BOOKMARK [2][-]{subsection.6.3.4}{6.3.4 Generalized Graph Grammars G for Nested Graphs. H,TG\(H\)\(\)}{section.6.3}% 68
 \BOOKMARK [1][-]{section.6.4}{6.4 Conclusons}{chapter.6}% 69
@@ -72,13 +72,14 @@
 \BOOKMARK [2][-]{subsection.7.1.1}{7.1.1 Graph Joins' limitations in providing the \040operator}{section.7.1}% 72
 \BOOKMARK [2][-]{subsection.7.1.2}{7.1.2 Implementing Graph Nesting over \(two\) graph collections}{section.7.1}% 73
 \BOOKMARK [2][-]{subsection.7.1.3}{7.1.3 Query Languages' and data models' limitations}{section.7.1}% 74
-\BOOKMARK [1][-]{section.7.2}{7.2 Graph Nesting}{chapter.7}% 75
-\BOOKMARK [1][-]{section.7.3}{7.3 Class of optimizable graph nesting queries}{chapter.7}% 76
-\BOOKMARK [2][-]{subsection.7.3.1}{7.3.1 Two HOp Separated Patterns Algorithm}{section.7.3}% 77
-\BOOKMARK [1][-]{section.7.4}{7.4 Experimental Evaluation}{chapter.7}% 78
-\BOOKMARK [1][-]{section.7.5}{7.5 Conclusions}{chapter.7}% 79
-\BOOKMARK [-1][]{part.3}{III Conclusions}{}% 80
-\BOOKMARK [0][]{chapter.8}{8 Conclusions}{part.3}% 81
-\BOOKMARK [0][]{appendix.A}{A Resolving Alignments and Morphisms: OCaml Source Code}{part.3}% 82
-\BOOKMARK [0][]{appendix.B}{B Dovetailing lemmas}{part.3}% 83
-\BOOKMARK [0][]{appendix.C}{C Expressing containment functions in script}{part.3}% 84
+\BOOKMARK [1][-]{section.7.2}{7.2 Nested Graphs}{chapter.7}% 75
+\BOOKMARK [1][-]{section.7.3}{7.3 Graph Nesting}{chapter.7}% 76
+\BOOKMARK [1][-]{section.7.4}{7.4 Class of optimizable graph nesting queries}{chapter.7}% 77
+\BOOKMARK [2][-]{subsection.7.4.1}{7.4.1 Two HOp Separated Patterns Algorithm}{section.7.4}% 78
+\BOOKMARK [1][-]{section.7.5}{7.5 Experimental Evaluation}{chapter.7}% 79
+\BOOKMARK [1][-]{section.7.6}{7.6 Conclusions}{chapter.7}% 80
+\BOOKMARK [-1][]{part.3}{III Conclusions}{}% 81
+\BOOKMARK [0][]{chapter.8}{8 Conclusions}{part.3}% 82
+\BOOKMARK [0][]{appendix.A}{A Resolving Alignments and Morphisms: OCaml Source Code}{part.3}% 83
+\BOOKMARK [0][]{appendix.B}{B Dovetailing lemmas}{part.3}% 84
+\BOOKMARK [0][]{appendix.C}{C Expressing containment functions in script}{part.3}% 85

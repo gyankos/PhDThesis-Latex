@@ -1,48 +1,88 @@
-
-
-
-
-
 %%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%
 \subsection{paNGRAm: Nested Graph Relational Algebra}\label{ssec:ngrahop}
-Previously we defined a set of operations to be applied over GSM data representation that have no specific domain constraints. One of the data structures that have such kind of constraints are graphs: an edge cannot generally exist without either a source or a target vertex. Therefore, while defining such operations, we must also make sure that the original model constraints' are preserved. This also implies that some operations, previously defined for general GSM, will be implemented for nested graphs with some restrictions (\texttt{constraint}). The paragraphs contained in this section outline some data operations required (and, in most cases, already defined for such data model).
+Previously we defined a set of operations to be applied over GSM data representation that have no specific domain constraints. One of the data structures that have such kind of constraints are graphs: an edge cannot generally exist without either a source or a target vertex. Therefore, while defining such operations, we must also make sure that the original model constraints' are preserved. This also implies that some operations, previously defined for general GSM, will be implemented for nested graphs with some restrictions (\texttt{constraint}). The following paragraphs group the required operations by type.
 
 \phparagraph{Unary operators}
-Walking on the footsteps of GSQL, we have to define two different creation operations for both vertices and edges because they have two different requirements, while other value creation operations may directly use the \texttt{create} operation. Concerning the vertices, we have that vertices are specific object contained in a graph's $\ONTA$ collection by definition. It follows that the creation of an object is not a sufficient definition for their creation. Therefore, we must chain the creation operation immediately with a map operation, allowing to immediately insert the object inside a graph (in this case, the reference object).
+Walking on the footsteps of GSQL, we have to define two different \marginpar{$\lhd$ \textit{Vertex and Edge creation}}  creation operations for both vertices and edges because they have two different requirements, while other value creation operations may directly use the \texttt{create} operation. Concerning the vertices, we have that vertices are specific object contained in a graph's $\ONTA$ collection by definition. It follows that the creation of an object is not a sufficient definition for their creation. Therefore, we must chain the creation operation immediately with a map operation, allowing to immediately insert the object inside a graph (in this case, the reference object).
 
 \begin{definition}[Vertex Creation]
 	Given a nested graph $\nested=(\ngraph_c,O,\ell,\xi,\phi)$, the \textbf{vertex creation} operator creates and promotes an object with a fresh id $\omega$ into a vertex by embedding it into a graph $\ngraph'\in\varphi(\ngraph)$. By knowing the object that will contain $\omega$ as a vertex is $\ngraph'$, we can also apply some restrictions to the containts of $f_C$ that is going to define $\phi(\omega)$ by removing from its codomain all the elements containing $\ngraph'$ and $\ngraph'$ itself.
 	\[\kappa^{\ngraph'\leftarrow \omega}_{L,F,f_C}(\nested)=\texttt{maps}_{\ell,\xi,\phi\oplus \ngraph'\mapsto\ONTA\mapsto \phi(\ngraph',\ONTA)\cup[\omega]}(\texttt{create}^\omega_{L,F,x\mapsto f_C(x)\backslash[o'\in O|\ngraph'\in \varphi^(o')\vee \ngraph'=o']}(\nested))\]
+By knowing the object that will contain $\omega$ as a vertex is $\ngraph'$, we can also apply some restrictions to the containts of $f_C$ that is going to define $\phi(\omega)$ by removing from its codomain all the elements containing $\ngraph'$ and $\ngraph'$ itself.
 \end{definition}
 
 We can follow the same approach for creating edges: in this case we can generalize the creation of one single element into a creation of several edges, so that the ``link discovery'' class of operations can be implemented \cite{markus} via the straightforward satisfaction of a $\theta$ predicate among the vertices.
 
 \begin{definition}[Edge Creation (Link Discovery)]
-	Given a nested graph $\nested=(\ngraph_c,O,\ell,\xi,\phi)$, the \textbf{edge creation (link discovery)} operator $\dot\kappa^\theta_{L,F,f_C}$ establishes new edge  $d_{u,v}$ s.t. $\lambda(d_{u,v})=(u,v)\in\phi(\ngraph,\ONTA)^2$ having $L$ as a labels set and $F(u,v)$ as a set of expressions, if both vertices vertices $u,v$ satisfy a given predicate $\theta$:
+	Given a nested graph $\nested=(\ngraph_c,O,\ell,\xi,\phi)$, the \textbf{edge creation (link discovery)} operator $\dot\kappa^\theta_{L,F,f_C}$ establishes new edge  $d_{u_c,v_c}$ s.t. $\lambda(d_{u_c,v_c})=(u_c,v_c)\in\phi(\ngraph,\ONTA)^2$ having $L$ as a labels set and $F(u_c,v_c)$ as a set of expressions. Such edge links two vercies satisfying the given $\theta$ predicate. Such operator is defined as follows:
 	\[\dot\kappa^{\ngraph'\Leftarrow\theta}_{L,F}(\nested)=\texttt{map}_{\ell_{\nested\nested'},\xi_{\nested\nested'},\phi_{\nested\nested'}\oplus [[\ngraph', \phi(\ngraph')\oplus\,[[\RELA, \phi(\ngraph_c,\RELA)\cup[d_{u_c,v_c}|(u_c,v_c)\in S_\theta]\,]] \;]]}(\texttt{fold}_{S_\theta,f_3}(\nested))\]
 	where $S$ is the set containing all the pair object-vertices satisfying the $\theta$ predicate:
 	\[S_\theta\eqdef\Set{(u_c,v_c)\in\phi(\ngraph,\ONTA)^2|\theta(u_c,v_c)}\]
 	and $f_3$ is the function creating the new edge for each pair in $S_\theta$:
 	\[f_3\eqdef((u_c,v_c),\nested')\mapsto\texttt{create}^{d_{u_c,v_c}}_{L,F(u_c,v_c), (x\mapsto f_C(x)\backslash[o'\in O|\ngraph'\in\varphi^*(\ngraph)])\oplus\SRC\mapsto [u_{c+1}]\oplus \DST\mapsto [v_{c+1}]}(\nested')\]
-	In particular, for each pair of vertices $d_{u_c,v_c}$ is the function generating the new edge id and is defined as: $(\max O+dt(u,v))_{c}$.  By knowing the object that will contain $\omega$ as a vertex is $\ngraph'$, we can also apply some restrictions to the containts of $f_C$ that is going to define $\phi(\omega)$ by removing from its codomain all the elements containing $\ngraph'$ and $\ngraph'$ itself.
+	$d_{u_c,v_c}$ is the function generating the new edge id from each pair of vertices $u_c$ and $v_c$ defined as $(\max O+dt(u,v))_{c}$.  
 \end{definition}
 
-Please note that the \texttt{create} (Definition \vref{gsql:objcreate}) can be always use to create other non-vertex or non-edge objects. Let us now discuss the \texttt{map} operator for GSMs for transforming vertices and edges: as we previously discussed, the embedding function that can be provided can potentially undermine the nested graph model constraints; therefore, even if \texttt{map} (Definition \vref{gsql:map}) will be still used for defining other nested graph operations (e.g. vertex and edge creation) we may restrict the \texttt{map} operation to the sole label and value update as follows for consistency reasons:
+Please note that  \texttt{create} (Definition \vref{gsql:objcreate}) can be always use to create other non-vertex or non-edge objects. 
+Let us now discuss the \texttt{map} operator for GSMs \marginpar{$\lhd$ \textit{Update}} for transforming vertices and edges: as we previously discussed, the embedding function that can be provided can potentially undermine the nested graph model constraints; therefore, even if \texttt{map} (Definition \vref{gsql:map}) will be still used for defining other nested graph operations (e.g. vertex and edge creation) we may restrict the \texttt{map} operation to the sole label and value update for consistency reasons:
 
 \begin{definition}[(Value and Label) Update]	
-	Given an GSM $\fullnested[][\ngraph_{c}]$, the \textbf{(value and label) update}\index{paNGRAm!$\upsilon$} operator $\texttt{map}_{f_L,f_E,f_C}$ associates to each object $o$ represented in $\varphi^*(\ngraph)$, $\ngraph$ included, a new one having labels $f_L(o)$ and expressions $f_E(o)$. Moreover, it associates a new id to all the transformed objects $\delta O$ such that $\delta O=\Set{o\in O|f_L(o)\neq \ell(o)\vee f_E(o)\neq \xi(o)}$
+	Given an GSM $\fullnested[][\ngraph_{c}]$, the \textbf{(value and label) update}\index{paNGRAm!$\upsilon$} operator\footnote{It is represented by the \texttt{upsilon} greek letter, $\Upsilon,\upsilon$.} $\upsilon_{f_L,f_E}$ associates to each object $o$ represented in $\varphi^*(\ngraph)$, $\ngraph$ included, a new one having labels $f_L(o)$ and expressions $f_E(o)$. Moreover, it associates a new id to all the transformed objects $\delta O$ such that $\delta O=\Set{o\in O|f_L(o)\neq \ell(o)\vee f_E(o)\neq \xi(o)}$. The operator is defined as follows:
 	\[\upsilon_{f_L,f_E}(\nested)=\texttt{map}_{f_L,f_E,\phi}(\nested)\]
 \end{definition} 
 
-This decision also implies that filtering $\sigma$ operations are not directly possible within this model. As we previously observed, such operations will be generalized through (nested graph) traversal operations as observed in the previous section for NautiLOD, through which edges may also be removed using a GSM traversing semantics. %As we will see later on, the vertex and edge containment will be provided by other more structured operators. 
+This decision also implies that filter operations are not directly possible within this model. As we previously observed, such operations will be generalized through (nested graph) traversal operations as observed in the previous section for NautiLOD, through which edges may also be removed using a GSM traversing semantics. %As we will see later on, the vertex and edge containment will be provided by other more structured operators. 
 
 
-Continuing in the same steps of GSQL, we can \texttt{elect} the graph to be used as a reference object, and hence we can select over which we can work on. Please note that given that the GSM nesting-loop freeness condition applies to any object of the GSM, the \texttt{elect} operation does not undermines the model constraints for the GSM. Therefore, the very same operator in Definition \vref{gsql:elect} may be used. 
+Continuing in the same steps of GSQL, we can \texttt{elect} the graph to be \marginpar{\textit{elect, fold, Calc. $\rhd$}} used as a reference object. Please note that given that the GSM nesting-loop freeness condition applies to any object of the GSM, the \texttt{elect} operation does not undermines the model constraints for the GSM. Therefore, the very same operator in Definition \vref{gsql:elect} may be used. 
+Similar considerations may be also applied to the \texttt{fold}  (Definition \vref{def:fold}) and $Calc$ (Definition \vref{def:calc}).
 
+Before defining the unnesting operator, we must observe that we must check whether the result of the unnesting operator returns a correct nested graph. Therefore, we must define this intermediate operator assuring the consistency:
 
-Similar considerations may be also applied to the \texttt{fold}  (Definition \vref{def:fold}) and $Calc$ (Definition \vref{def:calc}). The generic graph nesting operation is going to be defined in Chapter \vref{cha:nesting}, while the unnesting operator is going to be defined in the following paragraph.
+\begin{definition}[Nested Graph Constraint]
+	The \texttt{constraint} operation over a nested graph $\nested$ assures that all the edges appears as nodes within one of the objects of $\varphi^*(\ngraph)$. This operator can be defined via a \texttt{map} operator as follows:
+	\[\texttt{constraint}(\nested)=\texttt{map}_{\ell,\xi,\phi\oplus [[\ngraph,[\genfrac{}{}{0pt}{}{[\ONTA,\phi(\ngraph,\ONTA)],}{[\RELA,[e\in\phi(\ngraph,\RELA)|\exists o,o'\in \varphi(\ngraph).\lambda(e)\in\phi(o,\ONTA)\times\phi(o',\ONTA) ]]}]]]}(\nested)\]
+\end{definition}
+
+Please note that a combination of \texttt{constraint} with a \texttt{fold} recursion may also ensure that each graph within the nested graph $\nested$ satisfies the model's requirements. Moreover, observe the similarity between the former operator and the edge restrictions for graph grammars as in Defnition \vref{def:graphgrammar}. At this point, we can define the unnesting operator, which replaces the nested vertices and edges within the reference object with their content:
+
+\[\begin{split}
+{\mu}&{}_{P}^{\textbf{keep}}(\nested)=\texttt{constraint}\Big(\\
+&\texttt{map}_{\ell,\xi,\phi\oplus \left[\left[\ngraph,\left[\genfrac{}{}{0pt}{}{[\ONTA,[o'\in\phi(\ngraph,\ONTA)|\neg P(o')\wedge \textbf{keep}]\cup\bigcup_{o\in\phi(\ngraph,\ONTA),P(o)}\phi(o,\ONTA)],}{[\RELA,[o'\in\phi(\ngraph,\RELA)|\neg P(o')\wedge \textbf{keep}]\cup\bigcup_{o\in\phi(\ngraph,\RELA),P(o)}\phi(o,\RELA)]}\right]\right]\right]}(\nested)\Big)\\
+\end{split}\]
+
+Finally, the (nested) graph operators may be defined as a generalization of the semistructured nesting approach for arbitrairly aggregating vertices and edges together in similar clusters, that then are going to be recombined:
+
+\begin{definition}[Graph Nesting]
+	\label{def:graphnesting}
+	For every nested graph $\nested$, given a clustering function $CL$ returning set of pairs $k=(a,b)$, where $b$ is the nested element identifier, either vertex ($a=\texttt{e}$) or edge ($a=\texttt{r}$) in which the element is going to be nested to and two (pairs of) transcoding functions $UDF_V=\Braket{f_E^V,f_C^V}$ and $UDF_E=\Braket{f_E^E,f_C^E}$ for transforming the clusters into objects representing vertices and edges, the graph nesting operator $\nu_g$ is defined by the following procedural steps: {(\textbf{i})} we must first group each vertices and edges belonging to the same cluster $(a,b)$ with the same label through $CL$, and within each cluster distinguish the  objects represent ingeither entities or relationships as marked in the following $\alpha_2$'s containment function:
+	\[\nu_1^{CL,\textbf{keep}} = {\alpha_2^{\textbf{keep}}}_{CL,(k,s)\mapsto [k],(k,s)\mapsto [k],(k,s)\mapsto \left[\tsub{$\textup{\textbf{if } }s\subseteq \phi(o.\nested,\ONTA)\textup{ \textbf{then} }$\\ $\qquad [\ONTA, s]$\\ $\textup{\textbf{else if } }s\subseteq \phi(o.\nested,\RELA)\textup{ \textbf{then} }$\\ $\qquad [\RELA, s]$\\ $\textup{\textbf{else } } []$}\right]}(\nested)\]
+	(\textbf{ii}) then, we merge them together within the same collections, and merge them into objects by matched cluster, thus keeping entities and relationships separated:
+	\[\nu_2=\gamma^{\color{NavyBlue}\texttt{tt}}_{\widetilde{GF}}(\texttt{elect}_\omega(\texttt{create}_{[],[],[[\mstr{elements},\phi(\ngraph,\ONTA)\cup\phi(\ngraph,\RELA)]]}^\omega(\nu_1^{CL,\textbf{keep}})))\]
+	In particular, we have that $\widetilde{GF}$ performs this further aggregation of the nested objects by the cluster labels returned by $CL$ as follows:
+	\[\widetilde{GF}(o)=\begin{cases}
+	\ell(x) & \exists b. \ell(o)\subseteq \cod(CL)\\
+	\emptyset & \textup{oth.}\\
+	\end{cases}\]
+	(\textbf{iii}) Then, we transform the object representing clusters either to entities ($V$) or to relationships ($E$) dependingly on the first component of the object's label. Therefore, we shall use the transformation functions:
+	\[\nu_3=\texttt{map}_{\ell,o\mapsto\begin{cases}
+		f_E^V(o) & \exists b. \ell(o)=[(\texttt{e},b)]\\
+		f_E^E(o) & \exists b. \ell(o)=[(\texttt{r},b)]\\
+		\xi(o) & \textup{oth.}\\
+		\end{cases},o\mapsto\begin{cases}
+		f_C^V(o) & \exists b. \ell(o)=[(\texttt{e},b)]\\
+		f_C^E(o) & \exists b. \ell(o)=[(\texttt{r},b)]\\
+		\phi(o) & \textup{oth.}\\
+		\end{cases}}(\nu_2)\]
+	(\textbf{iv}) Last, we create a new element where the clustered objects are separated by the first component of their label, representing if they are either entities or relationships as follows:
+	\[{\nu_g\;}^{\textbf{keep},\omega}_{CL,UDF_V,UDF_E}(\nested)=\texttt{create}_{[],[],\left[\substack{\ONTA\mapsto \Set{x\in\varphi(o.\nu_2)|x\in \phi(o.\nu_1^{CL,\textbf{keep}},\ONTA)\vee\exists b. \ell(x)=(\texttt{e},b)}\\ \RELA\mapsto \Set{x\in\varphi(o.\nu_2)|x\in \phi(o.\nu_1^{CL,\textbf{keep}},\RELA)\vee\exists b. \ell(x)=(\texttt{r},b)}}\right]}^\omega(\nu_3)\]
+	
+	%In particular, $CL$ associates to each element of $o.\nested$ a set of pairs $(a,b)$; a pair $(\texttt{e},b)$ remarks that the element is going to be part of a nested vertex $b$, while $(\texttt{r},b)$ remarks that the element is going to be associated to a nested edge $b$.
+\end{definition}
+
+If we want to nest a graph by using the matched patterns as described in the introduction, we must express $CL$ as a graph pattern matching classifier, checking whether the given vertex or edge would match the pattern, and returning the cluster identifiers to which it belongs. Hereby, the $CL$ definition must contain the definition for both $g_V$ and $g_E$, and then check whether each node will belong to one single generated cluster. Please also note that we can perform  pattern matching techniques over a single nested graph $\nested$ as a consequence of the implementation of such languages in GSQL, as it will be described in Section \vref{traversalDef}. Consequently, we will be able to  optimize the aforementioned general approach to nesting graphs (that can be also used for graph grouping) into a more efficient operator, which only requires to generate two distinct sets of graph collections that, then, will be used to create the new nested graphs.
 
 \paragraph*{$n$-ary operators}
 As previously observed, the class of graph $\otimes_\vartheta$ product may be defined as a vertex join operation alongside with the creation of new edges among the returned and matched vertices by using a specific semantics, \textbf{es}. In the context of the nested graphs' edge creations, the semantics is represented by a $\Braket{\textbf{es},L,F}$ triple required by the $\dot\kappa^{\ngraph'\Leftarrow\textbf{es}}_{L,F}$ operator. Therefore, the graph join operation can be defined as follows:
@@ -53,20 +93,9 @@ As previously observed, the class of graph $\otimes_\vartheta$ product may be de
 \end{definition}
 
 
-On the other hand, the \texttt{disjoint} union (Definition \vref{gsql:disjoint}) clearly breaks the model constraints for nested graphs, because it doesn't preserve the containment attributes in which vertices and edges are stored. Therefore, we can use such operator only in combination with other operators that will change the structure by subsequently using a \texttt{map} operator. Therefore, instead of directly implementing it, we can continue our discussion with the set operators outlined in Subsection \vref{ssec:gsmsop}. We already observed that such operations play a double role of both object and collection operators, due to the object collection-attributes' values dualism. Nevertheless, the intersection and difference operations may also require that the edges must be always checked if may actually link some nodes appearing in a $\phi(o,\ONTA)$ within the final result. Therefore, we must define this intermediate operator assuring the consistency of the set operations:
-
-\begin{definition}[Nested Graph Constraint]
-The \texttt{constraint} operation over a nested graph $\nested$ assures that all the edges appears as nodes within one of the objects of $\varphi^*(\ngraph)$. This operator can be defined via a \texttt{map} operator as follows:
-\[\texttt{constraint}(\nested)=\texttt{map}_{\ell,\xi,\phi\oplus [[\ngraph,[\genfrac{}{}{0pt}{}{[\ONTA,\phi(\ngraph,\ONTA)],}{[\RELA,[e\in\phi(\ngraph,\RELA)|\exists o,o'\in \varphi(\ngraph).\lambda(e)\in\phi(o,\ONTA)\times\phi(o',\ONTA) ]]}]]]}(\nested)\]
-\end{definition}
-
-Please note that a combination of \texttt{constraint} with a \texttt{fold} recursion may also ensure that each graph within the nested graph $\nested$ satisfies the model's requirements. Moreover, observe the similarity between the former operator and the edge restrictions for graph grammars as in Defnition \vref{def:graphgrammar}.
-
-Now we can define the set operations over graphs by combining the set operations with the constraint operators as follows:
-\[\bigsqcup^\omega_{1\leq i\leq n}\nested_i=\texttt{constraint}\left(\bigcup^\omega_{1\leq i\leq n}\nested_i\right)\quad \nested\backslash\backslash^{\omega}\nested' = \texttt{constraint}(\nested\backslash^{\omega}\nested')\quad \bigsqcap^\omega_{1\leq i\leq n}\nested_i=\texttt{constraint}\left(\bigcap^\omega_{1\leq i\leq n}\nested_i\right)\]
-The \texttt{constraint} operator may also be adopted within the (unary) unnesting definition for nested graphs: in this case, we want only to unnest the vertices and the edges' contents appearing on the graphs represented as the object reference. Such raw operator may be defined as follows:
-
-\[{\mu_2}_{P}^{\textbf{keep}}(\nested)=\texttt{map}_{\ell,\xi,\phi\oplus \left[\left[\ngraph,\left[\genfrac{}{}{0pt}{}{[\ONTA,[o'\in\phi(\ngraph,\ONTA)|\neg P(o')\wedge \textbf{keep}]\cup\bigcup_{o\in\phi(\ngraph,\ONTA),P(o)}\phi(o,\ONTA)],}{[\RELA,[o'\in\phi(\ngraph,\RELA)|\neg P(o')\wedge \textbf{keep}]\cup\bigcup_{o\in\phi(\ngraph,\RELA),P(o)}\phi(o,\RELA)]}\right]\right]\right]}(\nested)\]
+On the other hand, the \texttt{disjoint} union (Definition \vref{gsql:disjoint}) clearly breaks the model constraints for nested graphs, because it doesn't preserve the containment attributes in which vertices and edges are stored. Therefore, we can use such operator only in combination with other operators that will change the structure by subsequently using a \texttt{map} operator. Therefore, instead of directly implementing it, we can continue our discussion with the set operators outlined in Subsection \vref{ssec:gsmsop}. We already observed that such operations play a double role of both object and collection operators, due to the object collection-attributes' values dualism. Nevertheless, the intersection and difference operations may also require that the edges must be always checked if may actually link some nodes appearing in a $\phi(o,\ONTA)$ within the final result. The set operations over nested graphs by combining the set operations with the \texttt{constraint} as follows:
+\[\bigsqcup^\omega_{1\leq i\leq n}\nested_i=\texttt{constraint}\left(\bigcup^\omega_{1\leq i\leq n}\nested_i\right)\quad \nested{\backslash\backslash}^{\omega}\nested' = \texttt{constraint}(\nested\backslash^{\omega}\nested')\quad \bigsqcap^\omega_{1\leq i\leq n}\nested_i=\texttt{constraint}\left(\bigcap^\omega_{1\leq i\leq n}\nested_i\right)\]
+The \texttt{constraint} operator may also be adopted within the (unary) unnesting definition for nested graphs: 
 
 
 
@@ -109,76 +138,23 @@ The \texttt{constraint} operator may also be adopted within the (unary) unnestin
 %Given that such operator allows to perform aggregations only over specific parts of the nested graph, such GSM operator can be even used to implement the nested graph multigroup by, thus allowing to generalize the grouping operator proposed in \cite{JunghannsPR17} \hl{\texttt{[TODO] Please note that the $\varsigma_S$ operator cannot express the graph unnesting for $S\neq \emptyset$, because the $\varsigma_S$ only joins the nested components to the remaining part. Moreover, we still need to define an explicit function performing the data extraction from the nested components, while leaving to the user the final destination of such extracted data.}}.
 
 \phparagraph{Graph Data Mining operators}
-With reference of the three world data mining model, we may observe that graph representations allow to collapse the three distinct data worlds into one. In Chapter \vref{cha:join} we observed that graphs may represent both \textsc{Data}\index{D} and \textsc{Model}s \index{M}, where -- as observed in the succeeding chapters -- the latter may be also generalized and interpreted as \textsc{MetaModel}s \index{MM} because such models may be used as query languages. With back reference to the relational Data Mining Algebra, the $\kappa$ data mining operator allowing to extract an intensional representation from the data one may be interpreted through the $\alpha_1$ operator allowing the extraction of a graph schema from the given graph data. The mining loop $\lambda$ operator may be defined via the higher order \texttt{fold} operator, which allows to perform iterations over arbitrary data collections. Last, the $Pop$ operator allowing to associate each data representation to the schema it has to match may be represented as follows: we may extend the intensional representation of a graph schema (or pattern) $P$ with the data it matches by extending each object $o$ in $P$ with the objects $f_j(o)$ in $\nested$ resulting from the morphism $f_j$ generated by the matching process $m_P(\nested)$.
+With reference of the three world data mining model, we may observe that graph representations allow to collapse the three distinct data worlds into one. In Chapter \vref{cha:join} we observed that graphs may represent both \textsc{Data}\index{D} and \textsc{Model}s \index{M}, where -- as observed in the succeeding chapters -- the latter may be also generalized and interpreted as \textsc{MetaModel}s \index{MM} because such models may be used as query languages. 
+
+
+%With back reference to the relational Data Mining Algebra, the $\kappa$ data mining operator allowing to extract an intensional representation from the data one may be interpreted through the 
+As a consequence, the intensional world can be represented as either the graph schema (vertices' and edges' properties) or the data edges' (representing vertices' properties). Therefore, we can derive two different interpretations for the $\kappa$ regionizing operator for extracting intensional data. In the first scenario, such operator is subsumed by the
+$\alpha_1$ operator allowing the extraction of a graph schema from the given graph data. In the second scenario, $\kappa$ may be interpreted as the creation of new edges between the vertices. Therefore, the link discovery operator acts as the required $\kappa$ regionize operator when vertices represent data and edges represent the intensional world. Consequently, graphs are the extensional representation where each vertex is connected to its edges.
+
+
+The mining loop $\lambda$ operator may be defined via the higher order \texttt{fold} operator, which allows to perform iterations over arbitrary data collections.
+
+Given that in the second scenario graphs already provide the extensional world, we now have to discuss $Pop$ for the first scenario. Such operator must associate each data representation to the schema by  extending the intensional representation of a graph schema (or pattern) $P$ with the data it matches. Each object $o$ in $P$ is assocciated to the objects $f_j(o)$ in $\nested$ resulting from the morphism $f_j$ generated by $m_P(\nested)$.
 \begin{equation}
 Pop_m(\nested,P)=\varepsilon_{o\mapsto\bigoplus_{f_j\in m_P(\nested)}[[\mstr{j},f_j(o) ]]}(P)\label{eq:popGraph}
 \end{equation}
-Therefore, extensional information provided by the $Pop$ operator is represented by nested graphs: if we unnest the extensional information we may obtain the original data values with its original schema ($\pi_A\eqdef{\mu_2}^{\texttt{\color{NavyBlue}ff}}_{\texttt{\color{NavyBlue}tt}}$) \index{$\pi_{A}$!in GSQL}
-while the $\pi_{RDA}$\index{$\pi_{RDA}$!in GSQL} operation which forgets the nested information may be defined by a simple map operation which forgets all the morphism-nested information within the nested graph and retains the objects that have been actually matched in the previous phase, thus acting  as projection operator. Therefore, the GSQL algebra even allows to represent the data mining operations provided in the previous formal model, alongside with the standard relational and set operations.
+Nested graphs (and more generally GSMs) provide the required extensional representation for $Pop$ operator. If we unnest the extensional information we may obtain the original data values with its original schema ($\pi_A\eqdef{\mu}^{\texttt{\color{NavyBlue}ff}}_{\texttt{\color{NavyBlue}tt}}$), \index{$\pi_{A}$!in GSQL}
+while the $\pi_{RDA}$\index{$\pi_{RDA}$!in GSQL} operation may forget the nested information may be defined by a simple map operation which forgets all the morphism-nested information within the nested graph and retains the objects that have been actually matched in the previous phase, thus acting  as projection operator. 
 
-%\section{paNGRAm: Use Cases}
-\subsection{Representing \textit{is-a} aggregations}\label{subsec:representingisa}
+%Therefore, the GSQL algebra even allows to represent the data mining operations provided in the previous formal model, alongside with the standard relational and set operations.
 
-\index{is a!GSM}
-Within Section \vref{sec:informationsintegration} and specifically on Examples \ref{ex:8} and \ref{ex:bigraphbibnet}, we have already touched upon graph aggregation operations. We also observed that aggregations on top of graph data structures do not allow drill-down operations on top of aggregated data. Even if the formal operator performing such operation on top of nested graphs will be fully provided in Chapter \vref{cha:nesting}, in the following two subsections we will show how the proposed data structure allows to nest data, so that it can be drill-down in a second step by the user that wants to explore the data model, without using any unnseting operator but by simply traversing the GSM data structure.
-
-As we already saw in Example \vref{ex:inaggr} where data aggregation operations were briefly introduced, there is a need for representing nested components to which an aggregated representation is provided. In particular, GSMs can explicitly associate to each object $o$ a collection $\phi(o,p)$ of elements over which aggregation functions $p$ can be evaluated over the data in such collection.
-
-\begin{example}[continues=ex:inaggr]
-We want to show how \textit{is-a} aggregations are possible by using already existing data hierarchies. Since our data model violates the first normal form - similarly to other semi-structured data models - it is possible to express the hierarchy in Figure \vref{fig:hierarchy} through the following instantiation:
-	\[H=(r,\Set{r,t_1,t_2,c_1,\dots,c_4,p_1,\dots,p_8},\ell,\xi,\phi)\]
-	The reference object $r$ represents the root of the hierarchy and is defined as follows:
-	\[\ell(r)=[\texttt{root}]\quad \phi(r,\texttt{parentof})=[t_1,t_2]\]
-	%The indexing function is defined as follows:
-	%\[\iota(t_1)=1,\;\iota(t_2)=2,\;\iota(c_1)=3,\;\iota(c_2)=4,\;\dots\;,\iota(p_8)=14\]
-%	The labelling function is defined only over the vertices and the $\lambda$ function has an empty domain, because within this model no edges are represented, because all the part-of hierarchy is expressed through the nested components.
-%	\[\forall v_i\in V. \ell(v)=\Lambda\qquad \dom(\lambda)=\emptyset\]
-	In particular, each element of the hierarchy is defined as follows:
-	\[\defzt{t_1}{type}{House cleaner}{parentof}{3,4}\]
-	\[\defzt{t_2}{type}{Food}{parentof}{5,6}\]
-	\[\defzt{c_1}{category}{Cleaner}{parentof}{7,8}\]
-	\[\defzt{c_2}{category}{Soap}{parentof}{9,10}\]
-	\[\defzt{c_3}{category}{Diary Product}{parentof}{11,12}\]
-	\[\defzt{c_4}{category}{Drink}{parentof}{13,14}\]
-	
-	\[\defzi{p_1}{product}{Shiny}\qquad \defzi{p_2}{product}{Brighty}\]
-	\[\defzi{p_3}{product}{CleanHand}\qquad \defzi{p_4}{product}{Marseille}\]
-	\[\defzi{p_5}{product}{Milk}\qquad \defzi{p_6}{product}{Yogurt}\]
-	\[\defzi{p_7}{product}{Water}\qquad \defzi{p_8}{product}{Coffee}\]
-%\end{example}
-%
-%
-%As we can see, when an attribute contains a constant value, it is mapped as a pair where the expression provides the value and the collection is empty. On the other hand, when we want to remark that our attribute contains a list of identifiers, we use $\cdot$ as an empty expression. The reason of this representation is easy to say: whenever we want to use  this hierarchy as a specific dimension for our data, it will be easy enough to replace the $\cdot$ element with the aggregation function over the nested elements. Please note that this representation is possible neither in the nested relational model, nor within semistructured data.
-%
-%\begin{example}
-%	Let us continue the previous example: 
-We now want to use this hierarchy as a dimension for the \texttt{Product} objects in Figure \vref{fig:umlmodelling}. As a start, let us suppose that each \texttt{Product} vertex is associated to a \texttt{quantity} attribute, providing the sum of the \texttt{quantity} of the ingoing \texttt{item} edges. Since such aggregation functions can be only expressed over the data collections and given that there are no particular constraints on the types of the ids to be stored in such data collections, we have that each expression shall provide the following aggregation function ($\xi'[0]$):
-\begin{lstlisting}[language=script,basicstyle=\ttfamily\scriptsize]
-quantity := (foldl {0,
-                    o.phi ["quantity"],
-                    x -> { (foldl {0,
-                                   map(select(x[0].phi["Attribute"] : y -> {y.ell == "quantity"}))}) } 
-                                       : y -> { y.xi[0] } ),
-                                   y -> { y[0] + y[1] }
-                                  }) }
-                   }
-            )
-\end{lstlisting}
-	%\[\texttt{quantity}(x)=\textup{sum}(\phi(x,\texttt{quantity}))\]
-In this case we can use $\xi$ to store the definition of \texttt{quantity} function, that will differ from the one used within hierarchies. This other function is going to be defined as follows ($\xi''[0]$):
-\begin{lstlisting}[language=script,basicstyle=\ttfamily\scriptsize]
-	quantity := (foldl {0, o.phi ["quantity"], y -> {(y[0].xi[0] x[0])+y[1]}})
-\end{lstlisting}
-In this way, the functions' evaluation may be evaluated directly by traversing the hierarchy, without any required need of effectively aggregating the data.
-	As a next step, from the whole company database we can select only the products (filtering through $\sigma$), and then extend each of them with a new \texttt{quantity} attribute aggregating their incoming edges' quantity values. Such statement can be expressed through the following statement:
-	\[P'=\texttt{filter}_{x\mapsto \mstr{Product}\in\ell(x)}(\texttt{select}_{\ell,\xi',\phi \oplus_v[[v, [\mstr{quantity}, [v\in \phi(\ngraph_{DB},\RELA)|\exists u.\lambda(e)=(u,v)\wedge \mstr{Product}\in\ell(v)]]]]}(DB))\]
-%	where $DB$ can be thought as a nested graph, where the map operator extending the $Calc$ operator in \cite{Calders2006} for arbitrary object mapping is defined as a mapping function over both vertices and edges, and eventually updating the other sets and functions accordingly to the mapping function $f$:
-%	\[\textup{map}_f(N)=(\Set{f(c)|c\in V},\Set{f(c)|c\in E},A',\Lambda',\ell',\lambda',\iota')\]
-	At this point, we want to do the same operation for the hierarchy: we must first rename \texttt{parentof} into \texttt{quantity}$(x)$, and then just replace the \texttt{parentof} placeholder with the function performing the aggregation:
-	\[H'=\texttt{map}_{\ell,\xi'',\phi\oplus_s [[s, [\mstr{quantity},\phi_H(s,\mstr{parentof})]]]}(H)\]
-	% \textup{map}_{x\mapsto(\textbf{\texttt{let}} (_,s) = x(\texttt{quantity})\textbf{\texttt{ in }} x(\texttt{quantity}):=(f_{qs},s) )}(\rho_{\texttt{quantity}\leftarrow\texttt{parentof}}(H)) 
-	In order to be able to evaluate the aggregation at different hierarchy's abstraction levels, discard all the other informations from the database's products and keep only the given dimension, we can finally perform the following left join (that can be defined from the $\otimes_\theta$ product):
-	\[H'\;\leftouterjoin\; \pi_{\texttt{name,quantity}}(P')\]
-	Please note that this final join was possible because the products within the hierarchy do not have a \texttt{parentof} field, and hence they have no \texttt{quantity} one. At this point, the amount of the products bought by the company's employees can be done by evaluating the $\texttt{quantity}(x)$ expression over its nested content: the expression's evaluation will recursively visit the remaining part of the hierarchy joined with the data.
-\end{example}
-
+Finally, this section showed that the joint combination of the nested graph model and GSQL provide the characterization of a data mining model for graphs via nested graphs, where an uniform set of both data representations and operators is given.
