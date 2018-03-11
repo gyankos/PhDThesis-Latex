@@ -48,7 +48,7 @@ Since the graph data structure does not allow an uniform representation for both
 \end{definition}
 
 \phparagraph{Gremlin}
-The \textbf{Gremlin} is a Turing Complete graph traversal query language \cite{Rodriguez15}:
+\textbf{Gremlin} is a Turing Complete graph traversal query language \cite{Rodriguez15}:
 this is not a desired feature for query languages since they must usually  guarantee that
 each query evaluation must always converge and that it must always return an answer in a ``reasonable'' amount of time. 
 Another problem with this query language is based on its path navigation semantics \cite{ThakkarPAV17}:
@@ -113,7 +113,7 @@ As a consequence, this selection operator appears to be more general than the gr
 \phparagraph{NautiLOD}
 The \textbf{NautiLOD} \cite{NautiLOD} query language was conceived for performing path queries (defined through
 path expressions with REGEX-es) over
-``RDF graphs''. Nonwithstanding the usage of recursion operators via Kleene Star, the same paper shows  that queries can be evaluated in polynomial time.
+``RDF graphs''. Notwithstanding the usage of recursion operators via Kleene Star, the same paper shows  that queries can be evaluated in polynomial time.
 %Since such graph query language distinguishes within the semantics the vertices from the edges, the outcome of their evaluaton can be clearly used to recreate a final graph.
 While other graph pattern matching query languages provide as an outcome of their evaluation a blob of both graph vertices and edges (e.g. Gremlin), its interpretation can be mapped into a combination of algebraic graph operators, through which a graph collection is provided in return.  %
 
@@ -126,4 +126,4 @@ While other graph pattern matching query languages provide as an outcome of thei
 %	\[\smatch(s,t)=x\mapsto y\mapsto \min_{\substack{f_i\in s\\ y=t(i)}} f_i(x)\]
 %\end{definition}
 
-NautiLOD uses \textsc{MultiPointed Graphs} to express the result of the query evaluation: each MPG$=(V,E,s,T)$ is a RDF graph extended with a source vertex $s$ and a target set $T$ : $s$ represents the vertex from which the graph traversal is started, and $T$ represents one of the possible ending nodes. The interpretation of such graph traversal semantics is expressed using three basic MPG operators, that can be extended to MPG collections. In particular,  $mpg_1 \circ mpg_2$ expresses a path concatenation, where the two graphs are united only if $s_2$ appears in $T_1$; the union\footnote{Originally denoted as $\cup$.} $mpg_1 \sqcup mpg_2$ either performs the union of two non-empty MPGs sharing the same source vertex, or returns one of the two empty graphs; $\bigcup$ denodes\footnote{Originally denoted as $\oplus$.} the union of two MPG sets. Table \ref{tab:nautilodSem} provides an example of how such operators provide the query interpretation using the graph and graph collection operators.  We're going to discuss this query language's interpretation over our proposed data model at page \pageref{ph:NTLImpl}, where we're going to use it for traversing nested graphs.
+NautiLOD uses \textsc{MultiPointed Graphs} to express the result of the query evaluation: each MPG$=(V,E,s,T)$ is a RDF graph extended with a source vertex $s$ and a target set $T$ : $s$ represents the vertex from which the graph traversal is started, and $T$ represents one of the possible ending nodes. The interpretation of such graph traversal semantics is expressed using three basic MPG operators, that can be extended to MPG collections. In particular,  $mpg_1 \circ mpg_2$ expresses a path concatenation, where the two graphs are united only if $s_2$ appears in $T_1$; the union\footnote{Originally denoted as $\cup$.} $mpg_1 \sqcup mpg_2$ either performs the union of two non-empty MPGs sharing the same source vertex, or returns one of the two empty graphs; $\bigcup$ denotes\footnote{Originally denoted as $\oplus$.} the union of two MPG sets. Table \ref{tab:nautilodSem} provides an example of how such operators provide the query interpretation using the graph and graph collection operators.  We're going to discuss this query language's interpretation over our proposed data model at page \pageref{ph:NTLImpl}, where we're going to use it for traversing nested graphs.

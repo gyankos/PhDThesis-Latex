@@ -6,7 +6,7 @@ A graph query language is ``proper'' when its expressive power includes all the 
 	\item in SPARQL, \texttt{INSERT} and \texttt{DELETE} clauses allow to create and remove RDF triplets \cite{sparql11update2013}.
 	\item in HyperLog \cite{poulovassilis2001} uses a Prolog-friendly syntax with negations, which are used to remove the matched vertices or edges. Such query language also allows the creation of new hypernodes.
 \end{itemize} 
-Moreover, they can express graph traversal queries \cite{Kostylev2015} and pattern matching ones \cite{JunghannsKAPR17}. Even if graph grammars seems to allow to extend arbitrarily the expressive power of such query language by allowing to express some new graph operators, in some cases a direct algebraic implementation proves to be more efficient than the pattern matching (or graph traversing) plus graph transformation mechanism. This intuition was proved for the graph join operator that is going to be presented in Chapter \vref{cha:join}, where a straightforward implementation of such operator proved to be more efficient than the query matching and rewriting.
+Moreover, they can express graph traversal queries \cite{Kostylev2015}, set operations and pattern matching ones \cite{JunghannsKAPR17}. Even if graph grammars seems to  arbitrarily extend the expressive power of such query language by allowing to express some new graph operators, in some cases a direct algebraic implementation proves to be more efficient than the pattern matching (or graph traversing) plus graph transformation mechanism. This intuition was proved for the graph join operator that is going to be presented in Chapter \vref{cha:join}, where a straightforward implementation of such operator proved to be more efficient than the query matching and rewriting.
 
 %All the following graph query languages offer only a limited support to pattern extraction from graphs,
 %except from SPARQL, that has been recently extended in order to allow path traversal queries \cite{Kostylev2015}.
@@ -44,11 +44,11 @@ thus allowing to check whether the graph conjunctive join conditions are not met
 While SPARQL was originally designed to return tabular results,
 later extensions (SPARQL 1.1) tried to overcome to such problem with the \texttt{CONSTRUCT} clause,
 that returns a new graph (see the query at page \pageref{sqlrefch3}).
-While the clauses represented within the \texttt{WHERE} statement are mapped to an optimizable intermediate algebra, such considerations do not apply for the \texttt{CONSTRUCT} statement.
+While the clauses represented within the \texttt{WHERE} statement are mapped to an optimisable intermediate algebra, such considerations do not apply for the \texttt{CONSTRUCT} statement.
 However, \texttt{CONSTRUCT} is required for produce a graph as a final outcome of our
 graph join query.
 Last but not least, the usage of so-called \textit{named graphs}
-allows to perform queries over two distinct RDF graphs.
+allows the selection of over two distinct RDF graphs.
 
 %\phparagraph{LDQL}
 %The NautiLOD language was later on extended in \textbf{LDQL} \cite{Hartig2015,HartigP15a}, where SPARQL patterns are added
@@ -62,7 +62,7 @@ allows to perform queries over two distinct RDF graphs.
 Cypher \cite{Neo4jMan,Robinson,CypherCheat} is yet another SQL-like graph query language for property graphs. No formal semantics for this
 language were defined from the beginning as in GraphQL, but nervelessly some theoretic results have been carried out
 for a subset of \textbf{Cypher} path queries \cite{Neo4jAlg} by using an algebra adopting a path implementation
-over the relational data model. Similarly to SPARQL, such algebra do not involve graph creation processes within the \texttt{CREATE} clause. Such solution is also reflected by its query evaluation plan, which provides a relational output as a preferred result; as a result, the process of create new vertices and edges is not optimized.
+over the relational data model. Similarly to SPARQL, such algebra does not involve graph creation processes within the \texttt{CREATE} clause. Such solution is also reflected by its query evaluation plan, which provides a relational output as a preferred result; as a result, the process of create new vertices and edges is not optimized.
 Such language allows to update a property graph and to produce a new graph
 as a result.
 
@@ -162,3 +162,4 @@ as a result.
 	\label{tab:summinglang}
 \end{table*}
 \end{comment}
+
