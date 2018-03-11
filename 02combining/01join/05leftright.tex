@@ -38,16 +38,6 @@ The following example motivates the need of an extension of the aforementioned g
 
 
 
-%\begin{figure}[!t]
-%	\centering
-%	\includegraphics[scale=0.7]{g1g2_general_disjleftright}
-%	\caption{Given two graph $G_1$ and $G_2$, we provide the result of
-%		three possible outer joins over the disjunctive graph join: vertices sharing the same id identify
-%		vertices with a same value.
-%		These figure make explicit that the left/right full outer interpretation returns both the vertices that
-%		are shared among the graphs and the vertices belonging to the left/right graph.}
-%	\label{fig:conjdisjbasicexouter}
-%\end{figure}
 We must observe that the operation outlined by the previous example is not matched by the former definitions of graph joins.
 Consequently, we now introduce the outer join operators by extending the join's vertex definition: if we want to
 include only the unmatched vertices belonging to the left join operand then we have a \textbf{left  join} ($\leftouterjoin$), which is defined as follows:
@@ -163,7 +153,7 @@ As a consequence, we can say that the graph joins are a class of join operators,
 \begin{example}
 As a further example, let us take a look at Figure \ref{fig:dataexampleouters}: suppose to have two graphs $G_1$ (\subref{fig:figjoing1bisa}) and $G_2$ (\subref{fig:figjoing2bis}), describing interaction graphs between some users within different social network: any edge $u\xrightarrow{\delta}v$ describes that a user $u.\texttt{User}$ sent a message to $v.\texttt{User}$ at a time $u.\texttt{MsgTime}_i$, that received it and read it at time $v.\texttt{MsgTime}_i$. Given a predicate $\theta$ allowing to match the same users within different networks, we want to show which is the meaning of the different graph joins on top of these data structures.
 
-Generally speaking, the graph conjunctive semantics is used to retrieve the interactions occuring in different networks between the same users, even if at different times. The usage of the left (\subref{fig:conj_left}), right (\subref{fig:conj_right}) or full join (\subref{fig:conj_both}) could be used to only change the result set of the vertices. Moreover, on all the three different cases of graph joins, the conjunctive semantics does not change the edges that are returned in the final result, since that semantics imply that the edges must appear in both graphs among the matched vertices.
+Generally speaking, the graph conjunctive semantics is used to retrieve the interactions occurring in different networks between the same users, even if at different times. The usage of the left (\subref{fig:conj_left}), right (\subref{fig:conj_right}) or full join (\subref{fig:conj_both}) could be used to only change the result set of the vertices. Moreover, on all the three different cases of graph joins, the conjunctive semantics does not change the edges that are returned in the final result, since that semantics imply that the edges must appear in both graphs among the matched vertices.
 
 As a consequence, the outer joins over the disjunctive semantics allow to return also the interactions coming either from the left operand (\subref{fig:disj_left}), or from the right one (\subref{fig:disj_right}) or both (\subref{fig:disj_both}).
 

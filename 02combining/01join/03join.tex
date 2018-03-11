@@ -466,10 +466,7 @@ an IP address, an Organization and the year of employment\footnote{The resulting
 For each experiment, the input data were obtained by starting a random walk from the same vertex
 but using a different seed for the graph traversal. New data sets were obtained incrementally
 by visiting each time a number of vertices that is a power of $10$, from $10$ to $10^6$.
-%%The operands were stored in secondary memory
-%%as Neo4J graphs, as Virtuoso native triple stores and with our proposed implementation. Since
-%%Neo4J's query language (Cypher) does not support querying two distinct graphs, both left and
-%%right operands were stored in the same graph database.
+
 
 We performed our tests over a MacOsX with
 a 2.2 GHz Intel Core i7 processor and 16 GB of RAM at 1600 MHz, and an SSD Secondary Storage with an HFS file system.
@@ -628,7 +625,7 @@ and \texttt{Year} involved in the query and, since Cypher language does not allo
 access to different graphs, both graph join operands were stored within the same graph.
 
 \textbf{PostgreSQL} queries were evaluated directly through
-the \texttt{psql} client and benchmarked using both \texttt{explain analyze} and
+the \texttt{psql} client and benchmarked using both \texttt{explain analyse} and
 \texttt{\char`\\timing} commands.
 
 \textbf{Virtuoso} was benchmarked through iODBC connection

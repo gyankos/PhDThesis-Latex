@@ -4,13 +4,6 @@ to detail how our experiments in Section \ref{sub:results} were performed.
 
 \begin{description}
 	\item[Graph Selection Languages.]
-	% Despite the term ``join'' appearing in the graph database literature, such operator cannot be used to
-	% combine two distinct graphs, as for table joins in the relational model. Such joins are \textit{path joins}
-	% running over a single graph  \cite{Aberger}: they are used for graph traversal queries \cite{Gao} where
-	% vertices and edges are considered as relational tables \cite{SQLGraph,Neo4jAlg}. The result of such
-	% \textit{path joins} cannot be directly used to combine values from different sources (e.g. join two
-	% distinct vertices appearing in different graphs alongside with their values), and hence supplementary
-	% graph operations are required.
 	A first reason why it is impossible to implement graph joins on such languages is that they perform graph query patterns among the edges
 	only one graph at a time. Even though we want to express the edge and vertex match in two distinct
 	graph operands that have to be rewritten in one single graph, such languages
@@ -20,8 +13,7 @@ to detail how our experiments in Section \ref{sub:results} were performed.
 	the path join as a binary operation over a graph and the matching graph pattern: even if this interpretation were possible,
 	such languages do not allow to merge into one final result node the query's values with the
 	graph ones, since such languages are only designed to extract specific subgraph from the data graph. 
-	%For this reason, such graph query languages will not be considered within this chapter for implementing the graph join operator.
-	The inability of expressing such operator within such query languages discars them from a comparison with our graph join algorithm.
+	The inability of expressing such operator within such query languages discards them from a comparison with our graph join algorithm.
 
 	\item[On (Proper) Graph Query Languages.] At the time of writing, such graph query languages do not provide
 	a specific keyword to operate the graph join between two graphs. Moreover, all the current graph
@@ -50,7 +42,7 @@ to detail how our experiments in Section \ref{sub:results} were performed.
 	
 	Among all the possible graph query languages over property graph model, we consider Cypher. An example of the implementation of the an equi-join operator is provided in Figure \ref{fig:CypherEquiJoin}: the
 	\texttt{CREATE} clause has to be used to generate new vertices and edges from graph patterns
-	extracted through the \texttt{MATCH...WHERE} clause, and intemediate results are merged with
+	extracted through the \texttt{MATCH...WHERE} clause, and intermediate results are merged with
 	\texttt{UNION ALL}.
 	While current graph query languages allow to express our proposed graph
 	join operator as a combination of the aforementioned operators,  our study shows that our specialized graph join
@@ -66,9 +58,9 @@ to detail how our experiments in Section \ref{sub:results} were performed.
 	\end{figure}
 	On the other hand, in the case of RDF graph models, we have to discriminate whether vertices either represent entities or
 	values that describe them and, consequently, we have to discriminate between edges representing
-	relations among entities and the ones  acting as  attributes (when such each links an s entity to its associated value
-	expressed as the destination vertex. See Definition \vref{def:map}).
-	Moreover even in this case the \textit{join condition} depends upon the specific graphs' schema,
+	relations among entities and the ones  acting as  attributes (when such each links an entity to its associated value
+	expressed as the destination vertex, see Definition \vref{def:map}).
+	Even in this case the \textit{join condition} depends upon the specific graphs' schema,
 	that may vary on different RDF graphs. In particular, as showed in Figure \ref{fig:SparqlEquiJoin}, SPARQL allows to access multiple graph resources
 	through \textit{named graphs} and performs graph traversals one graph at a time through
 	\textit{path joins} \cite{Fletcher09,Atre,Yuan}.
@@ -93,65 +85,3 @@ to detail how our experiments in Section \ref{sub:results} were performed.
 		among the matched nodes.}
 	\label{fig:conjdisjbasicex}
 \end{figure}
-
-%\subsection{(Graph) Query Languages}\label{sec:pg}
-
-
-
-
-%such operator cannot combine by itself such paths
-%returning neither distinct vertices nor edges. In order to do so we have to use a \texttt{CONSTRUCT} clause that
-%finally combines the traversed paths from both graphs into a resulting graph.
-
-
-
-%\begin{figure*}
-%	\begin{adjustbox}{max width=\textwidth}
-%		\begin{minipage}[b]{0.6\textwidth}
-%			\centering
-%			\includegraphics[scale=.8]{fig/reljoins2}
-%			\subcaption{Representing the operands' vertices and edges with tables. The $\theta$ join
-%				for the vertices only involves tables $V_{ResearchGate}$ and $V_{projects}$.}
-%			\label{key}
-%		\end{minipage}\quad
-%		\begin{minipage}[b]{0.55\textwidth}
-%			\centering
-%			\includegraphics[scale=1.1]{fig/queryplan2}
-%			\subcaption{SQL join query plan required to create edges for ResearchGate$\Join^{\wedge}_{\texttt{Name}=\texttt{1Author}}$Reference. The leaves acts as
-%				the edges' sources while the root as their destinations.}
-%			\label{qplan}
-%		\end{minipage}
-%	\end{adjustbox}
-%	\caption{Graphically representing the relational join procedure required to evaluate the first query (Figure \ref{g:conjo}).}
-%\end{figure*}
-% This paper provides two contributions:
-% \begin{itemize}
-% 	\item \textbf{Graph join operator $\Join_\theta^{\textup{\textbf{es}}}$} (Section \ref{sec:grajoindef}),
-% 	combining both vertices ($\theta$) and edges (\textbf{es}). A property graph
-% 	model (Section \ref{sec:datamodel}) is used as a data model of choice.
-% 	\item \textbf{\textsc{Graph Conjunctive Equijoin Algorithm}} (Section \ref{sec:algo}): vertex buckets ordered by hash value are created and
-% 	the resulting graphs' edges and vertices are produced at the same time.
-% 	Our solution outperforms the query evaluations in SPARQL, Cypher and SQL (Section \ref{sec:qplan}).
-% 	Since the aforementioned algorithm relies on an \textit{ad hoc} secondary memory data structure, we tested it over different graph libraries (Boost, SNAP) and low level
-% 	graph databases (Sparksee). Even in this case our solution proviede better results with
-% 	large graphs (Section \ref{sec:qbench}).
-% \end{itemize}
-%%%\texttt{\paragraph*{Property Graph and Cypher}
-%%%
-%%%
-%%%
-%%%
-%%%
-%%%
-%%%
-%%%\paragraph*{RDF triplestores and SPARQL}
-%%%Triplestore systems
-%%%store the graph informations as triplets, $(source,property,desti\-na\-tion)$,
-%%%where $source$ and $destination$ are two vertices, and $property$ is the
-%%%edge linking them.
-%%%
-%%% We took this query language into account for our benchmarks
-%%%because it is well consolidated:}
-%Despite such optimizations, the query plans resulting from
-%the implementation of the graph conjunctive join in SPARQL do not scale on the large,
-%even if its final result complies with the RDF data representation provided in \ref{def:map}.
