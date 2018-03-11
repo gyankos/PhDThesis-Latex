@@ -1,17 +1,8 @@
 
 \subsection{Generalized Graph Grammars $\mathcal{G}$ for Nested Graphs. $\qtransl_{\mathcal{H},\mathcal{T}}^{\mathcal{G}}(\mathcal{H})(\nested)$}\label{subsec:gggSec}\label{sec:semistructunstradata}
-%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%
-%\subsection{(*) Semi-structuring unstructured data}
+ 
 We continue to both analyse the dependency graph semistructured representation for unstructured data (as already introduced in Section \vref{sec:idifud}), and search for a $\Qoppa$ definition. As also remarked in Section \vref{sec:unstructured}, the problem with representing unstructured data is that they lack of a precise data structure that could be directly queried, handled and created by automated processes. As a consequence, some ``structure'' has to be provided.
-
-
-
-%In those other use cases, different techniques are used: %can be only used as an intermediate representation for relation extraction processes, because it does not provide useful information to be extracted as the relations showed as desired result in both IBM Watson and DeepDive's  \textbf{Knowledge Base Construction} phase . 
-%\begin{example}[label=ex:introgrammars]
-	%Figure \ref{fig:dependencygraph} provides an example of a dependency graph  directly generated from full-text using Stanford NLP library. In particular, the full text is represented as a graph, where each word is represented in its flexed form as a vertex (\textit{entity}). Edges (\textit{relationships}) correspond to \textbf{universal dependencies}\footnote{\url{http://universaldependencies.org}} \cite{MarneffeDSHGNM14}, which are grammatical functions connecting different parts of speech. 
+ 
 	If we suppose that the full text is well written and that it follows the correct grammar rules of its natural language, then we can express such full text as a dependency graph (Figure \vref{fig:dependencygraph}), and we can express grammatical rules through graph grammar operations. In particular, we can use graph pattern matching queries to match all the foreseeable natural language's constructs, and then transform them into a nested graph, where entities will represent whole \textit{complements} or whole sentences (e.g., \textit{dependent or subordinate clauses}), and verbs - representing actions from the subject to the object or from the agent towards the subject - represent edges connecting the former concepts through linguistic relationships. 
 	
 
@@ -37,7 +28,7 @@ We continue to both analyse the dependency graph semistructured representation f
 	\caption{Translating the full-text representation as a graph in Figure \ref{fig:dependencygraph}: this requires a graph transformation language and the definition of nested graphs.}
 	\label{fig:globalconversiontext}
 \end{figure*}
-	On the footsteps of GraphLOG, Figure \ref{fig:diagramtable} represent an example of a visual representation of match ($\mathcal{H}$) and rewrite ($\mathcal{T}$) rules: we want to match the graphs represented in the ``pattern'' column, and rewrite them as the nested graphs presented within the ``result'' column. 
+	On the footsteps of GraphLOG, Figure \ref{fig:diagramtable} provides an example of a visual representation of match ($\mathcal{H}$) and rewrite ($\mathcal{T}$) rules: we want to match the graphs represented in the ``pattern'' column, and rewrite them as the nested graphs presented within the ``result'' column. 
 	The first rule tells that each vertex $\color{orange}X$ that has outgoing edges with one of the labels depicted in $\color{blue}\lambda$ has to be updated with the $\color{orange} value$ stored in its correspondent adjacent vertex $\color{orange} Y$. The second rule tells to collect inside one single nested vertex all the elements that are in conjunction $\color{blue}conj$ with each other through a conjunction $\color{orange} Z$: moreover, any other ingoing and outgoing edge to this nested object of a given label  must be rewritten as a single ingoing or outgoing edge. The last one tells to rewrite the verb of a sentence, represented as a root $\color{orange} V$ linked to the list of subjects $\color{orange} \vec{S}$ and the object $\color{orange}X||V$ (that can be a verb being a root of another sentence), as a whole nested vertex containing an edge to the nested object of all the components of the subject, directed to the final object or sentence. 
 	In particular,  graph grammars are defined through the combination of such rewriting rules   \cite{GraphLogAggr,Plump1998Term}: the former  picture also shows how such match and rewrite query can be expressed by a visual formalism, instead of being coded using a specific programming language as already showed in the early 90s \cite{GraphLogAggr}.
 	
@@ -60,7 +51,7 @@ We continue to both analyse the dependency graph semistructured representation f
 \begin{definition}[Generalized Graph Grammars]\label{def:gggintro}
 A \textbf{generalized graph grammar}\footnote{See Sherlock for both a representation of nested graphs and an implementation of such generalized graph grammars: \url{https://bitbucket.org/unibogb/sherlock}}\index{graph grammar!generalized|textbf} is a collection of $n$ graph rewriting rules $[H_i\to T_i]_{i\leq n}^{m^i}$ applied to nested graph $\nested$ via the following operator $\mathcal{G}^{m_1,\dots,m_n}_{[H_i\to T_i]_{i\leq n}}(\nested)$, returning another nested graph. In particular, the set of all the $H_i$s appearing in the rules is denoted by $\mathcal{H}$, while the $T_i$s are referenced by $\mathcal{T}$.
 
-The associated semantics of such graph grammar on a given nested graph in input $\nested$ is the following: each graph head $H_i$ provides a graph pattern matching query which is going to be interpreted through a semantics $m^i$ returning a collection $m^i_{H_i}(N)$ of morphisms $f_j$ as a result of the matching phase. 
+The associated semantics of such graph grammar on a given nested graph in input $\nested$ is the following: each graph head $H_i$ provides a graph pattern matching query which is going to be interpreted through a semantics $m^i$ returning a collection $m^i_{H_i}(\nested)$ of morphisms $f_j$ as a result of the matching phase. 
 
 The associated transformation $T_i$ is described through a nested graph, and it is instantiated on each generated morphism $f_j$ generating several graphs replacing the matched ones. Each transformation graph $T_i$ may contain \begin{mylist}
 \item \label{iitem} vertices (and/or edges) $o_h$ also contained\footnote{We preferred to use object identity instead of using further morphisms as in both graph grammars and nested graph alignments' refinement as in the previous chapter. Transformations and embeddings are going to be expressed as target objects' containments.} in $H_i$  providing the semantics ``return all the matched vertices (and/or edges) by a given vertex (and/or predicate) represented by $o_h$'' and possibly apply a transformation,
