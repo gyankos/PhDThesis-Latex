@@ -6,22 +6,11 @@
 
 \textbf{Data Integration} is a sequence of transformations (and hence, queries) through which all the data coming from different data sources are mapped (\textbf{transcoded}) to a \textit{reconciled representation} over a many-to-one data association (\textbf{alignment}). Each resulting value-representation (type) may be indistinguishable from the representation available from the data sources (uniform representation).
 
-Data integration theory uses abstraction to generalise all the possible approaches which are data structure specific. Such theory focuses on the main preprocessing steps which are alignment and transcoding as introduced in the incoming introductory examples (Section \ref{sec:oldschooldi}). While languages and models outlining data representation abstraction were defined decades ago and date back to the studies on programming languages \cite{omg96,TPLPierce}, the theoretical approaches abstracting data integration process are more recent \cite{Lenzerini02,DeGiacomo2018}. This lack of formalisation made all the researcher focus more on the data integration aspect that are representation-dependent (\textit{how shall we integrate data with different ``shapes''}) than on the actual integration process (\textit{what makes data from different sources ``hard'' to integrate, independently from their representation?}). The latter takes stock of two different integrations (or fusion\footnote{In current literature, the term ``fusion'' assumes an ambiguous connotation: while anglophone literature \cite{Hall97,KHALEGHI201328} focuses on the integration of the integration of sensor unstructured data possibly with structured data (e.g. geospatial information), germanophone literature \cite{deII,Bleiholder09} calls ``data fusion'' (\textit{Datenfusion}) the process of data cleaning and conflict resolution that could be carried out within one same data source. This terminological ambiguity reveals two different aspects of performing data integration.}) which are ``In-Database integration'' (Section \ref{sec:informationsintegration}) and ``Multi-database integration'' (Section \ref{sec:integsurvey}). These specific topics allow to draw the following observations for both current query languages and data structures:
+Data integration theory uses abstraction to generalise all the possible approaches which are data structure specific. Such theory focuses on the main preprocessing steps which are alignment and transcoding as introduced in the incoming introductory examples (Section \ref{sec:oldschooldi}). While languages and models outlining data representation abstraction were defined decades ago and date back to the studies on programming languages \cite{omg96,TPLPierce}, the theoretical approaches abstracting data integration process are more recent \cite{Lenzerini02,DeGiacomo2018}. This lack of formalisation made all the researcher focus more on the data integration aspect that are representation-dependent (\textit{how shall we integrate data with different ``shapes''}) than on the actual integration process (\textit{what makes data from different sources ``hard'' to integrate, independently from their representation?}). The latter takes stock of two different integrations (or fusion\footnote{In current literature, the term ``fusion'' assumes an ambiguous connotation: while anglophone literature \cite{Hall97,KHALEGHI201328} focuses on the integration of sensor unstructured data possibly with structured data (e.g. geospatial information), germanophone literature \cite{deII,Bleiholder09} calls ``data fusion'' (\textit{Datenfusion}) the process of data cleaning and conflict resolution that could be carried out within one same data source. This terminological ambiguity reveals two different aspects of performing data integration.}) which are ``In-Database integration'' (Section \ref{sec:informationsintegration}) and ``Multi-database integration'' (Section \ref{sec:integsurvey}). These specific topics allow to draw the following observations for both current query languages and data structures:
 \begin{itemize}
 \item  \textit{In-Database Integration} requires that joins and group by operations are generalised to the nesting operator, which enables structural aggregations (Section \ref{sec:informationsintegration}). Structural aggregations should allow representing data at different abstraction levels, where summarised and coarser representations coexist (Example \vref{ex:inaggr}). Current query languages and data structures do not meet these requirements.
-\item \textit{Multi-database integration} requires that a query language should support all the operators required by the multisource integration (Section \ref{subsec:queryrw}) alongside with transcoding (Section \ref{sec:ontology}). Data representation should be able to represent data and alignments uniformly.
+\item \textit{Multi-database integration} requires that a query language should support all the operators used on different data representations (Section \ref{subsec:queryrw}) alongside with transcoding (Section \ref{sec:ontology}). Data representation should be able to represent data and alignments uniformly.
 \end{itemize}
-
-
-
-%This chapter describes a general approach to integrate structured, unstructured and semistructured data, while the definition of such data representations will be only provided in Chapter \vref{cha:datadef}. Theory helps in this process, since it abstracts from specific implementations. Moreover, an \textit{ad hoc} formalization allows to restrict the discussion only to the relevant properties. Abstraction is a powerful modelling language, (e.g., UML) that could later on help  to provide a final implementation. While languages and models outlining data abstraction have been defined decades ago and could be dated back to the definition to the formalization of programming languages \cite{omg96,TPLPierce}, the theoretical approaches abstracting data integration processes are quite recent \cite{Lenzerini02,DeGiacomo2018}. 
-%We can define the problem we want to solve as follows:
-%
-%\begin{definition}[Data Integration]
-%	
-%  The \textbf{Data Integration} \index{data integration|textbf}is a sequence of transformations (and hence queries) through which all the data coming from different sources appear as instantiated in a uniform data structure (\textbf{reconciled representation}). The data contained in such reconciled representation is such that each datum originally coming from a data source has a value representation (\textbf{type}) \index{type!zzzza@\igobble |seealso {M}} which is indistinguishable from a datum coming from another data source (\textbf{uniform representation}).
-%\end{definition}
-%After providing some preliminary introductory examples (Section \ref{sec:oldschooldi}) showing that multiple ways to integrate different possible data representations into one most general one could be generalized by using just one approach, 
 
 
 \begin{figure}[pt]
@@ -75,7 +64,7 @@ Data integration theory uses abstraction to generalise all the possible approach
     \label{tab:MergedTables}
   \end{minipage}
 
-  \caption{Integrating two tables (\subref{tab:Admissions} and \subref{tab:Hospitalization}) pertaining to hospitalization into one final table (\subref{tab:MergedTables}), matching with the schema of \subref{tab:Hospitalization}. Diagnoses and diseases obtaned from the ``ICD code it'' dataset, available at \url{smartdata.cs.unibo.it}, while the other parts are randomly generated.\hrule}
+  \caption{Integrating two tables (\subref{tab:Admissions} and \subref{tab:Hospitalization}) pertaining to hospitalization into one final table (\subref{tab:MergedTables}), matching with the schema of \subref{tab:Hospitalization}. Diagnoses and diseases were obtained from the ``ICD code it'' dataset, available at \url{smartdata.cs.unibo.it}, while the other parts are randomly generated.\hrule}
   \label{fig:examplesrelational}
 \end{minipage}
 % ---- %%%%%%%
@@ -114,7 +103,7 @@ Data integration theory uses abstraction to generalise all the possible approach
         PKTBMF36E14H842O & Recanalization of Crohn's Disease & 15 & 3 & 2017 & Emergency & 555.0\cr %
         \bottomrule
       \end{tabular}}
-      \subcaption{Resoluton of the  transcodng functions $\stigma$ over the aligned \texttt{Hospitalization}}
+      \subcaption{Resolution of the  transcoding functions $\stigma$ over the aligned \texttt{Hospitalization}}
       \label{tab:HospitalizationTransf}
     \end{minipage}
 

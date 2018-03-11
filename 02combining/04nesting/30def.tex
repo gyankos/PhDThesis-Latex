@@ -50,7 +50,76 @@ Please also note that this model has more restrictive constraints than the ones 
 
 
 \section{Graph Nesting}\label{sec:nestingdef}
-\texttt{TODO: current paper}
+The graph nesting operator uses a classifier function grouping all the vertices and edges that shall appear as a member of a cluster $C$. 
+
+\begin{definition}[Nested Graph Classifier, $g_\kappa$]
+	Given a set of cluster labels $\;\mathcal{C}$, a \textbf{nested graph classifier} function $g_\kappa$ maps a nested graph $G_o$ into a nested  graph collection $\{G_C\}_{C\in\mathcal{C},G_C\neq \emptyset}$ of subgraphs of $G_o$. Such function uses a classifier function $\kappa\colon \VS\cup \ES\to \wp(\mathcal{C})$ mapping each vertex or edge in either no graph or at least one non-empty subgraph. Each nested graph $G_C$ is a pair
+	$G_C=\Braket{\VS_C,\ES_C}$
+	where $\VS_C$ (and $\ES_C$) is the set of all the vertices $v$ (and edges $e$) in $G_o$ having $C\in \kappa(v)$ (and $C\in \kappa(e)$). Therefore, the nested graph classifier is defined as follows:
+	\[g_\kappa(G_o)=\Set{\Braket{\VS_C,\ES_C}|C\in\mathcal{C},(\VS_C\neq\emptyset\vee\ES_C=\emptyset)}\]
+\end{definition}
+
+The former definition is also going to express graph pattern evaluations, where $\kappa$ may be represented as a graph (cf. Neo4J). This assumption allows us to use the graphs in Figure \ref{fig:patterns} as possible $\kappa$. When $\kappa$ is a graph, we denote as $\kappa\xrightarrow{f_C} G_C$ the function $f_C$ associating  each vertex (and edge) in $\kappa$ to possibly more than one vertex (and one edge) in a subgraph $G_C\in g_\kappa(G_o)$. In order to represent the latter subgraphs  as either vertices and edges, we may use
+the following \textsc{User-Defined Functions}:
+\begin{definition}[User-Defined Functions]
+	An \textbf{object user defined function} $\mu_\Omega$ maps each subgraph $G_C\in g_\kappa(G_o)$ into a pair $\mu_\Omega(G_C)=(L,t)$, where $L\in\wp(\Sigma^*)$ is a set of labels and $t$ is a relational tuple.
+	
+	An \textbf{edge user defined function} $\mu_E$ maps each subgraph $G_C\in g_\kappa(G_o)$ into a pair of identifiers $\mu_E(G_C)=(s,t)$ where $s,t\in\mathbb{N}$.
+\end{definition}
+
+\begin{example}
+	Within our use case scenario, $\mu_\Omega$  must associate  the authors' informations to each nested vertex resulting from $g_{V}(G_{o})$ , and create nested edges with \textsc{coAuthorship} label and no associated tuple:
+	\[\mu_\Omega(G_C)=\begin{cases}
+	([\mstr{coAuthorship}],\;\emptyset) & G_C \in g_E(G_{o})\\
+	(\ell(f_C(\gamma_V))),\;\omega(f_C(\gamma_V))) & G_C \in g_V(G_{o})\\
+	\end{cases}\]
+\end{example}
+
+While $\mu_\Omega$ may be used for transforming subgraphs to both vertices and edges, $\mu_E$ is only used to map subgraphs to edges.  
+In order to complete such transformation, we have to map each graph in $g_\kappa(G)$ into a new id $\textbf{i}_{\textbf{c}}\notin \VS\cup \ES$, for which an indexing function $\iota_G$ over each $G_C$ has to be defined within our specific task. As we will see in the next section, our scenario provides some constraints on both patterns; this allows the definition of an indexing function  uniquely associating each matched subgraph  $G_C$  to the grouping references' ids.
+The previous functions are involved in the definition of our general graph nesting operator:
+
+
+
+\begin{definition}[Graph Nesting]
+	Given a nested graph $G_{i_c}$ within a nested graph database $G$, an object user defined function $\mu_\Omega$, an edge user defined function $\mu_E$ and an indexing function $\iota_G$, the graph nesting operator $\eta_{g_V,g_E,\mu_\Omega,\mu_E,\iota_G}^{\textbf{keep}}$ converts each subgraph in $G_C\in g_V(G_{i_c})$ (and $G_C\in g_E(G_{i_c})$) into a nested vertex (and nested edge) $\iota_G(G_C)$ and adds them in a newly-created nested vertex; vertices and edges in $G_{i_c}$ appearing neither in a nested vertex nor in a nested edge may be also returned if $\textbf{keep}$ is set to \texttt{true}. This operator returns the following nested graph:
+	\[\begin{split}
+	\eta&{}_{g_V,g_E,\mu_\Omega,\mu_E,\iota_G}^{\textbf{keep}}(G_{i_c})=G_{i_{\overline{c}}}=\\
+	&=\Big\langle \{v\in \nu(i_c) | V(v)=\emptyset\wedge\textbf{keep} \}\cup \iota_G(g_V(G_{i_c})),\\
+	&\qquad \{e\in \epsilon(i_c) | E(e)=\emptyset\wedge\textbf{keep} \}\cup \iota_G(g_E(G_{i_c}))\Big\rangle\\
+	\end{split}\]
+	where $\overline{c}=\max\{c|(i_c)\in\mathcal{V}\cup\mathcal{E}\}+1$. As a side effect of the graph nesting operation, the nesting graph database is updated using the nested graph classifier and user defined functions as follows:
+	\begin{align*}
+	\Big\langle&\VS\cup \iota_G(g_V(G_{i_c}))\cup\{(\overline{c},i)\},\quad \ES\cup \iota_G(g_E(G_{i_c})),\\
+	& \lambda\oplus \bigoplus_{G_C\in g_E(G_{i_c})}\iota_G(G_C)\mapsto \mu_E(G_C),\\
+	& \ell\oplus\bigoplus_{G_C\in g_E(G_{i_c})\cup g_V(G_{i_c})}\iota_G(G_C)\mapsto\texttt{fst}\;\mu_\Omega(G_C),\\
+	& \omega\oplus\bigoplus_{G_C\in g_E(G_{i_c})\cup g_V(G_{i_c})}\iota_G(G_C)\mapsto\texttt{snd}\;\mu_\Omega(G_C),\\
+	& \nu\oplus \bigoplus_{G_C\in g_E(G_{i_c})\cup g_V(G_{i_c})}\iota_G(G_C)\mapsto \mathcal{V}_C\\
+	& \;\; \oplus dtl(i)_{\overline{c}}\mapsto \{v\in \nu(i_c) | V(v)=\emptyset\wedge\textbf{keep} \}\cup \iota_G(g_V(G_{i_c})),\\
+	& \epsilon\oplus \bigoplus_{G_C\in g_E(G_{i_c})\cup g_V(G_{i_c})}\iota_G(G_C)\mapsto \mathcal{E}_C\\
+	& \;\; \oplus dtl(i)_{\overline{c}}\mapsto\{e\in \epsilon(i_c) | E(e)=\emptyset\wedge\textbf{keep} \}\cup \iota_G(g_E(G_{i_c}))\Big\rangle\\
+	\end{align*}
+	where $(f\oplus g)(x)$ returns $g(x)$ if $x\in\textup{dom}(g)$ and $f(x)$ otherwise, and both $f$ and $g$ are finite domain functions. $a\mapsto b$ denotes a finite function, which domain contains only $a$.
+\end{definition}
+
+The following example describes the outcome of the graph nesting process.
+
+\begin{example}[label=exNest]
+	Figure \ref{fig:outputnested} provides the result of $\eta$ when the non-traversed vertices and edges are not preserved ($\textbf{keep}=\texttt{false}$) and where $V$ and $E$ are the ones represented in Figure \ref{fig:bibex2}. As showed by the former definition, the nesting operation updates the nested graph database by creating new nested vertices ($0_1,1_1,2_1$) and nested edges ($3_1,5_1,7_1,8_1$). Such nested components are contained within the returned nested graph $G_{11_1}$, which is represented as a nested vertex with the following members:
+	\[\nu(11_1)=\{0_1,1_1,2_1\}\quad \epsilon(11_1)=\{3_1,5_1,7_1,8_1\}\]
+	The nested graph database updated as a side effect of the graph nesting may be represented as follows:
+	\[\begin{split}
+	G'=\big\langle &\{0_0,1_0,\dots,5_0,11_0,0_1,1_1,2_1,11_1\},\\
+	& \{6_0,\dots,10_0,3_1,5_1,7_1,8_1\}, \\
+	& \lambda',\ell',\omega',\nu',\epsilon'\big\rangle\\
+	\end{split}\]
+	Let us now focus on the nested vertices and edges of $G_{11_1}$. As requested by the UDF functions, each resulting nested \textsc{Author}(2) preserves the original  vertices' tuple information, and its vertex members correspond to the \textsc{Paper}s authored by the corresponding \textsc{Author}(1). For easing the nested graph representation, we assume that each \textsc{Author}(2) has an associated  id $(1,i)$, which derives from a simple vertex with id $(0,i)$ in $G_{(0,11)}$. Therefore, vertex $0_1$ is represented as follows:
+	\[\ell'(0_1)=[\mstr{Author}]\quad\nu'(0_1)=\{3_0\}\quad \epsilon'(0_1)=\emptyset\] \[\omega'(0_1)=\{\texttt{\textbf{name}}\colon\texttt{Abigail},\texttt{\textbf{surname}}\colon\texttt{Conner}\}\]
+	
+	Last, each resulting nested edge \textsc{coAuthorship} has a \mstr{coAuthorship} label, it has no tuple information and its vertex members correspond to the \textsc{Paper}s coauthored by source and target \textsc{Paper}.
+	For easing the nested graph representation, we assume that each \textsc{coAuthorship} edge $a_1\to a'_1$ has an associated id $(\sum_{k=0}^{a+a'}k\;+\;a')_{1}$, which derives from the grouping references. Therefore, edge $0\to 2$ in Figure \ref{fig:outputnested} is represented as follows:
+	\[\ell'(5_1)=[\mstr{coAuthorship}]\;\nu'(5_1)=\{(3_0)\}\;\epsilon'(0_1)=\emptyset\; \omega'(0_1)=\{\}\] 
+\end{example}
 
  %Consequently, the following definition can be also given:
 

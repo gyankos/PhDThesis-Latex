@@ -2,10 +2,7 @@
 \section{Multi-database integration}\label{sec:integsurvey}
 In this section we're interested to attack the \textbf{multi-database integration} problem, that can be stated as follows: \textit{given a global schema $G$ of my integrated system and a query\index{query|textbf} $q$ written in a  \textsc{Language} $\langg_G$, evaluate such query among multiple data-sources $\mathcal{D}=\Set{D_1,\dots, D_n}$ having   different schemas and data representations and provide the final results in a reconciled representation}. This definition is general enough to include both distributed and federated databases data integration.
 
-In order to proficiently solve this problem, we're going to see that ontologies (Section \ref{sec:ontology}), generalizing data schemas  \cite{GangemiP13}, allow to attack the schema matching problem (Section \ref{subsec:ontaling}) on different data sources with several schemas and representations. Last, we address the problem of evaluating query $q$ on either the original data sources or on the global schema (Section \ref{subsec:queryrw}).
-
-
-%As a consequence, we have first to reconcile the ontology describing each database $D_i\in\mathcal{D}$ with the global ontology $G$. We will always use ontology matching instead of schema matching because both it has been showed that ontologies are more general than data models \cite{GangemiP13}, and because
+In order to proficiently solve this problem, we're going to see that ontologies (Section \ref{sec:ontology}), generalizing data schemas  \cite{GangemiP13}, attack the schema matching problem (Section \ref{subsec:ontaling}) on different data sources with several schemas and representations. Last, we address the problem of evaluating query $q$ on either the original data sources or on the global schema (Section \ref{subsec:queryrw}).
 
 \subsection{Preliminaries: Description Logic and Ontologies}\label{sec:ontology}
 When compared with other data models such as the three world relational model for data mining \cite{Calders2006}, MOF\index{MetaObject Facility} also shows its inability to outline and suggest which are the relevant operations to either manipulate the data or to perform assertions on it. Ontologies are now introduced in particular for the latter reason, thus allowing to assert properties over \textit{objects} and \textit{relations} at the \textsc{Data} level, as required by the \textsc{Model} level. Literature provides the following generic definition of an ontology:
@@ -71,78 +68,23 @@ Still within the field of Modal Logics but beyond DL languages\footnote{DL could
 \subsection{Ontology Alignments and Data Integration}\label{subsec:ontaling}
 After describing an ontology, we're going to use ontology alignments for attacking the data integration problem. Such class of solutions have received more research acclaim than schema related one \cite{Magnani09,Magnani2010}, which are strictly representation dependent.
 
-%In order to introduce and explain this problem, an example is going to be provided. 
-At this point we must extend the Description Logic syntax so that individual transcoding functions $\stigma$ are allowed, in order to be able to express supertypes'\index{supertype} transcoding functions. Such transformations will be required in the following scenario in order to say that  $C(i)\sqsubseteq C'(\transcoding(i))$. %\hl{Last, this example introduces for the first time in the field of ontology alignment the concept of ontologies' relationships alignment, when such relationships occur within a same source ontology}.
 
+At this point we must extend the Description Logic syntax so that individual transcoding functions $\stigma$ are allowed, in order to be able to express supertypes'\index{supertype} transcoding functions. Such transformations will be required in the following scenario in order to say that  $C(i)\sqsubseteq C'(\transcoding(i))$. 
 
-%{\color{red}in order to make the definition possible which is independent from the semantics of the given data, despite several attempts of providing ontologies a structure \cite[Chapter~5,~page~221]{Baader2010}.}
-
-%There have been some data modeling approaches similar to the ones of the MetaObject Facility and the UML standard \cite{Pan01,Brasileiro2016}, thus failing to represent ontology as reasoning tools, and hence as (query) languages over which express properties of the data (\textsc{Model} and \textsc{MetaModel}) and the \textsc{Data} itself. \texttt{[TODO]} This requires that the syntactic representations in the (meta-)model layer should be linked with their semantic counterparts in the (meta-)ontology:
-% TODO:
-%Ontologies could be used to point out different points of view over the same subject {\color{blue} Inserire in questo punto il concetto di allineamento delle ontologie.} \cite{small,somewhere}; ontologies are also useful {\color{red}for giving predictions by using inference tools: this is possible since ontologies are described in a language (e.\,g.\, Description Logic) that has a formal and logic-based semantic and that have also decision procedures that  make automated reasoning possible}.
 
 After describing in the previous sections how ontological alignments are useful within the process of data integration, we can now formally define what an alignment between two ontology is. Moreover, since in some scenarios the alignment uses the data representation to infer such alignment \cite{Aligon201520}, I extend the usual alignment definition provided for either schema or ontology alignments \cite{euzenat2013d,GrossHKR11} as follows:
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%\subsection{(Meta-)Modelling, Modelling Language and Type Theory}
-%Let us start by analysing data modelling independently from the usage of a specific given modelling language. As a start, works like \cite{terrasse,saeki} and even the theoretical formulation in \cite{mathmeta} do not use the meta-meta-model, and terminate their abstraction at the meta-model level, since such meta-meta-model could be easily be replaced by a meta-model \cite{UMLInfra}. The abstraction process could be used to define the layers, since states that each layer is the result of applying steps of abstraction.
-%
-%
-%
-
-%
-%%\begin{figure}
-%%	\centering
-%%	\includegraphics[width=\textwidth]{images/taonta}
-%%	\caption{Data modeling using different approaches: structuded data representation dependent (\textit{MetaObject Facility} \cite{omg96}), representation independent and language driven (\textit{Description Logic} \cite{Calvanese2010}), structured data representation dependent and language driven (\textit{Data Mining Algebra} \cite{Calders2006}), semistructured data representation dependent (\textit{Graph Representation}).}
-%%	\label{fig:taonta}
-%%\end{figure}
 
 \begin{definition}[Ontological Alignment]\label{def:ontolalignment}
-An \textbf{ontological alignment}\index{alignment|textbf}  $\alignment(O,O')$ of a source ontology $O$ towards a destination ontology $O'$ is a set of tuples called \textbf{correspondences}\index{correspondence|textbf}. Each correspondence %refers to a type $T$ belonging to the model $M_{O'}$ associated to the destination ontology $O'$. 
-maps a set of types $\delta t$ from a model $M_O$ into one type $t$ in $M_{O'}$ using a transcoding \index{transcoding} function $\stigma_{\delta t\to t}$ mapping elements in $\delta t$ to $t$.
-Such correspondence is expressed as $(\delta t,F,t,\transcoding_{\delta t\to t}, s)$, where $F$ is the alignment expressed in description logic axioms between the correspondent types and, %$\stigma_{\mathcal{P}(M_O)\to T}$ is the function transforming the data $\alpha^{-1}(\delta\mathcal{T})$ into $T$ and, 
-whenever $\transcoding_{\delta t\to t}$ is a bijection\footnote{If $t$ expresses a \textbf{part-of} or an \textbf{is-a} relation such as $\delta t\sqsubseteq t$, then sometimes is not possible to univocally associate to the aggregation the single disaggregated components.}, the inverse function $\transcoding_{ t\to \delta t} = \transcoding_{\delta t\to t}^{-1}$ is also provided. An uncertainty score $s$ could be also associated to the accuracy of the alignment \cite{euzenat2013d,HartungGR13}.
+An \textbf{ontological alignment}\index{alignment|textbf}  $\alignment(O,O')$ of a source ontology $O$ towards a destination ontology $O'$ is a set of tuples called \textbf{correspondences}\index{correspondence|textbf}. Each correspondence  
+maps a set of types $\delta t$ from a model $M_O$ into one type $t$ in $M_{O'}$ using a transcoding \index{transcoding} function $\stigma_{\delta t\to t}$.
+Such correspondence is expressed as $(\delta t,F,t,\transcoding_{\delta t\to t}, s)$, where $F$ is the alignment expressed in description logic axioms between the correspondent types and, 
+whenever $\transcoding_{\delta t\to t}$ is a bijection\footnote{If $t$ expresses a \textbf{part-of} or an \textbf{is-a} relation such as $\delta t\sqsubseteq t$, then sometimes is not possible to unambiguously associate to the aggregation the single disaggregated components.}, the inverse function $\transcoding_{ t\to \delta t} = \transcoding_{\delta t\to t}^{-1}$ is also provided. An uncertainty score $s$ could be also associated to the accuracy of the alignment \cite{euzenat2013d,HartungGR13}.
 \end{definition}
 
-As a consequence of this definition, given that the ontology subsumes both the informations from the \textsc{Model}$\index{M}$ (it describes the concepts and roles) and the ones from the \textsc{MetaModel}$\index{MM}$ (TBox expressions), we have that a  \textsc{Language} $\langg_\metamodel$ could be also described by the language expressed in its correspondent ontology. %$\mathcal{G}(\alpha^{-1}(MM))$, and hence $\mathcal{L}_{MM}\equiv \mathcal{L}_{\mathcal{G}(\alpha^{-1}(MM))}$. 
-%As a consequence, from now on we'll talk about languages for ontologies.
+As a consequence of this definition, given that the ontology subsumes both the informations from the \textsc{Model}$\index{M}$ (it describes the concepts and roles) and the ones from the \textsc{MetaModel}$\index{MM}$ (TBox expressions), we have that a  \textsc{Language} $\langg_\metamodel$ could be also described by the language expressed in its correspondent ontology.
  In the case of Description Logic Ontologies, the query  \textsc{Language} is the Description Logic itself. Given that both ontologies (containing the schema definition, $\metamodel$) and queries could always be expressed within the Description Logic (\cite[Chapter~16]{Baader2010}), from now on we'll always use the terms \textit{query}\index{query}, \textit{ontology}\index{ontology} and \textit{schema}\index{schema} interchangeably as already did in \cite{Lenzerini02}.
 
-
-
-
-%
-%Figure \ref{fig:taonta} finally provides a global point of view on layers and
-%their relations: $\alpha$ provides abstractions in order to reach meta-levels,
-%while $\alpha_1$ and $\alpha_2$ are to be interpreted as projection functions,
-%where only data or ontologies are grasped from an enriched context.
-%
-%As \cite{kleppe} suggests, we need to find a formalism through which express
-%data, models and meta-models. We are also interested in defining transforming
-%function among those, that is defining different semantic interpretations of
-%the same initial concept \cite{saeki}.
-%Since we want to make data and model translation possible, we would
-%like to express our data relations and structural modification with a modelling language
-%that is not necessarily a .
-%
-%
-%By the way the definition of XMI suggests us that it is possible to describe
-%the $D$, $M$ and $MM$ layer in the same language representation. Hence
-%we want to use a language where we could
-%express not only relations between data and models and meta-models, but also
-%to express data and model transformations. In order to reach this aim, we have
-%to use a system where we could represent data and define queries and transformations
-%over it. We would also like to define data transformations over models in the
-%same language.
-
-
-%The latter definition also includes the definition of a \textit{(binary) data integration system} \cite{Lenzerini02} and generalizes it, by replacing schemas with ontologies as in \cite{DeGiacomo2018} and by replacing one-way mappings with more general ontology alignmnets, where $O$ assumes the role of the \textbf{local} ontology representing the local data sources, and $O'$ represents the \textbf{global} ontology, which is the target of the whole alignment process.
-%
-%\begin{definition}[Binary Data Integration System]
-%	A \textbf{binary data integration system} is defined as a triple $I=\Braket{G,L,A(G,L)}$, where $G$ is the global ontology, representing the target of the alignment process, $L$ is the local ontology, representing the local data sources, and $A$ is an ontological alignment (Definition \ref{def:ontolalignment}).
-%\end{definition}
 As outlined by both more recent literature \cite{GrossHKR11,HartungGR13} and  in the former Example, it is possible to provide alignments between multiple local ontologies into one single global ontology, which in this case it is referred as \textit{hub (ontology)}. Therefore, the previous definition could be extended as follows:
 
 \begin{definition}[Multisource Data Integration System]

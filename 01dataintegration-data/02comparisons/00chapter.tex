@@ -1,10 +1,6 @@
 \chapter{Analysing the properties of Data Models and Query Languages}\label{cha:datadef}
 
-
-\epigraph{\textit{Therefore a science, the advancement of science, and the acquisition of science, is not simply the oblivion of old [scientifical] prejudices, or the fall of certain obstacles [to understanding], it is a new grid [of concepts] that masks certain things while allowing for the appearance of new knowledge}.}{--- Michel Foucault on \textit{The Chomsky-Foucault Debate: On Human Nature}, (1971)}
-
-
-%\epigraph{\textit{The man who has no past, has no future: always remember that!}}{--- My grandfather about everything}
+\epigraph{\textit{Therefore a science, the advancement of science, and the acquisition of science, is not simply the oblivion of old [scientific] prejudices, or the fall of certain obstacles [to understanding], it is a new grid [of concepts] that masks certain things while allowing for the appearance of new knowledge}.}{--- Michel Foucault on \textit{The Chomsky-Foucault Debate: On Human Nature}, (1971)}
 
 The previous chapter aimed to evaluate present data structures and query languages within the context of data integration. Bearing such considerations in mind, we analyse currently-proposed data models and query languages: as a result, we have that current data models do not support structural aggregation and that current query languages cannot handle both data and schema at the same time. Both these features are required within data integration scenarios. Moreover, in this chapter we also compare the previous data model with the property graph data model and its extensions. We draw the following conclusions:
 \begin{itemize}
@@ -14,8 +10,7 @@ The previous chapter aimed to evaluate present data structures and query languag
 \end{itemize}
 
 
-%Before introducing graph based data models (Section \ref{sec:datamodelglit}), we  analyse the more widely adopted data models first. The reason for doing so is to check which are their weakest links, which are overcomed by our proposed data model (Chapter \vref{cha:graphsdef}). In particular, this chapter tackles structured (Section \vref{sec:relationalcmp}), nested relational and semistructured models (Section \vref{sec:semistructured}), and we'll analyse some ways to provide structured representations for unstructured data (fulltext, Section \vref{sec:unstructured}). 
-For each data model we'll also briefly discuss their query languages \texttt{\color{red}[TODO]}.
+For each data model we'll also briefly discuss their query languages and their implications with respect to the data manipulation abilities. In particular, we're going to analyse graph query languages' features with respect to their underlying data models (Section \ref{sec:dbqlang}).
 \begin{figure}[!pth]
 	%\begin{adjustbox}{max width=\textwidth}
 	\begin{minipage}[b]{\textwidth}
@@ -26,7 +21,7 @@ For each data model we'll also briefly discuss their query languages \texttt{\co
 
 	\begin{minipage}[b]{\textwidth}
 		\includegraphics[scale=.7]{fig/02models/02instance}
-		\subcaption{An instance of the overlying ER model. Please that some relations are directly expressed with Primary Key-Foreign Key relations (\textbf{Processes}), while others (\textbf{ComposedBy}) are require an intermediate table. The name of the relations appear on top of each table.}
+		\subcaption{An instance of the overlying ER model. Some relations are directly expressed with Primary Key-Foreign Key relations (\textbf{Processes}), while others (\textbf{ComposedBy}) are require an intermediate table. The name of the relations appear on top of each table.}
 		\label{fig:instance}
 	\end{minipage}
 

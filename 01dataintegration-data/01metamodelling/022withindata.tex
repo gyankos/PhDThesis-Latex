@@ -1,28 +1,3 @@
-
-%
-%Figure \ref{fig:taonta} finally provides a global point of view on layers and
-%their relations: $\alpha$ provides abstractions in order to reach meta-levels,
-%while $\alpha_1$ and $\alpha_2$ are to be interpreted as projection functions,
-%where only data or ontologies are grasped from an enriched context.
-%
-%As \cite{kleppe} suggests, we need to find a formalism through which express
-%data, models and meta-models. We are also interested in defining transforming
-%function among those, that is defining different semantic interpretations of
-%the same initial concept \cite{saeki}.
-%Since we want to make data and model translation possible, we would
-%like to express our data relations and structural modification with a modelling language
-%that is not necessarily a .
-%
-%
-%By the way the definition of XMI suggests us that it is possible to describe
-%the $D$, $M$ and $MM$ layer in the same language representation. Hence
-%we want to use a language where we could
-%express not only relations between data and models and meta-models, but also
-%to express data and model transformations. In order to reach this aim, we have
-%to use a system where we could represent data and define queries and transformations
-%over it. We would also like to define data transformations over models in the
-%same language.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Aggregations}\label{sec:informationsintegration}
 \textit{Please observe that this section introduces some running examples that are going to be used along the thesis.}
@@ -31,7 +6,7 @@ MOF allows to describe $\alpha$-abstractions between different representation la
 \begin{equation}\label{eq:nestingAggregation}
 \oplus_f\colon\mathcal{P}(D_O)\to D_O
 \end{equation}
-Please observe that this definition could be used to arbitrarily aggregate a collection of objects through a transformation function $f$. As a consequence, $\oplus$ is part of both the relational \texttt{Join} and  the \texttt{Group By} definition. In the first case, $\oplus$  combines the tuples coming from two distinct relational tables \cite{BergamiMM16}, while in the second it aggregates all the objects belonging to the same equivalence class. Within the relational model, we can suppose that $D_R=\emptyset$: now, we can see that both Join and Group By operators are generalizable using the following \textbf{nesting operator}\index{nesting|see{$\nu$}}\index{$\nu$}:
+Please observe that this definition could be used to arbitrarily aggregate a collection of objects through a transformation (e.g., aggregation) function $f$. Moreover, $\oplus$ is an object combination operator appearing both \texttt{Join} and  the \texttt{Group By} operators. In the first case, $\oplus$  combines the tuples coming from two distinct relational tables \cite{BergamiMM16}, while in the second it aggregates all the objects belonging to the same equivalence class. Within the relational model, we can suppose that $D_R=\emptyset$: now, we can see that both Join and Group By operators are generalizable using the following \textbf{nesting operator}\index{nesting|see{$\nu$}}\index{$\nu$}:
 \begin{equation}\label{def:nestingfirst}
 \nu_C^{\oplus_f}(d)=\Set{\oplus_f(\gamma\cap d)|\gamma\in C}
 \end{equation}
@@ -39,7 +14,7 @@ where $C\in \mathcal{P}(\mathcal{P}(D_O))$ is a collection of collections, and $
 \[R\Join_\theta S=\nu^\oplus_{\Set{\Set{a,b|b\in S, \theta(a,b)}|a\in R}}(R\cup S)\]
 This means that we select to merge through the tuple combination function $\oplus$ only the tuples that match the predicate $\theta$. Moreover, the Group By can be expressed as follows\index{group by|see{$\gamma$}}\index{$\gamma$!relational}:
 \[\gamma^f_{A_1,\dots,A_n}(R)=\nu^f_{\Set{\Set{t'\in R|t[A_1]=t'[A_1],\dots,t[A_n]=t'[A_n]}|t\in R}}(R)\]
-This means that we use a generic aggregation function $f$ aggregating the record that share the same common values for the attributes and fields $A_1,\dots,A_n$. Both these operations are used within the relational model for data integration and cleaning purposes \cite{deII}. Consequently, the $\nu_C^{\oplus_f}$ operator can perform both dimensionality reduction and data summarization. 
+This means that we use a generic aggregation function $f$ aggregating the record that share the same common values for the attributes and fields $A_1,\dots,A_n$. Both these operations are used within the relational model for data integration and cleaning purposes \cite{deII}. Consequently, the $\nu_C^{\oplus_f}$ operator can perform both (unary) dimensionality reductions and (n-ary) data operators through combinations. 
 \begin{figure}[!tp]
 	\centering
 	\begin{minipage}[!h]{0.7\textwidth}
@@ -54,7 +29,7 @@ This means that we use a generic aggregation function $f$ aggregating the record
 		\subcaption{\textit{Interaction graph} between all the users of the users appearing in the previous graph. Each vertex represents an user and an edge represents that the source user has sent a message to a destination user. We use the same community colours as in the social network graph.}
 		\label{fig:interaction}
 	\end{minipage}
-\caption{Two examples of graph data for social network analysis: a Frienship Graph (\ref{fig:communities}) and an Interaction Graph (\ref{fig:interaction})}
+\caption{Two examples of graph data for social network analysis: a Friendship Graph (\ref{fig:communities}) and an Interaction Graph (\ref{fig:interaction})}
 \end{figure}
 
 \begin{figure}[!tp]
@@ -75,7 +50,7 @@ This means that we use a generic aggregation function $f$ aggregating the record
 \end{figure}
 
 \begin{example}\label{ex:8}
-The \textbf{part-of}\index{part of|textbf} aggregation could be used within the context of social network analysis, where all the users that belong to an on-line community are \textbf{part-of} such community. Figure \vref{fig:communities} provides an example of a social network graph, where each vertex represents an user and each edge represents a friendship relation. Within the social network scenario, we could be also interested in analyzing the user activities, such as the messages that have been exchanged between the users. An example of such interaction is provided in Figure \ref{fig:interaction}: please note that from this picture is very hard to guess which is the high level perspective of the messages that have been exchanged among the users and which are the kind of interactions among such communities.
+The \textbf{part-of}\index{part of|textbf} aggregation could be used within the context of social network analysis, where all the users that belong to an on-line community are \textbf{part-of} such community. Figure \vref{fig:communities} provides an example of a social network graph, where each vertex represents an user and each edge represents a friendship relation. Within the social network scenario, we could be also interested in analysing the user activities, such as the messages that have been exchanged between the users. An example of such interaction is provided in Figure \ref{fig:interaction}: please note that from this picture is very hard to guess which is the high level perspective of the messages that have been exchanged among the users and which are the kind of interactions among such communities.
 
 Figure \ref{fig:aggrMSG} represents the interaction graph where each user replaced by its corresponding community, thus providing a coarser view of the interaction. At this level, the interaction between the communities is more readable and easier to visualize. Similarly, Figure \ref{fig:aggrOSN} represents a simplified view of the social network graph in Figure \ref{fig:communities}, where the intimacy between social network communities is determined from the friendship relationships between users belonging to different networks.
 \end{example}
@@ -83,7 +58,7 @@ Figure \ref{fig:aggrMSG} represents the interaction graph where each user replac
 As we could see from the next example, an operation that only performs an $\nu_C^{\oplus_f}$ aggregation is not enough for establishing new links between the connected components, because as a result of the aggregation, we could be also interested in establish  relationships between the objects (i.e., vertices),  differently from the former example. Hereby, an operation creating new edges between the objects is required.
 
 \begin{example}\label{ex:bigraphbibnet}
-Suppose to have a bipartite graph, where each vertex could be either an author or a paper, and where each edge connects each author to its paper. An example of such graph is provided in Figure \vref{fig:inputbibex}. Moreover, on top of this graph, we want to extract an aggregated\footnote{This problem is addressed in \cite{DMR} and is named \textbf{Graph Projection}. Later on on this thesis (Chapter \ref{cha:nesting}), we're going to show that a graph projection operator shall be defined differently, that is by directly providing an implementation of $\nu_C^{\oplus_f}$.} Co-Authorship graph as the one in Figure \ref{fig:aggrbibex}, where each author internally contains a reference to the papers that he has written. Please observe that the rule establishing the relationships between the resulting vertices here differs from the rule required by the former example: in this example we have to establish an edge between the two aggregated vertex vertices if the original vertices are connected by a path of length $2$, while on the former scenario the path length was $1$. This suggests that another relevant operation in data integration is the establishment of new relationships among the vertices. %This problem will be addressed in Section \ref{subsec:gggSec}, where the Graph Nesting operator will be introduced.
+Suppose to have a bipartite graph, where each vertex could be either an author or a paper, and where each edge connects each author to its paper. An example of such graph is provided in Figure \vref{fig:inputbibex}. Moreover, on top of this graph, we want to extract an aggregated\footnote{This problem is addressed in \cite{DMR} and is named \textbf{Graph Projection}. Later on on this thesis (Chapter \ref{cha:nesting}), we're going to show that a graph projection operator shall be defined differently, that is by directly providing an implementation of $\nu_C^{\oplus_f}$.} Co-Authorship graph as the one in Figure \ref{fig:aggrbibex}, where each author internally contains a reference to the papers that he has written. Please observe that the rule establishing the relationships between the resulting vertices here differs from the rule required by the former example: in this example we have to establish an edge between the two aggregated vertex vertices if the original vertices are connected by a path of length $2$, while on the former scenario the path length was $1$. This suggests that another relevant operation in data integration is the establishment of new relationships among the vertices.
 \end{example}
 
 At this point we want to show why the \textbf{is-a}\index{is a|textbf} relation could be represented with a nested representation supporting ``structural aggregation'' instead of a \textit{is-a} edge, as currently done in  graph literature. The following example provides an explanation.
@@ -168,13 +143,13 @@ At this point we want to show why the \textbf{is-a}\index{is a|textbf} relation 
 
 
 \begin{example}[label=ex:inaggr]
-Suppose to associate a hierarchy to each product within Figure \vref{fig:umlmodelling}, thus allowing to represent vertices at different abstraction levels. Hierarchies are ``\textit{key elements in analytical applications}'' \cite{dwbook} and graphs  allow to provide a direct representation to ``nonstrict hierarchies''. Such graph representation could be also be adopted for transactional data within business process execution \cite{PterMicBergami}, thus allowing to more efficiently represent   the data that has to be joined within a standard relational star schema by simply using edge traversals  \cite{Vasilyeva13,preSQLGraph,SQLGraph}.
+Suppose to associate a hierarchy to each product within Figure \vref{fig:umlmodelling}, thus allowing to represent vertices at different abstraction levels. Hierarchies are ``\textit{key elements in analytical applications}'' \cite{dwbook} and graphs  allow to provide a direct representation to ``non-strict hierarchies''. Such graph representation could be also be adopted for transactional data within business process execution \cite{PterMicBergami}, thus allowing to more efficiently represent   the data that has to be joined within a standard relational star schema by simply using edge traversals  \cite{Vasilyeva13,preSQLGraph,SQLGraph}.
 
 Figure \ref{fig:hierarchy} provides an example of a hierarchy for some products in Figure \vref{fig:umlmodelling} at three different abstraction levels. Even though this representation explicitly expresses the \textbf{is-a} relation, it does not provide a good representation of the aggregation. Such aggregation should be represented by the inverse relation of \textbf{is-a}, that is \textbf{parent-of}, and such relation should be an $n$-ary relation containing all its child elements \cite{Johnson2011}; by doing so we associate value representing the result (e.g., the result of the $\nu_C^{\oplus_f}$\index{$\nu$} function) to the aggregation of the contained (and aggregated) elements.
 
-Another standard representation of such hierarchies is provided in Figure \ref{fig:rhierarchy}. In this relational representation  each type and category is replicated for each product. This solution is adopted in order to avoid the navigation cost within relational databases through the join queries. This hierarchy representation, on the other hand, is costly for  hierarchy updates (data updates and removals require a linear scan of the whole table); also, data aggregations are not feasable within this representation and require an additional join and aggregation cost. On the other hand, this hierarchy representation approach is even worse than the former one, because the notion of the \textbf{is-a} relation is completely driven by the ``position of the attributes'' within the table.
+Another standard representation of such hierarchies is provided in Figure \ref{fig:rhierarchy}. In this relational representation  each type and category is replicated for each product. This solution is adopted in order to avoid the navigation cost within relational databases through the join queries. This hierarchy representation, on the other hand, is costly for  hierarchy updates (data updates and removals require a linear scan of the whole table); also, data aggregations are not feasible within this representation and require an additional join and aggregation cost. On the other hand, this hierarchy representation approach is even worse than the former one, because the notion of the \textbf{is-a} relation is completely driven by the ``position of the attributes'' within the table.
 
-The nested relational model, on the other hand, provides a better \textbf{parent-of}\index{parent of} representation by allowing the relations as possible values within a relation's tuple. Figure \ref{fig:nhierarchy} provides an example of how such hierarchy could be modeled within such representation. Even this representation is not beneficial, as within the relational model is not possible to associate to a whole nested relation a data value expressing an aggregated result of its contents.
+The nested relational model, on the other hand, provides a better \textbf{parent-of}\index{parent of} representation by allowing the relations as possible values within a relation's tuple. Figure \ref{fig:nhierarchy} provides an example of how such hierarchy could be modelled within such representation. Even this representation is not beneficial, as within the relational model is not possible to associate to a whole nested relation a data value expressing an aggregated result of its contents.
 
 For this reason, the current thesis will provide in Chapter \ref{cha:graphsdef} a data model where such part-of\index{part of} association is possible, as well as expressing relations between the data as in the graph model. An example of how such dualism (contained elements and aggregated value) is possible is introduced in Figure \vref{fig:introducingModel}, where we associate to each product the quantity of the goods sold within each \texttt{SalesOrder} (\subref{fig:ag1}). If we consider such aggregation as a ``view'' over the data, we could think of each aggregated value associated to a nested relation as an expression associated to each of its subcomponents\footnote{\url{http://github.com/jackbergus/-facerei}}. As a consequence, our desired data model should provide both atomic values and expressions composing values and attributes; each \texttt{quantity} field at both the \texttt{type} and \texttt{category} level should provide both the expression $\texttt{sum}(x\mapsto x.\texttt{quantity})$ for the aggregated representation, and a relation over which perform the aforementioned aggregation. Please note that this association could not be provided by the standard nested relational model but, on the other hand, it is frequently used in Data Warehouses for exploring via expansions and collapses the multidimensional components. An example of how to perform such queries is going to be provided later on in Section \vref{subsec:representingisa} through the help of some algebraic operators. Moreover, each component could be arbitrarily expanded or aggregated (\subref{fig:ag3}): therefore such representation could not fit in the nested relational model. This example will extended and discussed within the nested graph model at page \pageref{ex:firstforgrammars}, after providing a query  \textsc{Language} allowing the combination of (nested) graph data alongside with other represented within the same general data model.
 \end{example}
