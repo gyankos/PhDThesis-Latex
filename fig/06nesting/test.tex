@@ -33,7 +33,7 @@
 
 %%MAIN
 \node (main) [frame,
-	rectangle split parts=6,
+	rectangle split parts=7,
 	rectangle split part fill={teal!30,Fuchsia!30,Fuchsia!30,yellow!40} 
 ] {%
 \nodepart{one} 
@@ -50,7 +50,7 @@
   ]{%
     \nodepart{one}   \cc{length}
     \nodepart{two}   \cc{nodeId ($o$)}
-    \nodepart{three} \cc{nodeHash ($\ell$)}
+    \nodepart{three} \cc{nodeHash ($h$)}
     \nodepart{four}  \cc{edgeContOffset}
     \nodepart{five}  \cc{attributeOffset}
     \nodepart{six}   \cc{outgoingOffset}
@@ -58,12 +58,14 @@
   };}
   \end{minipage}
 \nodepart{two}
-	{$\phi(o,\mstr{Entity})$}	
+	{$\nu(o)$}	
 \nodepart{three}
-	{$\phi(o,\mstr{Relat.})$}	
+	{$\epsilon(o)$}	
 \nodepart{four}
-	{$\xi(o)$}		
+	{$\ell(o)$}	
 \nodepart{five}
+	{$\omega(o)$}		
+\nodepart{six}
   \begin{minipage}{15ex} \centering
 \kk{OutgoingEdges} \medskip\\
 \tikz{\node (b) [
@@ -83,7 +85,7 @@
 		\nodepart{six}   \cc{$\dots$}
 	};}
 \end{minipage}
-\nodepart{six}
+\nodepart{seven}
 \begin{minipage}{15ex} \centering
 \kk{IngoingEdges} \medskip\\
 \tikz{\node (b) [

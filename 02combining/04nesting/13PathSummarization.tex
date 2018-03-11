@@ -70,7 +70,6 @@ The unfeasibility of this naïve approach is remarked by Algorithm \vref{alg:gen
 
 
 \subsection{Query Languages' and data models' limitations}\label{subsec:pathsumm}
-\texttt{\color{red}[TO PROCESS]}
 As previously mentioned, some recent  query languages support graph nesting semantics by exploiting the underlying data model's features. To express the query presented in our running example, these query languages must support id collections or nested representations.
 For these reasons, we firstly select PostgreSQL which, by extending the SQL-3 syntax and by allowing JSON data, provides an \texttt{array\_agg} aggregation function. The latter collects (i.e., groups) the result-set into arrays.  We  represent  graphs by  storing edge triples as \texttt{Edge}(\textit{edgeId},\;\textit{sourceId},\;\textit{edgeLabel},\;\textit{targetId}).
 In our running example, nested vertices  are obtained by 
