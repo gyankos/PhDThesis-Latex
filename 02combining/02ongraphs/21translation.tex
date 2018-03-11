@@ -10,7 +10,7 @@
 				\Function{$\tau_R$}{$\;r(R),\ell,\xi,\phi,seed\;$} $\colon GSM$ \Comment{$R=(A_1\dots A_n),\; seed\geq 1$}
 				\State $O\eqdef\Set{dt(seed,dt(i, j))_0|1\leq i\leq |r|,\;1\leq j\leq n}\cup\{ dt(seed,dt(0,0))_0\}$
 				\State $r_o\eqdef dt(seed,dt(0,0))_0\qquad \phi(r_o,\ONTA):=[dt(seed,dt(i,0))_0|1\leq i\leq |r|]\qquad \ell(r_o):=[\texttt{`r'}]$
-				\State $\phi(r_o,\RELA):=[]$  
+				\State{} 
 				\For{$t_i\in r$\textbf{ s.t. }$i\leq |r|$}
 				\State $o\eqdef dt(seed,dt(i, 0))_0$
 				\State $\ell(o):=[\texttt{`R'}];\qquad \phi(o,\ATTR):=[dt(seed,dt(i, j))_0| 1\leq j\leq n]$
@@ -23,7 +23,7 @@
 				
 				\State
 				\Function{$\tau_{DB}$}{$\;DB,seed\;$} $\colon GSM$ 
-				\State $db\eqdef seed;\qquad \ell(db):=[DB];\qquad \phi(db,\ONTA):=[i+seed|1\leq i\leq |DB|]$
+				\State $db\eqdef seed;\qquad \ell(db):=[DB];\qquad \phi(db,\ONTA):=[dt(i+seed,dt(i, j))_0|1\leq i\leq |DB|]$
 				\State $O \eqdef\{db\}$
 				\For{\textbf{each table} $r_i(R_i) \in DB\equiv\Set{r_1(R_1),\dots,r_n(R_n)}$}
 				\State $(r_i,O_i,\ell,\xi,\phi):=\tau_R(r_1(R_1),\ell,\xi,\phi,i+seed)$
@@ -42,11 +42,11 @@ We now define  the $\tau$ operators for translating some of the previous models 
 
 
 \phparagraph{Relational Databases to GSM}
-We now propose two translation functions, one for transforming relational tables to GSMs, and the other one for translating a full relational database into GSM. Therefore, it implies that such model can be used to represent a whole multidimensional database. For these first translation functions we choose to translate instances of the relational model (either tables or whole relational databases) into nested vertices (entities) belonging to one single nested graph: in Section \vref{subsec:semanticoverloadrel} we discussed that relations can be used to define either entities or relationships with a semantic overload. Given that such distinction is model dependant, we leave to the single user the definition of a function that translates such nested graph into a faithful representation of the ER model. Algorithm \vref{alg:reltonested} provides at line 5 the associated $\tau_R$ function returning a (nested) graph for each relation table $r(R)$. In particular, the $seed$ argument is required for generating new elements with distinct ids. 
+We now propose two translation functions, one for transforming relational tables to GSMs, and the other one for translating a full relational database into GSM. Such GSM are (nested) graphs composed of entities with no relationships. Therefore, it implies that such model can be used to represent a whole multidimensional database. For these first translation functions we choose to translate instances of the relational model (either tables or whole relational databases) into nested vertices (entities) belonging to one single nested object: in Section \vref{subsec:semanticoverloadrel} we discussed that relations can be used to define either entities or relationships with a semantic overload. Given that such distinction is model dependant, we leave to the single user the definition of a function that translates such GSM into a faithful representation of the ER model. Algorithm \vref{alg:reltonested} provides at line 5 the associated $\tau_R$ function returning a GSM for each relation table $r(R)$. In particular, the $seed$ argument is required for generating new elements with distinct ids. 
 For each table $r(R)$ with schema $R$, we want to return an object for each tuple in $t$, nesting other vertices which provide the information stored inside each field. Each object obtained from the relation is marked with the  label representing  the relation name $R$ (line 11), while any other object representing a field for the attribute $A_j$ has $A_j$ as a label, and stores its value into the $\xi$ function (line 13).  
-
-Given that graphs can represent an entire relational database and
-not just one relational table \cite{Fagin83,bergami2014}, we can also provide a $\tau_{DB}$ translation function (line 16): such translation provides a representation for a whole database $DB$ using $\tau_R$ for all the intermediate results (line 20), where each table is now represented as one single object, nesting the contents of all of its tables.
+%Given that graphs can represent an entire relational database and
+%not just one relational table \cite{Fagin83,bergami2014}, we can also provide a 
+The $\tau_{DB}$ translation function (line 16)  provides a representation for a whole database $DB$ using $\tau_R$ for all the intermediate results (line 20), where each table is now represented as one single object, nesting the contents of all of its tables.
 
 
 \begin{algorithm}[!t]
@@ -89,9 +89,7 @@ not just one relational table \cite{Fagin83,bergami2014}, we can also provide a 
 \end{algorithm}
 \phparagraph{XML to GSM}
 Similarly to relational databases,  semistructured models have no clear distinction between entities and relationships in their characterization. Moreover, such representations may represent graph entities and relationships using different schemas (see Section \vref{sss:gdi}). 
-As an example for semistructured data, we use the XML model. Please note that a JSON document can be trivially transformed into an XML and hence they may share the same $\tau_{XML}$ operator.  Similar considerations can be formulate for the nested relational model, or document oriented and stream one. We  translate XML documents into a GSM, which object containments represent the document's root. We leave to the user the definition of domain specific functions performing a proper translation according to the data's schema.
-
-Algorithm \vref{alg:xmltonested} provides the desired transformation: in particular, each \textbf{tag node} or \textbf{attribute} or \textbf{text} is associated to an unique identifier (line 10) and are contained in collections within different properties, where each object is distinguished by its label (respectively lines 12, 16 and 23). Moreover, expression functions $\xi$ are used to store only the associated values for both attributes' values (line 17) and text nodes content (line 24).
+As an example for semistructured data, we use the XML model. Please note that a JSON document can be trivially transformed into an XML and hence they may share the same $\tau_{XML}$ operator.  Similar considerations can be formulate for the nested relational model, or document oriented. We  translate XML documents into a GSM, which object containments represent the document's root. We leave to the user the definition of domain specific functions performing a proper translation according to the data's schema. Algorithm \vref{alg:xmltonested} provides the desired transformation: in particular, each \textbf{tag node} or \textbf{attribute} or \textbf{text} is associated to an unique identifier (line 10) and are contained in collections within different properties, where each object is distinguished by its label (respectively lines 12, 16 and 23). Moreover, expression functions $\xi$ are used to store only the associated values for both attributes' values (line 17) and text nodes content (line 24).
  The indices that will be associated to each nested component will use the usual XML tree indexing function \cite{Liu16} associating to each element a list of identifiers. Such list can then be mapped into one single number (respectively line 21, 15 and again 21) via the $dtl$ function (line 14, see Equation \vref{eq:dtl}). 
 
 \begin{algorithm}[!t]
@@ -130,17 +128,3 @@ Algorithm \vref{alg:xmltonested} provides the desired transformation: in particu
 \end{algorithm}
 \phparagraph{EPGM to Nested Graph}
 Among all the property graph generalizations, we choose to provide a transformation between EPGM graphs to Nested Graphs because EPGM extends the property graph model with logical graphs. Algorithm \vref{alg:epgmtoN} provides the desired transformation to nested graphs. Each vertex is transformed into an \ONTA  object (line 3) and each edge into a \RELA one (line 4). In order to overcome the limitations of the EPGM model, we decide to represent each logical graph as an \ONTA containing all the \ONTA(ies) in $\phi$ (line 14) and \RELA-s in $\omega$ (line 15) as nested components $\varphi$. Even in this case, each property value association $\kappa$ (except from the labels $\tau$) for vertices, edges and logical graphs (line 6) are mapped as nested objects which are neither \ONTA(ies) nor \RELA-s (line 9). 
-
-
-%\phparagraph{GSM to Nested Graph}
-%We previously mentioned the fact that GSM can serve as an intermediate representation for both structured and semistructured data, after which a final translation can elect which element will become entities and which ones can represent relationships. Given that a GSM is used as a basic representation for a nested graph, we have that we can always extract the nested graph representation from the input GSM. This operation will be laso used to extract graphs from graphs nested within one single object, thus separating the vertices from the edges. This transformation is provided by the following definition:
-%
-%\begin{definition}[$\tau_{GN}$, GSM to Nested Graph]
-%	\index{$\tau$!GSM to Nested Graph}
-%	Given a GSM $o\simeq(o,O,\ell,\xi\,\phi)$ containing source and edge objects, the correspondent nested graph $\tau_{GSM\to NG}(o)$ is a tuple $(\omega_v,\omega_e,O\cup\{\omega_v,\omega_e\},\lambda,\ell,\xi,\phi')$, where $\omega_v$ and $\omega_e$ are new element ids not appearing
-%	neither in the domain of $\ell$, $\xi$ and $\phi$ nor in $O$. Last, $\phi'$ is defined as the following extension of $\phi$:
-%	\[\begin{split}
-%	\phi'=\phi&\left[\omega_v\mapsto [i\in o|\ONTA\in\xi(i)]\right]\\
-%	&\left[\omega_e\mapsto [i\in o|\RELA\in\xi(i)\wedge \exists s,t\in \phi(i). \texttt{sourceOf}(i)\in\xi(s)\wedge \texttt{targetOf}(i)\in\xi(t)\right]\\
-%	\end{split}\]
-%\end{definition}

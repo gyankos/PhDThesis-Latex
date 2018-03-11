@@ -69,15 +69,8 @@ In the following example, we will focus on a social network use cases: we will s
 	\[\defSNE{e_8}{4}{7}{28}\qquad \defSNE{e_9}{3}{4}{29}\]
 	Please note that vertex $50$ actually nests a full representation of a graph and consequently, we have that each vertex or edge may nest a whole graph within $\phi$.
 	
-%	If we want to collect all those vertices and edges and to represent them as one single vertex, then we can obtain the result in Figure \ref{fig:ex0103}. Such vertex can be then expressed within our data model as follows:
-%	\[sn_0(\texttt{SocialNetwork})=(\cdot,V_{SN}\cup E_{SN})\qquad \iota(sn_0)=50\qquad \lambda(sn_0)=\Set{\texttt{Graph}}\]
-%	Hereby, we can extend our previous Social Network data as follows:
-%	\[\begin{split}
-%	(&\Set{1,2,3,4,5,6,7,sn_0},\Set{e_0,\dots,e_9},\\
-%	&\Set{\texttt{Name},\texttt{Surname},\texttt{SocialNetowrk}},\Set{\texttt{User},\texttt{Follows},\texttt{Graph}},\ell,\lambda,\iota)
-%	\end{split}\]
-%	Please note that the information content is preserved because id references to the original vertices are used. 
-By using community detection algorithms, we extract a set of graph collections in polynomial time with respect to the data size \cite{vanDongen2012}, where some overlaps between communities may be present. Figure  \ref{fig:ex0102} presents such extracted communities as shaded areas on top of the original data sources: please note that the property graph model does not allow to represent such communities inside the same given graph. This problem can be overcame by our proposed data structure as showed in Figure \vref{fig:ex0104}: each community, marked with a different color, is nested inside one given object. In particular we have that:
+
+By using community detection algorithms, we extract a set of graph collections in polynomial time with respect to the data size \cite{vanDongen2012}, where some overlaps between communities may be present. Figure  \ref{fig:ex0102} presents such extracted communities as shaded areas on top of the original data sources: please note that the property graph model does not allow to represent such communities inside the same given graph. This problem can be overcame by our proposed data structure as showed in Figure \vref{fig:ex0104}: each community, marked with a different colour, is nested inside one given object. In particular we have that:
 	
 	\[\phi(8,\ONTA)=[1,2,3,4,6]\quad \phi(8,\RELA)=[22,23,25,26,27,29]\]
 	\[\phi(9,\ONTA)=[1,5,6]\quad \phi(9,\RELA)=[20,21,22]\]
@@ -90,16 +83,7 @@ By using community detection algorithms, we extract a set of graph collections i
 	Please observe that each expression in $\xi(o)$ is going to be evaluated by choosing ``\scriptline{o}'' as $o$.
 	
 	
-%\textit{	Among all the communities, we can represent the one where only ``Francis Bloxam'' is represented as the following nested vertex: 
-%	
-%	\[c_1(\texttt{Community})=(\cdot,[1,2,3,4,6,22,23,24,26,27])\qquad \iota(c_1)=8\qquad \lambda(c_1)=\Set{\texttt{Graph}}\]
-%	
-%	We can do similarly for all the other communities. In order to express the graph collection within vertex $\iota(v_0)=60$, we can either store each different community within one distinct attribute ($opt_1$), or define $v_0$ as a single-attributed vertex containing the graph of all the other communities ($opt_2$). The two different solutions are then provided as follows:
-%	\[opt_1(\texttt{1})=(\cdot,[1,2,3,4,6,22,23,24,26,27])\qquad opt_1(\texttt{2})=(\cdot,[3,6,5,21,23,24])\]
-%	\[opt_1(\texttt{3})=(\cdot,[1,5,6,20,21,22])\qquad \lambda(opt_1)=\Set{\texttt{GraphCollection}}\]
-%	
-%	
-%	\[opt_2(\texttt{Communities})=(\cdot,[8,9,10])\qquad \lambda(opt_2)=\Set{\texttt{GraphOfGraphs}}\]
+
 	As a result, we would like to summarise each component as a single vertex containing all the vertices and edges describing the communities, as represented by Figure \ref{fig:ex0106}, where only the result of the aggregation is provided. Given the outline provided by the former example, it is easy to define a preliminary algorithm that takes both the outcome of the community detection algorithm and the social network graph, and aggregates each community as a single vertex: 
 	\begin{alphalist} 
 		\item \label{aggrphase:a} given a graph with its vertex set $V$, return as $V'$ the vertices that do not appear within any detected community, 
@@ -116,7 +100,6 @@ By using community detection algorithms, we extract a set of graph collections i
 
 The result of such aggregation is depicted by the nested element $70$, containing both the vertices and the edges extracted following the previous sketched algorithm.
 \[\phi(70,\RELA)=[30,31,32,33,34]\]
-%In order to express $70$ as a nested graph, we can use the previously defined transformation function.
 \end{example}
 
 
